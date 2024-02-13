@@ -1,14 +1,25 @@
 {
-  "name": "userpollts",
-  "private": true,
-  "version": "0.0.0",
+  "name": "holy-user-widget",
+  "private": false,
+  "version": "0.0.1",
   "type": "module",
+  "main": "./dist/holy-user-widget.js",
+  "module": "./dist/holy-user-widget.js",
+  "exports": {
+    ".": {
+      "import": "./dist/holy-user-widget.js",
+      "require": "./dist/holy-user-widget.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/supabase-js": "^2.39.3",

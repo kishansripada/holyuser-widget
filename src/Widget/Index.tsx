@@ -51,7 +51,9 @@ function Index({ user, userId, apiKey, darkMode }: { user: user; userId: string;
    // return <></>;
    return (
       <div className={`${darkMode ? "dark" : ""}`}>
-         <>{myPolls.length ? <ShowPollWrapper userId={userId} user={user} poll={myPolls[0]} /> : null}</>
+         {myPolls.map((poll) => {
+            return <ShowPollWrapper userId={userId} user={user} poll={poll} />;
+         })}
       </div>
    );
 }
