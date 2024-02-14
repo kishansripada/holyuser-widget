@@ -27,7 +27,7 @@ export default function ShowPollWrapper({ poll, user, userId }: { poll: poll; us
    const HIGH_Z_INDEX = 9999;
 
    const getExistingResponse = async () => {
-      let { data } = await supabase.from("responses").select("*").eq("user_id", user.id).eq("poll_id", poll.id);
+      let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", poll.id);
 
       return data;
    };
@@ -65,7 +65,7 @@ export default function ShowPollWrapper({ poll, user, userId }: { poll: poll; us
 
    const sendResponse = async (response_data) => {
       setShowModal(false);
-      let { data, error } = await supabase.from("responses").insert({ user_id: user.id, poll_id: poll.id, response_data });
+      let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };
 
    return (

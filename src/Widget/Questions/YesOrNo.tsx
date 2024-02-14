@@ -9,7 +9,7 @@ export default function YesOrNo({ poll, sendResponse }) {
          <div className="flex flex-row justify-between mt-3">
             <Button
                onClick={() => {
-                  sendResponse({ option_id: 1 });
+                  sendResponse({ option_id: "no" });
                }}
                variant={"outline"}
             >
@@ -17,7 +17,7 @@ export default function YesOrNo({ poll, sendResponse }) {
             </Button>
             <Button
                onClick={() => {
-                  sendResponse({ option_id: 1 });
+                  sendResponse({ option_id: "yes" });
                }}
             >
                {poll.poll_data.yesorno.yes_button}

@@ -1,7 +1,7 @@
 {
-  "name": "holy-user-widget",
+  "name": "holyuser",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.6",
   "type": "module",
   "main": "./dist/holy-user-widget.js",
   "module": "./dist/holy-user-widget.js",

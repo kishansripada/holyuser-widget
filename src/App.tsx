@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 import YesOrNo from "./Widget/Questions/YesOrNo";
-import MCQ from "./Widget/Questions/MCQ";
 
 function App() {
    const [myPolls, setMyPolls] = useState([]);
@@ -27,15 +26,11 @@ function App() {
       // (new Date() - new Date(user.created_at)) > (7 * 24 * 60 * 60 * 1000)
       selectedUses: ["Cheer"],
    };
-   console.log({ myPolls });
+
    return (
       <div className="dark grid grid-cols-2 gap-10 px-16 py-32">
          {myPolls.map((poll) => {
-            return poll.poll_data.type === "mcq" ? (
-               <div className=" overflow-hidden select-none  w-[500px] min-h-[100px] rounded-lg border  dark:border-neutral-700 border-neutral-300">
-                  <MCQ sendResponse={() => null} poll={poll} />
-               </div>
-            ) : (
+            return (
                <div className=" overflow-hidden select-none  w-[500px] h-min rounded-lg border  dark:border-neutral-700 border-neutral-300">
                   <YesOrNo sendResponse={() => null} poll={poll} />
                </div>

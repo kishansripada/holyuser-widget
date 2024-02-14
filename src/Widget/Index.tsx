@@ -5,10 +5,6 @@ import ShowPollWrapper from "./ShowPollWrapper";
 type user = {
    id: string;
    email: string;
-
-   // user_metadata: {
-   //    full_name: string;
-   // };
 };
 
 function Index({ user, userId, apiKey, darkMode }: { user: user; userId: string; apiKey: string; darkMode?: boolean }) {
