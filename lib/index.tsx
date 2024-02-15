@@ -1,5 +1,5 @@
 // import App from "../src/App";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 // import { Index } from "../src/Widget/Index";
 // import MCQ from "../src/Widget/Questions/MCQ";
 // import YesOrNo from "../src/Widget/Questions/YesOrNo";
@@ -9,7 +9,8 @@ import "construct-style-sheets-polyfill";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
 import { Index } from "@/Widget/Index";
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 const HolyMetrics = (params) => {
    const ref = useRef(null);
    const sheet = cssom(new CSSStyleSheet());
@@ -23,7 +24,7 @@ const HolyMetrics = (params) => {
       // Create a container element
       const container = document.createElement("div");
 
-      const root = createRoot(container);
+      const root = ReactDOM.createRoot(container);
       root.render(<Index {...params} />);
 
       // Append container to shadowRoot
