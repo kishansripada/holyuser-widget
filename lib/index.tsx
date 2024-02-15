@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 // import YesOrNo from "../src/Widget/Questions/YesOrNo";
 // import ReactDOM from "react-dom";
 import "construct-style-sheets-polyfill";
-
+import React from "react";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
 import { Index } from "@/Widget/Index";
@@ -39,6 +39,7 @@ const HolyMetrics = (params) => {
       // Clean up on component unmount
       return () => {
          // ReactDOM.unmountComponentAtNode(container);
+
          root.unmount();
       };
    }, []);

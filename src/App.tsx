@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 import YesOrNo from "./Widget/Questions/YesOrNo";
-
+import HolyMetrics from "../lib/index";
 function App() {
    const [myPolls, setMyPolls] = useState([]);
    const supabase = createClient(
@@ -31,6 +31,14 @@ function App() {
                </div>
             );
          })}
+
+         <HolyMetrics
+            userId="f30197ba-cf06-4234-bcdb-5d40d83c7999"
+            user={{
+               name: "Kishan",
+            }}
+            apiKey="7599296f-6f69-4673-8b16-cfca049582fb"
+         ></HolyMetrics>
       </div>
    );
 }
