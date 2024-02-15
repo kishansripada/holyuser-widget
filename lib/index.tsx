@@ -10,6 +10,7 @@ import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
 import { Index } from "@/Widget/Index";
 import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 const HolyMetrics = (params) => {
    const ref = useRef(null);
@@ -24,23 +25,23 @@ const HolyMetrics = (params) => {
       // Create a container element
       const container = document.createElement("div");
 
-      // const root = createRoot(container);
-      // root.render(<Index {...params} />);
+      const root = createRoot(container);
+      root.render(<Index {...params} />);
 
-      // // Append container to shadowRoot
-      // shadowRoot.appendChild(container);
-
-      // Render your React component inside the container
-      ReactDOM.render(<Index {...params} />, container);
-
-      // Append the container with the React component to the Shadow DOM
+      // Append container to shadowRoot
       shadowRoot.appendChild(container);
+
+      // // Render your React component inside the container
+      // ReactDOM.render(<Index {...params} />, container);
+
+      // // Append the container with the React component to the Shadow DOM
+      // shadowRoot.appendChild(container);
 
       // Clean up on component unmount
       return () => {
-         ReactDOM.unmountComponentAtNode(container);
+         // ReactDOM.unmountComponentAtNode(container);
 
-         // root.unmount();
+         root.unmount();
       };
    }, []);
 
