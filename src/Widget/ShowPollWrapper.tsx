@@ -80,7 +80,7 @@ export default function ShowPollWrapper({ poll, user, userId }: { poll: poll; us
             <div
                onClick={() => {
                   setShowModal(false);
-                  sendResponse({});
+                  sendResponse({ option_id: "click_outside_modal" });
                }}
                style={{
                   zIndex: HIGH_Z_INDEX - 1,

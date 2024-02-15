@@ -44,6 +44,7 @@ function Index({ user, userId, apiKey, darkMode }: { user: user; userId: string;
    }, []);
 
    if (!userId || !apiKey) return <></>;
+
    // return <></>;
    return (
       <div className={`${darkMode ? "dark" : ""}`}>

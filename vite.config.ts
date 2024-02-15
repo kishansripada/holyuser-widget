@@ -13,7 +13,7 @@ export default defineConfig({
    build: {
       lib: {
          entry: resolve(__dirname, "lib/index.tsx"),
-         formats: ["es"],
+         formats: ["es", "cjs"],
       },
       rollupOptions: {
          external: ["react", "react/jsx-runtime"],

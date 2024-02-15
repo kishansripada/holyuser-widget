@@ -21,6 +21,7 @@
     "dist"
   ],
   "dependencies": {
+    "@paciolan/remote-component": "^2.13.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/supabase-js": "^2.39.3",
     "@twind/core": "^1.1.3",
