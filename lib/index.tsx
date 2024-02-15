@@ -15,7 +15,7 @@ const HolyMetrics = (params) => {
    const sheet = cssom(new CSSStyleSheet());
    const tw = twind(config, sheet);
    useEffect(() => {
-      const shadowRoot = ref.current.attachShadow({ mode: "open" });
+      const shadowRoot = ref.current.shadowRoot || ref.current.attachShadow({ mode: "open" });
 
       shadowRoot.adoptedStyleSheets = [sheet.target];
       observe(tw, shadowRoot);
@@ -45,7 +45,8 @@ const MCQShadow = (params) => {
    useEffect(() => {
       // if (ref.current.shadowRoot) return;
       console.log("RENDEr");
-      const shadowRoot = ref.current.attachShadow({ mode: "open" });
+      const shadowRoot = ref.current.shadowRoot || ref.current.attachShadow({ mode: "open" });
+
       shadowRoot.adoptedStyleSheets = [sheet.target];
       observe(tw, shadowRoot);
 
