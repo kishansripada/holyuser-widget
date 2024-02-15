@@ -10,7 +10,7 @@ import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
 import { Index } from "@/Widget/Index";
 import { createRoot } from "react-dom/client";
-
+import { ReactDOM, React } from "react";
 const HolyMetrics = (params) => {
    const ref = useRef(null);
    const sheet = cssom(new CSSStyleSheet());
