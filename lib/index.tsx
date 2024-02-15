@@ -11,6 +11,7 @@ import config from "../twind.config";
 import { Index } from "@/Widget/Index";
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 const HolyMetrics = (params) => {
    const ref = useRef(null);
    const sheet = cssom(new CSSStyleSheet());
@@ -23,12 +24,12 @@ const HolyMetrics = (params) => {
 
       // Create a container element
       const container = document.createElement("div");
+      shadowRoot.appendChild(container);
 
       const root = ReactDOM.createRoot(container);
       root.render(<Index {...params} />);
 
       // Append container to shadowRoot
-      shadowRoot.appendChild(container);
 
       // // Render your React component inside the container
       // ReactDOM.render(<Index {...params} />, container);
