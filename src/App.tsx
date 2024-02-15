@@ -19,19 +19,14 @@ function App() {
          });
    }, []);
 
-   const DUMMY_USER = {
-      id: "testid",
-      name: "testname",
-      created_at: new Date(),
-      // (new Date() - new Date(user.created_at)) > (7 * 24 * 60 * 60 * 1000)
-      selectedUses: ["Cheer"],
-   };
-
    return (
       <div className="dark grid grid-cols-2 gap-10 px-16 py-32">
          {myPolls.map((poll) => {
             return (
-               <div className=" overflow-hidden select-none  w-[500px] h-min rounded-lg border  dark:border-neutral-700 border-neutral-300">
+               <div
+                  key={poll.id}
+                  className=" overflow-hidden select-none  w-[500px] h-min rounded-lg border  dark:border-neutral-700 border-neutral-300"
+               >
                   <YesOrNo sendResponse={() => null} poll={poll} />
                </div>
             );

@@ -1,5 +1,4 @@
 export default function MCQ({ poll, sendResponse }) {
-   console.log({ poll });
    return (
       <div className="flex bg-white dark:bg-neutral-900 flex-col gap-3 p-6 w-full h-full">
          <p className="font-bold tracking-tight text-neutral-900 text-lg dark:text-neutral-100">{poll.poll_data.title}</p>
@@ -8,10 +7,10 @@ export default function MCQ({ poll, sendResponse }) {
             {poll.poll_data.options.map((option, index) => {
                return (
                   <button
+                     key={option.id}
                      onClick={() => {
                         sendResponse({ option_id: option.id });
                      }}
-                     key={index}
                      className="w-full h-10  py-2 rounded-md border dark:hover:bg-neutral-700 dark:border-neutral-700 border-neutral-300  justify-start items-center p-3 flex hover:bg-neutral-100 transition"
                   >
                      <div className="dark:text-white text-black">{option.title}</div>
