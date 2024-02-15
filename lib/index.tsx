@@ -16,6 +16,7 @@ const HolyMetrics = (params) => {
    const tw = twind(config, sheet);
    useEffect(() => {
       const shadowRoot = ref.current.attachShadow({ mode: "open" });
+
       shadowRoot.adoptedStyleSheets = [sheet.target];
       observe(tw, shadowRoot);
 
