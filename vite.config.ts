@@ -13,6 +13,7 @@ export default defineConfig({
          exposes: {
             "./YesOrNo": "./src/Widget/Questions/YesOrNo",
             "./HolyWidget": "./lib/index",
+            "./Index": "./src/Widget/Index",
          },
          shared: ["react", "react-dom"],
       }),
@@ -36,5 +37,8 @@ export default defineConfig({
       target: "esnext",
       minify: false,
       cssCodeSplit: false,
+      // rollupOptions: {
+      //    external: ["react", "react/jsx-runtime"],
+      // },
    },
 });
