@@ -1,5 +1,5 @@
 // import App from "../src/App";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 // import { Index } from "../src/Widget/Index";
 // import MCQ from "../src/Widget/Questions/MCQ";
 // import YesOrNo from "../src/Widget/Questions/YesOrNo";
@@ -9,9 +9,7 @@ import "construct-style-sheets-polyfill";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
 import { Index } from "@/Widget/Index";
-import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
-
 const HolyMetrics = (params) => {
    const ref = useRef(null);
    const sheet = cssom(new CSSStyleSheet());
