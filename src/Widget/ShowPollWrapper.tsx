@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+// import { createClient } from "@supabase/supabase-js";
 import YesOrNo from "./Questions/YesOrNo";
 
 type poll = {
@@ -15,13 +15,12 @@ type poll = {
    app_id: string;
    test_ids: string;
 };
+// const supabase = createClient(
+//    "https://cmdpjhmqoqpkfwxqdekb.supabase.co",
+//    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtZHBqaG1xb3Fwa2Z3eHFkZWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYzMTY5MTAsImV4cCI6MjAyMTg5MjkxMH0.YhScL14jXQKyzFIAsIh9y3tujE0metKzw_N4Gwhnezg"
+// );
 
-export default function ShowPollWrapper({ poll, user, userId }: { poll: poll; user: any; userId: string }) {
-   const supabase = createClient(
-      "https://cmdpjhmqoqpkfwxqdekb.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtZHBqaG1xb3Fwa2Z3eHFkZWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYzMTY5MTAsImV4cCI6MjAyMTg5MjkxMH0.YhScL14jXQKyzFIAsIh9y3tujE0metKzw_N4Gwhnezg"
-   );
-
+export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll: poll; user: any; userId: string }) {
    const isTestUser = parseCommaSeparatedList(poll.test_ids).includes(userId);
    const [showModal, setShowModal] = useState(isTestUser);
    const HIGH_Z_INDEX = 9999;
