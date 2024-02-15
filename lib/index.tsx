@@ -9,8 +9,9 @@ import "construct-style-sheets-polyfill";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
 import { Index } from "@/Widget/Index";
-import React from "react";
-import ReactDOM from "react-dom/client";
+// import { createRoot } from "react-dom/client";
+
+// import ReactDOM from "react-dom/client";
 
 const HolyMetrics = (params) => {
    const ref = useRef(null);
@@ -23,14 +24,15 @@ const HolyMetrics = (params) => {
       observe(tw, shadowRoot);
 
       // Create a container element
-      const container = document.createElement("div");
-      shadowRoot.appendChild(container);
+      // const container = document.createElement("div");
 
-      const root = ReactDOM.createRoot(container);
-      root.render(<Index {...params} />);
+      // const root =
 
-      // Append container to shadowRoot
+      // ReactDOM.createRoot(container);
+      // root.render(<Index {...params} />);
 
+      // // Append container to shadowRoot
+      // shadowRoot.appendChild(container);
       // // Render your React component inside the container
       // ReactDOM.render(<Index {...params} />, container);
 
@@ -40,12 +42,15 @@ const HolyMetrics = (params) => {
       // Clean up on component unmount
       return () => {
          // ReactDOM.unmountComponentAtNode(container);
-
-         root.unmount();
+         // root.unmount();
       };
    }, []);
 
-   return <div ref={ref}></div>;
+   return (
+      <div ref={ref}>
+         <Index {...params} />
+      </div>
+   );
 };
 
 // const MCQShadow = (params) => {
