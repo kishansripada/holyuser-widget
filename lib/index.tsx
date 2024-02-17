@@ -37,6 +37,8 @@ async function HolyWidget(params) {
       </React.StrictMode>
    );
 }
+import process from "process";
+window.process = process;
 (window as any).HolyWidget = HolyWidget;
 // (window as any).Tour = Tour;
 
