@@ -16,7 +16,7 @@ import { createRoot } from "react-dom/client";
 async function HolyWidget(params) {
    const widget = document.createElement("div");
    // widget.id = "root";
-   // document.body.appendChild(widget);
+   document.body.appendChild(widget);
    // widget.attachShadow({ mode: "open" });
 
    // const response = await fetch(tailwindstyles);

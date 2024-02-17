@@ -18,6 +18,7 @@ export default defineConfig({
       //    shared: ["react", "react-dom"],
       // }),
    ],
+
    resolve: {
       alias: {
          "@": path.resolve(__dirname, "./src"),
