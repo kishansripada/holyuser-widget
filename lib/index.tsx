@@ -6,32 +6,28 @@ import React, { useEffect, useRef } from "react";
 // import ReactDOM from "react-dom";
 // import "construct-style-sheets-polyfill";
 // // import React from "react";
-// import { twind, cssom, observe } from "@twind/core";
-// import config from "../twind.config";
+import { twind, cssom, observe } from "@twind/core";
+import config from "../twind.config";
 import { Index } from "@/Widget/Index";
 import { createRoot } from "react-dom/client";
 // import { createRoot } from "react-dom/client";
 
 // import ReactDOM from "react-dom/client";
 async function HolyWidget(params) {
+   const sheet = cssom(new CSSStyleSheet());
+   const tw = twind(config, sheet);
+
    const widget = document.createElement("div");
+   const shadowRoot = widget.attachShadow({ mode: "open" });
+
+   shadowRoot.adoptedStyleSheets = [sheet.target];
+
+   observe(tw, shadowRoot);
+
    // widget.id = "root";
    document.body.appendChild(widget);
-   // widget.attachShadow({ mode: "open" });
 
-   // const response = await fetch(tailwindstyles);
-   // const css = await response.text();
-   // const styleElem = document.createElement("style");
-   // styleElem.innerHTML = css;
-   // widget.shadowRoot.appendChild(styleElem);
-
-   // const anotherresponse = await fetch(dayPickerStyles);
-   // const morecss = await anotherresponse.text();
-   // const elem = document.createElement("style");
-   // elem.innerHTML = morecss;
-   // widget.shadowRoot.appendChild(elem);
-
-   createRoot(widget).render(
+   createRoot(widget.shadowRoot).render(
       <React.StrictMode>
          <Index {...params} />
       </React.StrictMode>
