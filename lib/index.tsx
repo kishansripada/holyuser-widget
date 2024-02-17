@@ -1,10 +1,10 @@
 // import App from "../src/App";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 // import { Index } from "../src/Widget/Index";
 // import MCQ from "../src/Widget/Questions/MCQ";
 // import YesOrNo from "../src/Widget/Questions/YesOrNo";
 // import ReactDOM from "react-dom";
-// import "construct-style-sheets-polyfill";
+import "construct-style-sheets-polyfill";
 // // import React from "react";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
