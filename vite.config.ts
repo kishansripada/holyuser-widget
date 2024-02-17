@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import path, { resolve } from "path";
 import federation from "@originjs/vite-plugin-federation";
 
 export default defineConfig({
@@ -23,22 +23,22 @@ export default defineConfig({
          "@": path.resolve(__dirname, "./src"),
       },
    },
-   // build: {
-   //    lib: {
-   //       entry: resolve(__dirname, "lib/index.tsx"),
-   //       formats: ["es", "cjs"],
-   //    },
-   //    rollupOptions: {
-   //       external: ["react", "react/jsx-runtime"],
-   //    },
-   // },
    build: {
-      modulePreload: false,
-      target: "esnext",
-      minify: false,
-      cssCodeSplit: false,
-      // rollupOptions: {
-      //    external: ["react", "react/jsx-runtime"],
-      // },
+      lib: {
+         entry: resolve(__dirname, "lib/index.tsx"),
+         formats: ["es"],
+      },
+      rollupOptions: {
+         external: ["react", "react/jsx-runtime"],
+      },
    },
+   // build: {
+   //    modulePreload: false,
+   //    target: "esnext",
+   //    minify: false,
+   //    cssCodeSplit: false,
+   //    // rollupOptions: {
+   //    //    external: ["react", "react/jsx-runtime"],
+   //    // },
+   // },
 });
