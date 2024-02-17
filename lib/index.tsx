@@ -5,7 +5,7 @@ import config from "../twind.config";
 import { Index } from "@/Widget/Index";
 import { createRoot } from "react-dom/client";
 
-async function HolyWidget(params) {
+async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    const sheet = cssom(new CSSStyleSheet());
    const tw = twind(config, sheet);
 
@@ -17,7 +17,7 @@ async function HolyWidget(params) {
    observe(tw, shadowRoot);
    document.body.appendChild(widget);
 
-   createRoot(widget.shadowRoot).render(
+   createRoot(widget.shadowRoot as ShadowRoot).render(
       <React.StrictMode>
          <Index {...params} />
       </React.StrictMode>
