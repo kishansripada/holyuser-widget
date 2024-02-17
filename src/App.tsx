@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 // import { createClient } from "@supabase/supabase-js";
 
 import YesOrNo from "./Widget/Questions/YesOrNo";
-import HolyMetrics from "../lib/index";
+// import HolyMetrics from "../lib/index";
 // const supabase = createClient(
 //    "https://cmdpjhmqoqpkfwxqdekb.supabase.co",
 //    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtZHBqaG1xb3Fwa2Z3eHFkZWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYzMTY5MTAsImV4cCI6MjAyMTg5MjkxMH0.YhScL14jXQKyzFIAsIh9y3tujE0metKzw_N4Gwhnezg"
