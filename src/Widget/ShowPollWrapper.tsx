@@ -84,7 +84,7 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
                style={{
                   zIndex: HIGH_Z_INDEX - 1,
                }}
-               className="absolute w-full h-full  bg-neutral-950/60"
+               className="absolute w-full h-full  bg-neutral-950/60 left-0 top-0"
             ></div>
             <div
                style={{
