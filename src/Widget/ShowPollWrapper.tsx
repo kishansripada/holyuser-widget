@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import YesOrNo from "./Questions/YesOrNo";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
+import Container from "./Container";
 
 type poll = {
    id: number;
@@ -88,9 +89,12 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
                   opacity: showModal ? 1 : 0,
                   pointerEvents: showModal ? "all" : "none",
                }}
-               className=" select-none  w-[500px] min-h-[100px] rounded-lg border  dark:border-neutral-700 border-neutral-300 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 overflow-hidden transition duration-150 ease-in-out"
+               className=" select-none  rounded-lg border  dark:border-neutral-700 border-neutral-300 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 overflow-hidden transition duration-150 ease-in-out"
             >
-               <YesOrNo poll={poll} sendResponse={sendResponse} />
+               <Container height={300} width={500}>
+                  {" "}
+                  <YesOrNo poll={poll} sendResponse={sendResponse} />
+               </Container>
             </div>
          </div>
       </>
