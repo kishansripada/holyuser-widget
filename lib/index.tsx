@@ -4,7 +4,7 @@ import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
 import { Index } from "@/Widget/Index";
 import { createRoot } from "react-dom/client";
-
+import YesOrNo from "@/Widget/Questions/YesOrNo";
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    const sheet = cssom(new CSSStyleSheet());
    const tw = twind(config, sheet);
@@ -23,5 +23,7 @@ async function HolyWidget(params: { user: any; userId: string; apiKey: string; d
       </React.StrictMode>
    );
 }
+
+(window as any).YesOrNo = YesOrNo;
 
 (window as any).HolyWidget = HolyWidget;
