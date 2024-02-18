@@ -11,7 +11,7 @@ export default function YesOrNo({ poll, sendResponse }) {
                onClick={() => {
                   sendResponse({ option_id: "no" });
                }}
-               variant={"outline"}
+               variant={"secondary"}
             >
                {poll.poll_data.yesorno.no_button}
             </Button>

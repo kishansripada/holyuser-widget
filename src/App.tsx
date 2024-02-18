@@ -1,3 +1,4 @@
+import { useState } from "react";
 import VerticalAnnouncement from "./Widget/Announcements/Vertical";
 import Container from "./Widget/Container";
 import YesOrNo from "./Widget/Questions/YesOrNo";
@@ -24,15 +25,29 @@ const SAMPLE_YES_OR_NO = {
 };
 
 function App() {
+   // const [darkMode, setDarkMode] = useState(false);
    return (
-      <>
-         <Container height={574} width={461}>
-            <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
-         </Container>
-         <Container height={"75%"} width={"40%"}>
-            <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>
-         </Container>
-      </>
+      <div>
+         <button
+            onClick={() => {
+               // setDarkMode(!darkMode);
+               document.body.classList.toggle("dark");
+            }}
+         >
+            toggle dark
+         </button>
+         <div className="grid grid-cols-3 w-full">
+            {" "}
+            <Container height={574} width={461}>
+               <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
+            </Container>
+            <div className=" w-full">
+               <Container>
+                  <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>
+               </Container>
+            </div>
+         </div>
+      </div>
    );
 }
 
