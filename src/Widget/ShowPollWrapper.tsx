@@ -92,13 +92,15 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
                }}
                className=" select-none    dark:border-neutral-700 border-neutral-300 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2  transition duration-150 ease-in-out"
             >
-               <Container>
-                  {poll.poll_data.type === "yesorno" ? (
+               {poll.poll_data.type === "yesorno" ? (
+                  <Container width={500}>
                      <YesOrNo poll={poll} sendResponse={sendResponse} />
-                  ) : poll.poll_data.type === "announcement" ? (
+                  </Container>
+               ) : poll.poll_data.type === "announcement" ? (
+                  <Container width={500} height={700}>
                      <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
-                  ) : null}
-               </Container>
+                  </Container>
+               ) : null}
             </div>
          </div>
       </>
