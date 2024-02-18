@@ -98,7 +98,6 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
                   ) : poll.poll_data.type === "announcement" ? (
                      <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
                   ) : null}
-                  <YesOrNo poll={poll} sendResponse={sendResponse} />
                </Container>
             </div>
          </div>
