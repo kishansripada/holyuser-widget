@@ -90,9 +90,9 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
                   opacity: showModal ? 1 : 0,
                   pointerEvents: showModal ? "all" : "none",
                }}
-               className=" select-none  rounded-lg border  dark:border-neutral-700 border-neutral-300 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 overflow-hidden transition duration-150 ease-in-out"
+               className=" select-none    dark:border-neutral-700 border-neutral-300 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2  transition duration-150 ease-in-out"
             >
-               <Container height={300} width={500}>
+               <Container>
                   {poll.poll_data.type === "yesorno" ? (
                      <YesOrNo poll={poll} sendResponse={sendResponse} />
                   ) : poll.poll_data.type === "announcement" ? (
