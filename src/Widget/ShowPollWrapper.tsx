@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import YesOrNo from "./Questions/YesOrNo";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
 import Container from "./Container";
+import VerticalAnnouncement from "./Announcements/Vertical";
 
 type poll = {
    id: number;
@@ -92,7 +93,11 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
                className=" select-none  rounded-lg border  dark:border-neutral-700 border-neutral-300 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 overflow-hidden transition duration-150 ease-in-out"
             >
                <Container height={300} width={500}>
-                  {" "}
+                  {poll.poll_data.type === "yesorno" ? (
+                     <YesOrNo poll={poll} sendResponse={sendResponse} />
+                  ) : poll.poll_data.type === "announcement" ? (
+                     <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
+                  ) : null}
                   <YesOrNo poll={poll} sendResponse={sendResponse} />
                </Container>
             </div>
