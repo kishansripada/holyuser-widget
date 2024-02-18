@@ -5,8 +5,8 @@ import YesOrNo from "./Widget/Questions/YesOrNo";
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
       type: "announcement",
-      title: "Hey Cheerleaders! You can now change the height of a dancer off the ground",
-      subtitle: "We poll our users sometimes to make FORMI better for everyone!",
+      title: "Hey Cheerleaders!",
+      subtitle: "You can now change the height of a dancer off the ground",
       image_url: "https://i.imgur.com/VMe7jKe.png",
    },
 };
@@ -26,7 +26,7 @@ const SAMPLE_YES_OR_NO = {
 function App() {
    return (
       <>
-         <Container height={"75%"} width={"40%"}>
+         <Container height={574} width={461}>
             <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
          </Container>
          <Container height={"75%"} width={"40%"}>

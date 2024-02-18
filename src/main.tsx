@@ -13,7 +13,7 @@ install(
       /* config */
       presets: [presetAutoprefix(), presetTailwind()],
    },
-   true
+   false
 );
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
