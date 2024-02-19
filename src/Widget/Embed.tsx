@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import Poll from "./ShouldShow?/Poll";
+import Poll from "./ShouldShow/Poll";
 
 type user = {
    id: string;

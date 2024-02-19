@@ -1,7 +1,7 @@
-import VerticalAnnouncement from "./Widget/ShouldShow?/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
-import Container from "./Widget/ShouldShow?/Modal/ConsistentPadding/Container";
-import ModalWrapper from "./Widget/ShouldShow?/Modal/ModalWrapper";
-import YesOrNo from "./Widget/ShouldShow?/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
+import VerticalAnnouncement from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
+import Container from "./Widget/ShouldShow/Modal/ConsistentPadding/Container";
+import ModalWrapper from "./Widget/ShouldShow/Modal/ModalWrapper";
+import YesOrNo from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
