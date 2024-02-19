@@ -82,7 +82,7 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
                style={{
                   zIndex: HIGH_Z_INDEX - 1,
                }}
-               className="absolute w-full h-full  bg-neutral-950/60 left-0 top-0"
+               className="absolute left-0 top-0  h-full w-full bg-neutral-950/60"
             ></div>
             <div
                style={{
@@ -90,7 +90,7 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
                   opacity: showModal ? 1 : 0,
                   pointerEvents: showModal ? "all" : "none",
                }}
-               className=" select-none    dark:border-neutral-700 border-neutral-300 absolute -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2  transition duration-150 ease-in-out"
+               className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none border-neutral-300 transition  duration-150 ease-in-out dark:border-neutral-700"
             >
                {poll.poll_data.type === "yesorno" ? (
                   <Container width={500}>

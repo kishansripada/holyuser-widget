@@ -2,9 +2,9 @@ import { XIcon } from "@/assets/icons";
 
 export default function VerticalAnnouncement({ poll, sendResponse }: { poll: any; sendResponse: Function }) {
    return (
-      <div className="flex flex-col gap-3 h-full w-full">
-         <div className="flex flex-row justify-between items-center">
-            <p className="font-bold tracking-tight text-neutral-900 text-2xl dark:text-neutral-100">{poll.poll_data.title}</p>
+      <div className="flex h-full w-full flex-col gap-3">
+         <div className="flex flex-row items-center justify-between">
+            <p className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
             <button
                onClick={() => {
                   sendResponse({ option_id: "close" });
@@ -14,10 +14,10 @@ export default function VerticalAnnouncement({ poll, sendResponse }: { poll: any
             </button>
          </div>
 
-         <p className="text-neutral-600 dark:text-neutral-400 text-sm">{poll.poll_data.subtitle}</p>
+         <p className="text-sm text-neutral-600 dark:text-neutral-400">{poll.poll_data.subtitle}</p>
 
          <div className="h-full w-full overflow-hidden ">
-            <img className="rounded-md h-full w-full object-cover rounded-xl" src={poll.poll_data.image_url} alt="" />
+            <img className="h-full w-full rounded-md rounded-xl object-cover" src={poll.poll_data.image_url} alt="" />
          </div>
       </div>
    );

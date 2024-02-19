@@ -36,7 +36,7 @@ function App() {
          >
             toggle dark
          </button>
-         <div className="grid grid-cols-3 w-full">
+         <div className="grid w-full grid-cols-3">
             {" "}
             <Container height={574} width={461}>
                <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>

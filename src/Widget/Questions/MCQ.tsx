@@ -1,9 +1,9 @@
 export default function MCQ({ poll, sendResponse }) {
    return (
-      <div className="flex  flex-col gap-3  w-full h-full">
-         <p className="font-bold tracking-tight text-neutral-900 text-lg dark:text-neutral-100">{poll.poll_data.title}</p>
-         <p className="text-neutral-600 dark:text-neutral-400 text-sm">{poll.poll_data.subtitle}</p>
-         <div className="w-full  text-sm gap-2.5 grid grid-cols-2  ">
+      <div className="flex h-full w-full flex-col  gap-3 ">
+         <p className="text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
+         <p className="text-sm text-neutral-600 dark:text-neutral-400">{poll.poll_data.subtitle}</p>
+         <div className="grid  w-full grid-cols-2 gap-2.5 text-sm  ">
             {poll.poll_data.options.map((option, index) => {
                return (
                   <button
@@ -11,9 +11,9 @@ export default function MCQ({ poll, sendResponse }) {
                      onClick={() => {
                         sendResponse({ option_id: option.id });
                      }}
-                     className="w-full h-10  py-2 rounded-md border dark:hover:bg-neutral-700 dark:border-neutral-700 border-neutral-300  justify-start items-center p-3 flex hover:bg-neutral-100 transition"
+                     className="flex h-10 w-full items-center justify-start rounded-md border border-neutral-300  p-3 py-2 transition hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-700"
                   >
-                     <div className="dark:text-white text-black">{option.title}</div>
+                     <div className="text-black dark:text-white">{option.title}</div>
                   </button>
                );
             })}
