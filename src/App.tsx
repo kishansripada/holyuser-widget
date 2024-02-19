@@ -1,7 +1,7 @@
-import { useState } from "react";
-import VerticalAnnouncement from "./Widget/Announcements/Vertical";
-import Container from "./Widget/Container";
-import YesOrNo from "./Widget/Questions/YesOrNo";
+import VerticalAnnouncement from "./Widget/ShouldShow?/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
+import Container from "./Widget/ShouldShow?/Modal/ConsistentPadding/Container";
+import ModalWrapper from "./Widget/ShouldShow?/Modal/ModalWrapper";
+import YesOrNo from "./Widget/ShouldShow?/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
@@ -37,10 +37,11 @@ function App() {
             toggle dark
          </button>
          <div className="grid w-full grid-cols-3">
-            {" "}
-            <Container height={574} width={461}>
-               <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
-            </Container>
+            <ModalWrapper visible={true} setVisible={() => null}>
+               <Container height={574} width={461}>
+                  <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
+               </Container>
+            </ModalWrapper>
             <div className=" w-full">
                <Container>
                   <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>

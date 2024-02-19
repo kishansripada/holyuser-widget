@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import ShowPollWrapper from "./ShowPollWrapper";
+import Poll from "./ShouldShow?/Poll";
 
 type user = {
    id: string;
@@ -11,7 +11,7 @@ const supabase = createClient(
    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtZHBqaG1xb3Fwa2Z3eHFkZWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYzMTY5MTAsImV4cCI6MjAyMTg5MjkxMH0.YhScL14jXQKyzFIAsIh9y3tujE0metKzw_N4Gwhnezg"
 );
 
-function Index({ user, userId, apiKey, darkMode }: { user: user; userId: string; apiKey: string; darkMode?: boolean }) {
+function Embed({ user, userId, apiKey, darkMode }: { user: user; userId: string; apiKey: string; darkMode?: boolean }) {
    const [myPolls, setMyPolls] = useState([]);
 
    const getMyPolls = async () => {
@@ -49,10 +49,10 @@ function Index({ user, userId, apiKey, darkMode }: { user: user; userId: string;
    return (
       <div className={`${darkMode ? "dark" : ""}`}>
          {myPolls.map((poll) => {
-            return <ShowPollWrapper supabase={supabase} key={poll.id} userId={userId} user={user} poll={poll} />;
+            return <Poll supabase={supabase} key={poll.id} userId={userId} user={user} poll={poll} />;
          })}
       </div>
    );
 }
 
-export { Index };
+export { Embed };

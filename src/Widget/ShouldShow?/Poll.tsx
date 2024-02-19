@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import YesOrNo from "./Questions/YesOrNo";
+import YesOrNo from "./Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
-import Container from "./Container";
-import VerticalAnnouncement from "./Announcements/Vertical";
+import Container from "./Modal/ConsistentPadding/Container";
+import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
+import ModalWrapper from "./Modal/ModalWrapper";
 
 type poll = {
    id: number;
@@ -10,7 +11,7 @@ type poll = {
    title?: string | null;
    user_id: string | null;
    active_until?: Date | null;
-   poll_data?: Record<string, any> | null;
+   poll_data: Record<string, any>;
    time_delay_ms: number;
    active: boolean;
    conditions?: any[] | null;
@@ -18,10 +19,9 @@ type poll = {
    test_ids: string;
 };
 
-export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll: poll; user: any; userId: string; supabase: SupabaseAuthClient }) {
+export default function Poll({ poll, user, userId, supabase }: { poll: poll; user: any; userId: string; supabase: SupabaseAuthClient }) {
    const isTestUser = parseCommaSeparatedList(poll.test_ids).includes(userId);
    const [showModal, setShowModal] = useState(isTestUser);
-   const HIGH_Z_INDEX = 9999;
 
    const getExistingResponse = async () => {
       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", poll.id);
@@ -67,42 +67,17 @@ export default function ShowPollWrapper({ poll, user, userId, supabase }: { poll
 
    return (
       <>
-         <div
-            style={{
-               opacity: showModal ? 1 : 0,
-               pointerEvents: showModal ? "all" : "none",
-            }}
-            className="transition duration-150 ease-in-out"
-         >
-            <div
-               onClick={() => {
-                  setShowModal(false);
-                  sendResponse({ option_id: "click_outside_modal" });
-               }}
-               style={{
-                  zIndex: HIGH_Z_INDEX - 1,
-               }}
-               className="absolute left-0 top-0  h-full w-full bg-neutral-950/60"
-            ></div>
-            <div
-               style={{
-                  zIndex: HIGH_Z_INDEX,
-                  opacity: showModal ? 1 : 0,
-                  pointerEvents: showModal ? "all" : "none",
-               }}
-               className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none border-neutral-300 transition  duration-150 ease-in-out dark:border-neutral-700"
-            >
-               {poll.poll_data.type === "yesorno" ? (
-                  <Container width={500}>
-                     <YesOrNo poll={poll} sendResponse={sendResponse} />
-                  </Container>
-               ) : poll.poll_data.type === "announcement" ? (
-                  <Container width={500} height={700}>
-                     <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
-                  </Container>
-               ) : null}
-            </div>
-         </div>
+         <ModalWrapper visible={showModal} setVisible={setShowModal} sendResponse={sendResponse}>
+            {poll.poll_data.type === "yesorno" ? (
+               <Container width={500}>
+                  <YesOrNo poll={poll} sendResponse={sendResponse} />
+               </Container>
+            ) : poll.poll_data.type === "announcement" ? (
+               <Container width={500} height={700}>
+                  <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
+               </Container>
+            ) : null}
+         </ModalWrapper>
       </>
    );
 }

@@ -2,11 +2,12 @@ import React from "react";
 import "construct-style-sheets-polyfill";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../twind.config";
-import { Index } from "@/Widget/Index";
+import { Embed } from "@/Widget/Embed";
 import { createRoot } from "react-dom/client";
-import YesOrNo from "@/Widget/Questions/YesOrNo";
-import VerticalAnnouncement from "@/Widget/Announcements/Vertical";
-import Container from "@/Widget/Container";
+import YesOrNo from "@/Widget/ShouldShow?/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
+import VerticalAnnouncement from "@/Widget/ShouldShow?/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
+import Container from "@/Widget/ShouldShow?/Modal/ConsistentPadding/Container";
+import ModalWrapper from "@/Widget/ShouldShow?/Modal/ModalWrapper";
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    const sheet = cssom(new CSSStyleSheet());
    const tw = twind(config, sheet);
@@ -21,7 +22,7 @@ async function HolyWidget(params: { user: any; userId: string; apiKey: string; d
 
    createRoot(widget.shadowRoot as ShadowRoot).render(
       <React.StrictMode>
-         <Index {...params} />
+         <Embed {...params} />
       </React.StrictMode>
    );
 }
@@ -32,6 +33,7 @@ async function HolyWidget(params: { user: any; userId: string; apiKey: string; d
 
 // export helpers
 (window as any).Container = Container;
+(window as any).ModalWrapper = ModalWrapper;
 
 // actual widget
 (window as any).HolyWidget = HolyWidget;
