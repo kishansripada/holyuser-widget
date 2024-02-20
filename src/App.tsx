@@ -4,6 +4,7 @@ import ModalWrapper from "./Widget/ShouldShow/Modal/ModalWrapper";
 import YesOrNo from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import { Embed } from "./Widget/Embed";
 import { holyTrigger } from "@/lib/index";
+import { useEffect, useState } from "react";
 
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
@@ -27,10 +28,29 @@ const SAMPLE_YES_OR_NO = {
 };
 
 function App() {
+   const [RemoteComponent, setRemoteComponent] = useState(null);
+
+   useEffect(() => {
+      const fetchComponent = async () => {
+         const response = await fetch("http://your-server/shared-components.bundle.js");
+         const text = await response.text();
+         // Evaluate the fetched JavaScript code
+         const module = new Function("return " + text)();
+
+         // Assuming your bundle exports a default component named SharedButton
+         setRemoteComponent(module.default);
+      };
+
+      fetchComponent();
+   }, []);
+
+   return <div>{RemoteComponent ? <RemoteComponent /> : <div>Loading...</div>}</div>;
    // const [darkMode, setDarkMode] = useState(false);
-   return (
-      <div>
-         <button
+
+   // return (
+   //    <div>
+   {
+      /* <button
             onClick={() => {
                // setDarkMode(!darkMode);
                document.body.classList.toggle("dark");
@@ -45,11 +65,15 @@ function App() {
             }}
          >
             trigger timleine!
-         </button>
+         </button> */
+   }
 
-         <Embed userId="f30197ba-cf06-4234-bcdb-5d40d83c7999" user={{ name: "Kishan" }} apiKey="c64bcec7-3e92-4e10-bbed-3a4fd551175d"></Embed>
+   {
+      /* <Embed userId="f30197ba-cf06-4234-bcdb-5d40d83c7999" user={{ name: "Kishan" }} apiKey="c64bcec7-3e92-4e10-bbed-3a4fd551175d"></Embed> */
+   }
 
-         {/* <div className="grid w-full grid-cols-3">
+   {
+      /* <div className="grid w-full grid-cols-3">
             <ModalWrapper visible={true} setVisible={() => null}>
                <Container height={574} width={461}>
                   <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
@@ -60,9 +84,10 @@ function App() {
                   <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>
                </Container>
             </div>
-         </div> */}
-      </div>
-   );
+         </div> */
+   }
+   // </div>
+   // );
 }
 
 export default App;

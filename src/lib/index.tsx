@@ -46,8 +46,8 @@ const holyTrigger = (pollId: string) => {
    useStore.getState().setVisibilityMap(pollId, true);
 };
 
-export { Embed as HolyWidget, holyTrigger };
-
+export { holyTrigger };
+export default Embed;
 // actual widget
 // (window as any).HolyWidget = HolyWidget;
 // (window as any).Embed = Embed;
