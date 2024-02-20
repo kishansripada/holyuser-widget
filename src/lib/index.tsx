@@ -55,7 +55,6 @@ const Test = () => {
 // actual widget
 // (window as any).HolyWidget = HolyWidget;
 window.Test = Test;
-
 (window as any).Embed = Embed;
 
 // export components
