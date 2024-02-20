@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Poll from "./ShouldShow/Poll";
-import { create } from "zustand";
 
 const supabase = createClient(
    "https://cmdpjhmqoqpkfwxqdekb.supabase.co",
@@ -13,6 +12,8 @@ function Embed({
    userId,
    apiKey,
    darkMode,
+   visiblityMap,
+   setVisibilityMap,
    // visiblityMap,
    // setVisibilityMap,
 }: {
@@ -64,7 +65,17 @@ function Embed({
    return (
       <div className={`${darkMode ? "dark" : ""}`}>
          {myPolls.map((poll) => {
-            return <Poll supabase={supabase} key={poll.id} userId={userId} user={user} poll={poll} />;
+            return (
+               <Poll
+                  visiblityMap={visiblityMap}
+                  setVisibilityMap={setVisibilityMap}
+                  supabase={supabase}
+                  key={poll.id}
+                  userId={userId}
+                  user={user}
+                  poll={poll}
+               />
+            );
          })}
       </div>
    );

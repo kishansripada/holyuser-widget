@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import YesOrNo from "./Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
 import Container from "./Modal/ConsistentPadding/Container";
 import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import ModalWrapper from "./Modal/ModalWrapper";
-import { useStore } from "@/lib/index";
+// import { useStore } from "@/lib/index";
 type poll = {
    id: number;
    created_at: Date;
@@ -19,9 +19,21 @@ type poll = {
    test_ids: string;
 };
 
-export default function Poll({ poll, user, userId, supabase }: { poll: poll; user: any; userId: string; supabase: SupabaseAuthClient }) {
-   const visiblityMap = useStore((state) => state.visiblityMap);
-   const setVisibilityMap = useStore((state) => state.setVisibilityMap);
+export default function Poll({
+   poll,
+   user,
+   userId,
+   supabase,
+   visiblityMap,
+   setVisibilityMap,
+}: {
+   poll: poll;
+   user: any;
+   userId: string;
+   supabase: SupabaseAuthClient;
+}) {
+   // const visiblityMap = useStore((state) => state.visiblityMap);
+   // const setVisibilityMap = useStore((state) => state.setVisibilityMap);
 
    // const isTestUser = parseCommaSeparatedList(poll.test_ids).includes(userId);
 

@@ -1,27 +1,27 @@
-import React from "react";
+// import React from "react";
 import "construct-style-sheets-polyfill";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../../twind.config";
 import { Embed } from "@/Widget/Embed";
-import { createRoot } from "react-dom/client";
+// import { createRoot } from "react-dom/client";
 import YesOrNo from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import VerticalAnnouncement from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import Container from "@/Widget/ShouldShow/Modal/ConsistentPadding/Container";
 import ModalWrapper from "@/Widget/ShouldShow/Modal/ModalWrapper";
-import { create } from "zustand";
+// import { create } from "zustand";
 
-interface Store {
-   visiblityMap: {};
-   setVisibilityMap: (id: string, value: boolean) => void;
-}
+// interface Store {
+//    visiblityMap: {};
+//    setVisibilityMap: (id: string, value: boolean) => void;
+// }
 
-const useStore = create<Store>((set) => ({
-   visiblityMap: {},
-   setVisibilityMap: (id: string, value: boolean) => set((state) => ({ visiblityMap: { ...state.visiblityMap, [id]: value } })),
-   //    inc: () => set((state) => ({ count: state.count + 1 })),
-}));
+// const useStore = create<Store>((set) => ({
+//    visiblityMap: {},
+//    setVisibilityMap: (id: string, value: boolean) => set((state) => ({ visiblityMap: { ...state.visiblityMap, [id]: value } })),
+//    //    inc: () => set((state) => ({ count: state.count + 1 })),
+// }));
 
-export { useStore };
+// export { useStore };
 
 // async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
 //    const sheet = cssom(new CSSStyleSheet());
