@@ -11,7 +11,20 @@ const supabase = createClient(
    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtZHBqaG1xb3Fwa2Z3eHFkZWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYzMTY5MTAsImV4cCI6MjAyMTg5MjkxMH0.YhScL14jXQKyzFIAsIh9y3tujE0metKzw_N4Gwhnezg"
 );
 
-function Embed({ user, userId, apiKey, darkMode }: { user: user; userId: string; apiKey: string; darkMode?: boolean }) {
+function Embed({
+   user,
+   userId,
+   apiKey,
+   darkMode,
+   visiblityMap,
+   setVisibilityMap,
+}: {
+   user: any;
+   userId: string;
+   apiKey: string;
+   darkMode?: boolean;
+}) {
+   console.log("from embed", visiblityMap);
    const [myPolls, setMyPolls] = useState([]);
 
    const getMyPolls = async () => {
