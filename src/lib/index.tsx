@@ -42,9 +42,9 @@ import ModalWrapper from "@/Widget/ShouldShow/Modal/ModalWrapper";
 //    );
 // }
 
-const holyTrigger = (pollId: string) => {
-   useStore.getState().setVisibilityMap(pollId, true);
-};
+// const holyTrigger = (pollId: string) => {
+//    useStore.getState().setVisibilityMap(pollId, true);
+// };
 
 const Test = () => {
    return <div>Test, hello there</div>;
