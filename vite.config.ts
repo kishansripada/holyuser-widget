@@ -27,7 +27,7 @@ export default defineConfig({
    build: {
       target: "esnext",
       lib: {
-         entry: resolve(__dirname, "lib/index.tsx"),
+         entry: resolve(__dirname, "src/lib/index.tsx"),
          formats: ["es"],
       },
       rollupOptions: {},

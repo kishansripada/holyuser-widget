@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Poll from "./ShouldShow/Poll";
+import { create } from "zustand";
 
-type user = {
-   id: string;
-   email: string;
-};
 const supabase = createClient(
    "https://cmdpjhmqoqpkfwxqdekb.supabase.co",
    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtZHBqaG1xb3Fwa2Z3eHFkZWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYzMTY5MTAsImV4cCI6MjAyMTg5MjkxMH0.YhScL14jXQKyzFIAsIh9y3tujE0metKzw_N4Gwhnezg"
@@ -16,15 +13,20 @@ function Embed({
    userId,
    apiKey,
    darkMode,
-   visiblityMap,
-   setVisibilityMap,
+   // visiblityMap,
+   // setVisibilityMap,
 }: {
    user: any;
    userId: string;
    apiKey: string;
    darkMode?: boolean;
+   // visiblityMap: any;
+   // setVisibilityMap: Function;
 }) {
-   console.log("from embed", visiblityMap);
+   // const visiblityMap = useStore((state) => state.visiblityMap);
+   // const setVisibilityMap = useStore((state) => state.setVisibilityMap);
+
+   // console.log("from embed", visiblityMap);
    const [myPolls, setMyPolls] = useState([]);
 
    const getMyPolls = async () => {

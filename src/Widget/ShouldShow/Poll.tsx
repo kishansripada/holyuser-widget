@@ -4,7 +4,7 @@ import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/Supaba
 import Container from "./Modal/ConsistentPadding/Container";
 import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import ModalWrapper from "./Modal/ModalWrapper";
-
+import { useStore } from "@/lib/index";
 type poll = {
    id: number;
    created_at: Date;
@@ -20,15 +20,17 @@ type poll = {
 };
 
 export default function Poll({ poll, user, userId, supabase }: { poll: poll; user: any; userId: string; supabase: SupabaseAuthClient }) {
-   const isTestUser = parseCommaSeparatedList(poll.test_ids).includes(userId);
-   const [showModal, setShowModal] = useState(isTestUser);
+   const visiblityMap = useStore((state) => state.visiblityMap);
+   const setVisibilityMap = useStore((state) => state.setVisibilityMap);
+
+   // const isTestUser = parseCommaSeparatedList(poll.test_ids).includes(userId);
 
    const getExistingResponse = async () => {
       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", poll.id);
 
       return data;
    };
-
+   console.log(visiblityMap);
    useEffect(() => {
       let timerId;
       const filterFns = (poll.conditions || []).map((cond) => {
@@ -50,7 +52,7 @@ export default function Poll({ poll, user, userId, supabase }: { poll: poll; use
       getExistingResponse().then((existingResponse) => {
          if ((existingResponse || []).length) return;
          timerId = setTimeout(() => {
-            setShowModal(true);
+            setVisibilityMap(poll.id.toString(), true);
          }, poll.time_delay_ms);
       });
 
@@ -61,13 +63,17 @@ export default function Poll({ poll, user, userId, supabase }: { poll: poll; use
    }, []); // Pass an empty dependency array if you only want to run the effect once
 
    const sendResponse = async (response_data) => {
-      setShowModal(false);
+      setVisibilityMap(poll.id, false);
       let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };
 
    return (
       <>
-         <ModalWrapper visible={showModal} setVisible={setShowModal} sendResponse={sendResponse}>
+         <ModalWrapper
+            visible={visiblityMap[poll.id.toString()]}
+            setVisible={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}
+            sendResponse={sendResponse}
+         >
             {poll.poll_data.type === "yesorno" ? (
                <Container width={500}>
                   <YesOrNo poll={poll} sendResponse={sendResponse} />

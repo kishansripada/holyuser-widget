@@ -2,6 +2,8 @@ import VerticalAnnouncement from "./Widget/ShouldShow/Modal/ConsistentPadding/Wi
 import Container from "./Widget/ShouldShow/Modal/ConsistentPadding/Container";
 import ModalWrapper from "./Widget/ShouldShow/Modal/ModalWrapper";
 import YesOrNo from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
+import { Embed } from "./Widget/Embed";
+import { holyTrigger } from "@/lib/index";
 
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
@@ -36,7 +38,18 @@ function App() {
          >
             toggle dark
          </button>
-         <div className="grid w-full grid-cols-3">
+         <button
+            onClick={() => {
+               // setDarkMode(!darkMode);
+               holyTrigger("24");
+            }}
+         >
+            trigger timleine!
+         </button>
+
+         <Embed userId="f30197ba-cf06-4234-bcdb-5d40d83c7999" user={{ name: "Kishan" }} apiKey="c64bcec7-3e92-4e10-bbed-3a4fd551175d"></Embed>
+
+         {/* <div className="grid w-full grid-cols-3">
             <ModalWrapper visible={true} setVisible={() => null}>
                <Container height={574} width={461}>
                   <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
@@ -47,7 +60,7 @@ function App() {
                   <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>
                </Container>
             </div>
-         </div>
+         </div> */}
       </div>
    );
 }
