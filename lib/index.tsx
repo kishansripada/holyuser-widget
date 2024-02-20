@@ -27,6 +27,10 @@ async function HolyWidget(params: { user: any; userId: string; apiKey: string; d
    );
 }
 
+// actual widget
+(window as any).HolyWidget = HolyWidget;
+(window as any).Embed = Embed;
+
 // export components
 (window as any).YesOrNo = YesOrNo;
 (window as any).VerticalAnnouncement = VerticalAnnouncement;
@@ -34,6 +38,3 @@ async function HolyWidget(params: { user: any; userId: string; apiKey: string; d
 // export helpers
 (window as any).Container = Container;
 (window as any).ModalWrapper = ModalWrapper;
-
-// actual widget
-(window as any).HolyWidget = HolyWidget;
