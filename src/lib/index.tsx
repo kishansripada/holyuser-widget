@@ -21,7 +21,7 @@ const useStore = create<Store>((set) => ({
    //    inc: () => set((state) => ({ count: state.count + 1 })),
 }));
 
-// export { useStore };
+export { useStore };
 
 // async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
 //    const sheet = cssom(new CSSStyleSheet());
