@@ -21,7 +21,7 @@ const useStore = create<Store>((set) => ({
    //    inc: () => set((state) => ({ count: state.count + 1 })),
 }));
 
-export { useStore };
+// export { useStore };
 
 // async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
 //    const sheet = cssom(new CSSStyleSheet());
@@ -46,16 +46,16 @@ const holyTrigger = (pollId: string) => {
    useStore.getState().setVisibilityMap(pollId, true);
 };
 
-export { holyTrigger };
-export default Embed;
+// export { holyTrigger };
+// export default Embed;
 // actual widget
 // (window as any).HolyWidget = HolyWidget;
-// (window as any).Embed = Embed;
+(window as any).Embed = Embed;
 
-// // export components
-// (window as any).YesOrNo = YesOrNo;
-// (window as any).VerticalAnnouncement = VerticalAnnouncement;
+// export components
+(window as any).YesOrNo = YesOrNo;
+(window as any).VerticalAnnouncement = VerticalAnnouncement;
 
-// // export helpers
-// (window as any).Container = Container;
-// (window as any).ModalWrapper = ModalWrapper;
+// export helpers
+(window as any).Container = Container;
+(window as any).ModalWrapper = ModalWrapper;

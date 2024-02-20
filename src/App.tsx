@@ -32,7 +32,7 @@ function App() {
 
    useEffect(() => {
       const fetchComponent = async () => {
-         const response = await fetch("http://your-server/shared-components.bundle.js");
+         const response = await fetch("https://widget.holyuser.com/holyuser.js");
          const text = await response.text();
          // Evaluate the fetched JavaScript code
          const module = new Function("return " + text)();
