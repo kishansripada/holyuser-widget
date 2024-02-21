@@ -17,10 +17,17 @@ export default defineConfig({
       target: "esnext",
       lib: {
          entry: resolve(__dirname, "src/lib/index.tsx"),
-         formats: ["es"],
+         formats: ["umd"],
+         name: "HolyWidget",
       },
       rollupOptions: {
-         external: ["react", "react/jsx-runtime"],
+         // external: ["react", "react/jsx-runtime"],
+         // output: {
+         //    globals: {
+         //       react: "React",
+         //       "react-dom": "ReactDOM",
+         //    },
+         // },
       },
    },
 });
