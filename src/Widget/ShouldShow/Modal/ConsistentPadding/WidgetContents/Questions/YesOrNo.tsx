@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-
+import { useState } from "react";
 export default function YesOrNo({ poll, sendResponse }) {
+   const [test, setTest] = useState("test");
    return (
       <div className="flex h-full w-full  flex-col gap-3">
          <p className="text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
