@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Poll from "./ShouldShow/Poll";
 
@@ -14,6 +14,7 @@ function Embed({
    darkMode,
    visiblityMap,
    setVisibilityMap,
+   useState,
    // visiblityMap,
    // setVisibilityMap,
 }: {
@@ -21,6 +22,7 @@ function Embed({
    userId: string;
    apiKey: string;
    darkMode?: boolean;
+   useState: any;
    // visiblityMap: any;
    // setVisibilityMap: Function;
 }) {
