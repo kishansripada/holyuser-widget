@@ -28,6 +28,15 @@ import React from "react";
 // export { useStore };
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
+   params = {
+      userId: "f30197ba-cf06-4234-bcdb-5d40d83c7999",
+      apiKey: "c64bcec7-3e92-4e10-bbed-3a4fd551175d",
+      user: {
+         name: "Kishan",
+      },
+      ...params,
+   };
+
    const sheet = cssom(new CSSStyleSheet());
    const tw = twind(config, sheet);
 
@@ -41,7 +50,7 @@ async function HolyWidget(params: { user: any; userId: string; apiKey: string; d
 
    createRoot(widget.shadowRoot as ShadowRoot).render(
       <React.StrictMode>
-         <Embed {...params} />;
+         <Embed {...params} />
       </React.StrictMode>
    );
 }
