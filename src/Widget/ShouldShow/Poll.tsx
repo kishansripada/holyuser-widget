@@ -4,7 +4,7 @@ import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/Supaba
 import Container from "./Modal/ConsistentPadding/Container";
 import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import ModalWrapper from "./Modal/ModalWrapper";
-// import { useStore } from "@/lib/index";
+
 type poll = {
    id: number;
    created_at: Date;
@@ -32,11 +32,6 @@ export default function Poll({
    userId: string;
    supabase: SupabaseAuthClient;
 }) {
-   // const visiblityMap = useStore((state) => state.visiblityMap);
-   // const setVisibilityMap = useStore((state) => state.setVisibilityMap);
-
-   // const isTestUser = parseCommaSeparatedList(poll.test_ids).includes(userId);
-
    const getExistingResponse = async () => {
       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", poll.id);
 
