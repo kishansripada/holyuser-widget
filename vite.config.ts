@@ -21,7 +21,7 @@ export default defineConfig({
          name: "HolyWidget",
       },
       rollupOptions: {
-         // external: ["react", "react/jsx-runtime"],
+         external: ["react", "react/jsx-runtime"],
          // output: {
          //    globals: {
          //       react: "React",

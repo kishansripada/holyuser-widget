@@ -8,6 +8,10 @@ import YesOrNo from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/
 import VerticalAnnouncement from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import Container from "@/Widget/ShouldShow/Modal/ConsistentPadding/Container";
 import ModalWrapper from "@/Widget/ShouldShow/Modal/ModalWrapper";
+import { useStore } from "@/Widget/Embed";
+import { createRoot } from "react-dom/client";
+import React from "react";
+
 // import { create } from "zustand";
 
 // interface Store {
@@ -23,39 +27,40 @@ import ModalWrapper from "@/Widget/ShouldShow/Modal/ModalWrapper";
 
 // export { useStore };
 
-// async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
-//    const sheet = cssom(new CSSStyleSheet());
-//    const tw = twind(config, sheet);
+async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
+   const sheet = cssom(new CSSStyleSheet());
+   const tw = twind(config, sheet);
 
-//    const widget = document.createElement("div");
-//    const shadowRoot = widget.attachShadow({ mode: "open" });
+   const widget = document.createElement("div");
+   const shadowRoot = widget.attachShadow({ mode: "open" });
 
-//    shadowRoot.adoptedStyleSheets = [sheet.target];
+   shadowRoot.adoptedStyleSheets = [sheet.target];
 
-//    observe(tw, shadowRoot);
-//    document.body.appendChild(widget);
+   observe(tw, shadowRoot);
+   document.body.appendChild(widget);
 
-//    createRoot(widget.shadowRoot as ShadowRoot).render(
-//       <React.StrictMode>
-//          <Embed {...params} />;
-//       </React.StrictMode>
-//    );
-// }
+   createRoot(widget.shadowRoot as ShadowRoot).render(
+      <React.StrictMode>
+         <Embed {...params} />;
+      </React.StrictMode>
+   );
+}
 
-// const holyTrigger = (pollId: string) => {
-//    useStore.getState().setVisibilityMap(pollId, true);
-// };
-
-const Test = () => {
-   return <div>Test, hello there</div>;
+const holyTrigger = (pollId: string) => {
+   useStore.getState().setVisibilityMap(pollId, true);
 };
+
+// const Test = () => {
+//    return <div>Test, hello there</div>;
+// };
 
 // export { holyTrigger };
 // export default Embed;
 // actual widget
-// (window as any).HolyWidget = HolyWidget;
-window.Test = Test;
+(window as any).HolyWidget = HolyWidget;
+// window.Test = Test;
 (window as any).Embed = Embed;
+(window as any).holyTrigger = holyTrigger;
 
 // export components
 (window as any).YesOrNo = YesOrNo;

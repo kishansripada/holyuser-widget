@@ -1,31 +1,26 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Poll from "./ShouldShow/Poll";
+import { create } from "zustand";
 
 const supabase = createClient(
    "https://cmdpjhmqoqpkfwxqdekb.supabase.co",
    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtZHBqaG1xb3Fwa2Z3eHFkZWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYzMTY5MTAsImV4cCI6MjAyMTg5MjkxMH0.YhScL14jXQKyzFIAsIh9y3tujE0metKzw_N4Gwhnezg"
 );
+interface Store {
+   visiblityMap: {};
+   setVisibilityMap: (id: string, value: boolean) => void;
+}
 
-function Embed({
-   user,
-   userId,
-   apiKey,
-   darkMode,
-   visiblityMap,
-   setVisibilityMap,
-   // visiblityMap,
-   // setVisibilityMap,
-}: {
-   user: any;
-   userId: string;
-   apiKey: string;
-   darkMode?: boolean;
-   visiblityMap: any;
-   setVisibilityMap: Function;
-}) {
-   // const visiblityMap = useStore((state) => state.visiblityMap);
-   // const setVisibilityMap = useStore((state) => state.setVisibilityMap);
+const useStore = create<Store>((set) => ({
+   visiblityMap: {},
+   setVisibilityMap: (id: string, value: boolean) => set((state) => ({ visiblityMap: { ...state.visiblityMap, [id]: value } })),
+   //    inc: () => set((state) => ({ count: state.count + 1 })),
+}));
+
+function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
+   const visiblityMap = useStore((state) => state.visiblityMap);
+   const setVisibilityMap = useStore((state) => state.setVisibilityMap);
 
    // console.log("from embed", visiblityMap);
    const [myPolls, setMyPolls] = useState([]);
@@ -81,4 +76,4 @@ function Embed({
    );
 }
 
-export { Embed };
+export { Embed, useStore };
