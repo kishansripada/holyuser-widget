@@ -4,7 +4,7 @@ export default function VerticalAnnouncement({ poll, sendResponse }: { poll: any
    return (
       <div className="flex h-full w-full flex-col gap-3">
          <div className="flex flex-row items-start justify-between">
-            <p className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
+            <p className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
             <button
                onClick={() => {
                   sendResponse({ option_id: "close" });
