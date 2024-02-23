@@ -12,21 +12,6 @@ import { useStore } from "@/Widget/Embed";
 import { createRoot } from "react-dom/client";
 import React from "react";
 
-// import { create } from "zustand";
-
-// interface Store {
-//    visiblityMap: {};
-//    setVisibilityMap: (id: string, value: boolean) => void;
-// }
-
-// const useStore = create<Store>((set) => ({
-//    visiblityMap: {},
-//    setVisibilityMap: (id: string, value: boolean) => set((state) => ({ visiblityMap: { ...state.visiblityMap, [id]: value } })),
-//    //    inc: () => set((state) => ({ count: state.count + 1 })),
-// }));
-
-// export { useStore };
-
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    params = {
       userId: "f30197ba-cf06-4234-bcdb-5d40d83c7999",
@@ -77,8 +62,8 @@ function incrementModalCount(modalName: string) {
    const cookieData = getCookieData();
    cookieData[modalName] = (cookieData[modalName] || 0) + 1;
 
-   // Set the updated cookie (add expiration options if needed)
-   document.cookie = `${COOKIE_NAME}=${encodeURIComponent(JSON.stringify(cookieData))}`;
+   // Set the updated cookie with path explicitly set to "/"
+   document.cookie = `${COOKIE_NAME}=${encodeURIComponent(JSON.stringify(cookieData))}; path=/`;
 }
 
 const holyTrigger = (pollId: string) => {
@@ -90,13 +75,6 @@ const holyTrigger = (pollId: string) => {
 
 const pattern = [3, 30, 100];
 
-// const Test = () => {
-//    return <div>Test, hello there</div>;
-// };
-
-// export { holyTrigger };
-// export default Embed;
-// actual widget
 (window as any).HolyWidget = HolyWidget;
 // window.Test = Test;
 (window as any).Embed = Embed;

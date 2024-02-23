@@ -37,7 +37,7 @@ export default function Poll({
 
       return data;
    };
-   console.log(visiblityMap);
+   // console.log(visiblityMap);
    useEffect(() => {
       let timerId;
       const filterFns = (poll.conditions || []).map((cond) => {
@@ -52,16 +52,16 @@ export default function Poll({
          }
       });
 
-      if (!poll.active || !passesAllFilters) return;
+      if (!passesAllFilters) return;
 
       // if (new Date(poll.active_until) < new Date()) return;
 
-      getExistingResponse().then((existingResponse) => {
-         if ((existingResponse || []).length) return;
-         timerId = setTimeout(() => {
-            setVisibilityMap(poll.id.toString(), true);
-         }, poll.time_delay_ms);
-      });
+      // getExistingResponse().then((existingResponse) => {
+      //    if ((existingResponse || []).length) return;
+      //    timerId = setTimeout(() => {
+      //       setVisibilityMap(poll.id.toString(), true);
+      //    }, poll.time_delay_ms);
+      // });
 
       // Create a reference to the timer
 
@@ -82,9 +82,10 @@ export default function Poll({
             sendResponse={sendResponse}
          >
             {poll.poll_data.type === "yesorno" ? (
-               <Container width={500}>
-                  <YesOrNo poll={poll} sendResponse={sendResponse} />
-               </Container>
+               // <Container width={500}>
+               //    <YesOrNo poll={poll} sendResponse={sendResponse} />
+               // </Container>
+               <></>
             ) : poll.poll_data.type === "announcement" ? (
                <Container width={500} height={500}>
                   <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
