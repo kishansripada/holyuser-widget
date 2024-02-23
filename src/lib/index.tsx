@@ -82,9 +82,13 @@ function incrementModalCount(modalName: string) {
 }
 
 const holyTrigger = (pollId: string) => {
+   const views = getCookieData();
+   if (!pattern.includes(views[pollId])) return;
    useStore.getState().setVisibilityMap(pollId, true);
    incrementModalCount(pollId);
 };
+
+const pattern = [3, 30, 100];
 
 // const Test = () => {
 //    return <div>Test, hello there</div>;
