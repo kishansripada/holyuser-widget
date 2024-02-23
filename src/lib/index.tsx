@@ -54,9 +54,36 @@ async function HolyWidget(params: { user: any; userId: string; apiKey: string; d
       </React.StrictMode>
    );
 }
+const COOKIE_NAME = "holy-user";
+
+interface ModalData {
+   [modalName: string]: number;
+}
+
+// Retrieves the existing cookie data (or initializes)
+function getCookieData(): ModalData {
+   const allCookies = document.cookie.split(";");
+   for (const cookieStr of allCookies) {
+      const [key, value] = cookieStr.split("=").map((part) => part.trim());
+      if (key === COOKIE_NAME) {
+         return JSON.parse(decodeURIComponent(value));
+      }
+   }
+   return {}; // Start with an empty object
+}
+
+// Updates a modal's view count
+function incrementModalCount(modalName: string) {
+   const cookieData = getCookieData();
+   cookieData[modalName] = (cookieData[modalName] || 0) + 1;
+
+   // Set the updated cookie (add expiration options if needed)
+   document.cookie = `${COOKIE_NAME}=${encodeURIComponent(JSON.stringify(cookieData))}`;
+}
 
 const holyTrigger = (pollId: string) => {
    useStore.getState().setVisibilityMap(pollId, true);
+   incrementModalCount(pollId);
 };
 
 // const Test = () => {
