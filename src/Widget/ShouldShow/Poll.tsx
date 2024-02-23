@@ -86,7 +86,7 @@ export default function Poll({
                   <YesOrNo poll={poll} sendResponse={sendResponse} />
                </Container>
             ) : poll.poll_data.type === "announcement" ? (
-               <Container width={500} height={700}>
+               <Container width={500} height={500}>
                   <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
                </Container>
             ) : null}

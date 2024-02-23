@@ -6,7 +6,7 @@ export const XIcon = () => {
          viewBox="0 0 24 24"
          strokeWidth={2}
          stroke="currentColor"
-         className="h-6 w-6 text-neutral-700 dark:text-neutral-300"
+         className="h-5 w-5 text-neutral-700 dark:text-neutral-300"
       >
          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
       </svg>
