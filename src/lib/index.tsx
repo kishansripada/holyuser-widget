@@ -73,7 +73,7 @@ const holyTrigger = (pollId: string) => {
    useStore.getState().setVisibilityMap(pollId, true);
 };
 
-const pattern = [3, 30, 100];
+const pattern = [1, 30, 100];
 
 (window as any).HolyWidget = HolyWidget;
 // window.Test = Test;
