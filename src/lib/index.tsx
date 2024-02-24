@@ -7,7 +7,7 @@ import { Embed } from "@/Widget/Embed";
 import YesOrNo from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import VerticalAnnouncement from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import Container from "@/Widget/ShouldShow/Modal/ConsistentPadding/Container";
-import ModalWrapper from "@/Widget/ShouldShow/Modal/ModalWrapper";
+import ModalWrapper from "@/Widget/ShouldShow/Modal/Modal";
 import { useStore } from "@/Widget/Embed";
 import { createRoot } from "react-dom/client";
 import React from "react";

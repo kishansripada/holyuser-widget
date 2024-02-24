@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import YesOrNo from "./Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
 import Container from "./Modal/ConsistentPadding/Container";
 import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
-import ModalWrapper from "./Modal/ModalWrapper";
+import Modal from "./Modal/Modal";
 
 type poll = {
    id: number;
@@ -76,22 +75,19 @@ export default function Poll({
 
    return (
       <>
-         <ModalWrapper
+         <Modal
             visible={visiblityMap[poll.id.toString()]}
             setVisible={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}
             sendResponse={sendResponse}
          >
-            {poll.poll_data.type === "yesorno" ? (
-               // <Container width={500}>
-               //    <YesOrNo poll={poll} sendResponse={sendResponse} />
-               // </Container>
-               <></>
-            ) : poll.poll_data.type === "announcement" ? (
+            {poll.poll_data.type === "modal" ? (
                <Container width={500} height={500}>
                   <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
                </Container>
-            ) : null}
-         </ModalWrapper>
+            ) : (
+               <></>
+            )}
+         </Modal>
       </>
    );
 }

@@ -1,4 +1,4 @@
-export default function ModalWrapper({
+export default function Modal({
    visible,
    setVisible,
    sendResponse,

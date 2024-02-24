@@ -1,6 +1,6 @@
 import VerticalAnnouncement from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import Container from "./Widget/ShouldShow/Modal/ConsistentPadding/Container";
-import ModalWrapper from "./Widget/ShouldShow/Modal/ModalWrapper";
+import ModalWrapper from "./Widget/ShouldShow/Modal/Modal";
 import YesOrNo from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import { Embed } from "./Widget/Embed";
 import { holyTrigger } from "@/lib/index";
