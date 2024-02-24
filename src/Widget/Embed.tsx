@@ -15,14 +15,12 @@ interface Store {
 const useStore = create<Store>((set) => ({
    visiblityMap: {},
    setVisibilityMap: (id: string, value: boolean) => set((state) => ({ visiblityMap: { ...state.visiblityMap, [id]: value } })),
-   //    inc: () => set((state) => ({ count: state.count + 1 })),
 }));
 
 function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    const visiblityMap = useStore((state) => state.visiblityMap);
    const setVisibilityMap = useStore((state) => state.setVisibilityMap);
 
-   // console.log("from embed", visiblityMap);
    const [myPolls, setMyPolls] = useState([]);
 
    const getMyPolls = async () => {
@@ -31,12 +29,12 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
       return activeAppPolls;
    };
 
-   const getSampleCount = async () => {
-      const { count } = await supabase.from("sample_data").select("*", { count: "exact" }).eq("app_id", apiKey);
-      return count;
-   };
+   // const getSampleCount = async () => {
+   //    const { count } = await supabase.from("sample_data").select("*", { count: "exact" }).eq("app_id", apiKey);
+   //    return count;
+   // };
 
-   const addSampleUser = async () => {
+   const addUser = async () => {
       // const { data, error } =
       await supabase.from("sample_data").upsert([{ app_id: apiKey, user_id: userId, user }]);
       // console.log(data);
@@ -44,13 +42,11 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
 
    useEffect(() => {
       if (!userId || !apiKey) return;
-      getSampleCount().then((count) => {
-         if ((count || 0) < 50) {
-            addSampleUser();
-         }
-         getMyPolls().then((res) => {
-            setMyPolls(res);
-         });
+
+      addUser();
+
+      getMyPolls().then((res) => {
+         setMyPolls(res);
       });
    }, []);
 
