@@ -35,7 +35,7 @@ export default function NotificationWrapper({
          <div
             style={{
                zIndex: HIGH_Z_INDEX,
-               translate: visible ? WIDTH + DISTANCE_FROM_EDGE : 0,
+               translate: !visible ? WIDTH + DISTANCE_FROM_EDGE : 0,
                pointerEvents: visible ? "all" : "none",
                top: position.includes("top") ? DISTANCE_FROM_EDGE : "auto",
                bottom: position.includes("bottom") ? DISTANCE_FROM_EDGE : "auto",
