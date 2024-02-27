@@ -74,7 +74,8 @@ const holyTrigger = (pollId: string) => {
    console.log({ triggerString });
    const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
    console.log({ triggerSchedule });
-   if (!triggerSchedule.includes(views[pollId])) return;
+   const numViews = views[pollId] || 0;
+   if (!triggerSchedule.includes(numViews.toString())) return;
    useStore.getState().setVisibilityMap(pollId, true);
 };
 
