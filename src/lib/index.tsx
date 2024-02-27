@@ -70,7 +70,7 @@ const holyTrigger = (pollId: string) => {
    incrementModalCount(pollId);
    const views = getCookieData();
    console.log(useStore.getState().polls);
-   const triggerString = useStore.getState().polls.find((poll) => poll.id === pollId)?.triggerSchedule || "";
+   const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
    console.log({ triggerString });
    const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
    console.log({ triggerSchedule });
