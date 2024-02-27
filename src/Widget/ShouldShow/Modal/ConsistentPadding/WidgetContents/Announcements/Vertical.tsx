@@ -19,7 +19,7 @@ export default function VerticalAnnouncement({ poll, sendResponse }: { poll: any
 
          <div className="h-full w-full overflow-hidden">
             <img
-               className="h-full w-full rounded-md rounded-xl border-neutral-300 object-cover dark:border-neutral-700"
+               className="h-full w-full rounded-md rounded-xl border border-neutral-300 object-cover dark:border-neutral-700"
                src={poll.poll_data.image_url}
                alt=""
             />
@@ -33,7 +33,6 @@ export default function VerticalAnnouncement({ poll, sendResponse }: { poll: any
                }}
                size={"sm"}
             >
-               {" "}
                Okay, let's go!
             </Button>
          </div>
