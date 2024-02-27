@@ -1,10 +1,12 @@
 import VerticalAnnouncement from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
-import Container from "./Widget/ShouldShow/Modal/ConsistentPadding/Container";
+import Container from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Container";
 import ModalWrapper from "./Widget/ShouldShow/Modal/Modal";
 import YesOrNo from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import { Embed } from "./Widget/Embed";
 import { holyTrigger } from "@/lib/index";
 import { useEffect, useState } from "react";
+import NotificationWrapper from "./Widget/ShouldShow/Notification/nofication-wrapper";
+import Notification from "./Widget/ShouldShow/Notification/notification";
 
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
@@ -30,6 +32,8 @@ const SAMPLE_YES_OR_NO = {
 function App() {
    const [RemoteComponent, setRemoteComponent] = useState(null);
 
+   const [visible, setVisible] = useState(false);
+
    useEffect(() => {
       const fetchComponent = async () => {
          const response = await fetch("https://widget.holyuser.com/holyuser.js");
@@ -45,11 +49,21 @@ function App() {
    }, []);
    return (
       <div className="  grid w-full grid-cols-3">
-         <ModalWrapper visible={true} setVisible={() => null}>
+         <button
+            onClick={() => {
+               setVisible(!visible);
+            }}
+         >
+            CLICK ME
+         </button>
+         <NotificationWrapper visible={visible} position="top-right">
+            <Notification setVisible={setVisible} poll={SAMPLE_ANNOUNCEMENT}></Notification>
+         </NotificationWrapper>
+         {/* <ModalWrapper visible={true} setVisible={() => null}>
             <Container height={574} width={461}>
                <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
             </Container>
-         </ModalWrapper>
+         </ModalWrapper> */}
          <div className=" w-full">
             <Container>
                <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>

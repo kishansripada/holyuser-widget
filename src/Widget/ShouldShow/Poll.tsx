@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
-import Container from "./Modal/ConsistentPadding/Container";
+import Container from "./Modal/ConsistentPadding/WidgetContents/Announcements/Container";
 import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import Modal from "./Modal/Modal";
+import NotificationWrapper from "./Notification/nofication-wrapper";
+import Notification from "./Notification/notification";
 
 type poll = {
    id: number;
@@ -75,19 +77,21 @@ export default function Poll({
 
    return (
       <>
-         <Modal
-            visible={visiblityMap[poll.id.toString()]}
-            setVisible={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}
-            sendResponse={sendResponse}
-         >
-            {poll.poll_data.type === "modal" ? (
+         {poll.poll_data.type === "modal" ? (
+            <Modal
+               visible={visiblityMap[poll.id.toString()]}
+               setVisible={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}
+               sendResponse={sendResponse}
+            >
                <Container width={poll.poll_data.image_url ? undefined : 500}>
                   <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
                </Container>
-            ) : (
-               <></>
-            )}
-         </Modal>
+            </Modal>
+         ) : (
+            <NotificationWrapper visible={visiblityMap[poll.id.toString()]} sendResponse={sendResponse} position="top-right">
+               <Notification poll={poll} sendResponse={sendResponse}></Notification>
+            </NotificationWrapper>
+         )}
       </>
    );
 }
