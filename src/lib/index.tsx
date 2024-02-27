@@ -75,6 +75,8 @@ const holyTrigger = (pollId: string) => {
 
 const pattern = [1, 30, 100];
 
+export { HolyWidget, holyTrigger };
+
 (window as any).HolyWidget = HolyWidget;
 // window.Test = Test;
 (window as any).Embed = Embed;

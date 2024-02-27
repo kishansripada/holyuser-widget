@@ -43,8 +43,22 @@ function App() {
 
       fetchComponent();
    }, []);
+   return (
+      <div className="  grid w-full grid-cols-3">
+         <ModalWrapper visible={true} setVisible={() => null}>
+            <Container height={574} width={461}>
+               <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
+            </Container>
+         </ModalWrapper>
+         <div className=" w-full">
+            <Container>
+               <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>
+            </Container>
+         </div>
+      </div>
+   );
 
-   return <div>{RemoteComponent ? <RemoteComponent /> : <div>Loading...</div>}</div>;
+   // return <div>{RemoteComponent ? <RemoteComponent /> : <div>Loading...</div>}</div>;
    // const [darkMode, setDarkMode] = useState(false);
 
    // return (
@@ -72,20 +86,6 @@ function App() {
       /* <Embed userId="f30197ba-cf06-4234-bcdb-5d40d83c7999" user={{ name: "Kishan" }} apiKey="c64bcec7-3e92-4e10-bbed-3a4fd551175d"></Embed> */
    }
 
-   {
-      /* <div className="grid w-full grid-cols-3">
-            <ModalWrapper visible={true} setVisible={() => null}>
-               <Container height={574} width={461}>
-                  <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
-               </Container>
-            </ModalWrapper>
-            <div className=" w-full">
-               <Container>
-                  <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>
-               </Container>
-            </div>
-         </div> */
-   }
    // </div>
    // );
 }

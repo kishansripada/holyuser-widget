@@ -4,7 +4,7 @@ import path, { resolve } from "path";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
-   plugins: [react(), dts({ include: ["lib"] })],
+   plugins: [react(), dts({ insertTypesEntry: true, include: ["src/lib/**/*"] })],
    define: {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development"),
    },
