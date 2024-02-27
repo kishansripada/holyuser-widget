@@ -3,7 +3,7 @@ import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/Supaba
 import Container from "./Modal/ConsistentPadding/WidgetContents/Announcements/Container";
 import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import Modal from "./Modal/Modal";
-import NotificationWrapper from "./Notification/nofication-wrapper";
+import NotificationWrapper from "./Notification/notification-wrapper";
 import Notification from "./Notification/notification";
 
 type poll = {

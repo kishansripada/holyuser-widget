@@ -28,7 +28,7 @@ export default function NotificationWrapper({
       return () => {
          clearTimeout(timer);
       };
-   }, []);
+   }, [visible]);
 
    return (
       <>

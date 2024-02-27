@@ -5,7 +5,7 @@ import YesOrNo from "./Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/
 import { Embed } from "./Widget/Embed";
 import { holyTrigger } from "@/lib/index";
 import { useEffect, useState } from "react";
-import NotificationWrapper from "./Widget/ShouldShow/Notification/nofication-wrapper";
+import NotificationWrapper from "./Widget/ShouldShow/Notification/notification-wrapper";
 import Notification from "./Widget/ShouldShow/Notification/notification";
 
 const SAMPLE_ANNOUNCEMENT = {
