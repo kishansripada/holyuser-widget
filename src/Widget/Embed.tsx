@@ -10,18 +10,27 @@ const supabase = createClient(
 interface Store {
    visiblityMap: {};
    setVisibilityMap: (id: string, value: boolean) => void;
+
+   polls: any[];
+   setPolls: (polls: any[]) => void;
 }
 
 const useStore = create<Store>((set) => ({
    visiblityMap: {},
    setVisibilityMap: (id: string, value: boolean) => set((state) => ({ visiblityMap: { ...state.visiblityMap, [id]: value } })),
+
+   polls: [],
+   setPolls: (polls) => set({ polls }),
 }));
 
 function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    const visiblityMap = useStore((state) => state.visiblityMap);
    const setVisibilityMap = useStore((state) => state.setVisibilityMap);
 
-   const [myPolls, setMyPolls] = useState([]);
+   const setPolls = useStore((state) => state.setPolls);
+   const polls = useStore((state) => state.polls);
+
+   // const [myPolls, setMyPolls] = useState([]);
 
    const getMyPolls = async () => {
       const { data: activeAppPolls } = await supabase.from("polls").select("*").eq("app_id", apiKey);
@@ -46,7 +55,7 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
       addUser();
 
       getMyPolls().then((res) => {
-         setMyPolls(res);
+         setPolls(res);
       });
    }, []);
 
@@ -55,7 +64,7 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
    // return <></>;
    return (
       <div className={`${darkMode ? "dark" : ""}`}>
-         {myPolls.map((poll) => {
+         {polls.map((poll) => {
             return (
                <Poll
                   visiblityMap={visiblityMap}

@@ -69,11 +69,11 @@ function incrementModalCount(modalName: string) {
 const holyTrigger = (pollId: string) => {
    incrementModalCount(pollId);
    const views = getCookieData();
-   if (!pattern.includes(views[pollId])) return;
+   const triggerString = useStore.getState().polls.find((poll) => poll.id === pollId)?.triggerSchedule || "";
+   const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
+   if (!triggerSchedule.includes(views[pollId])) return;
    useStore.getState().setVisibilityMap(pollId, true);
 };
-
-const pattern = [1, 30, 100];
 
 export { HolyWidget, holyTrigger };
 
