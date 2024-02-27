@@ -11,6 +11,7 @@ import ModalWrapper from "@/Widget/ShouldShow/Modal/Modal";
 import { useStore } from "@/Widget/Embed";
 import { createRoot } from "react-dom/client";
 import React from "react";
+import Notification from "@/Widget/ShouldShow/Notification/notification";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    params = {
@@ -90,6 +91,7 @@ export { HolyWidget, holyTrigger };
 // export components
 (window as any).YesOrNo = YesOrNo;
 (window as any).VerticalAnnouncement = VerticalAnnouncement;
+(window as any).Notification = Notification;
 
 // export helpers
 (window as any).Container = Container;
