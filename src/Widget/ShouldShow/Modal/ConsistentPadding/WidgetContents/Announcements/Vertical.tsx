@@ -18,7 +18,11 @@ export default function VerticalAnnouncement({ poll, sendResponse }: { poll: any
          <p className=" text-sm text-neutral-600 dark:text-neutral-400">{poll.poll_data.subtitle}</p>
 
          <div className="h-full w-full overflow-hidden  ">
-            <img className="h-full w-full rounded-md rounded-xl border object-cover" src={poll.poll_data.image_url} alt="" />
+            <img
+               className="h-full w-full rounded-md rounded-xl border-neutral-300 object-cover dark:border-neutral-700"
+               src={poll.poll_data.image_url}
+               alt=""
+            />
          </div>
 
          <div className="mt-1 flex flex-row items-center  justify-between border-neutral-300 font-medium dark:border-neutral-700 ">
