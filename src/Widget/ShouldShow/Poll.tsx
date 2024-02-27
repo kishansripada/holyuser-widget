@@ -81,7 +81,7 @@ export default function Poll({
             sendResponse={sendResponse}
          >
             {poll.poll_data.type === "modal" ? (
-               <Container>
+               <Container width={poll.poll_data.image_url ? undefined : 500}>
                   <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
                </Container>
             ) : (
