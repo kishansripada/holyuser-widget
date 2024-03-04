@@ -13,6 +13,9 @@ interface Store {
 
    polls: any[];
    setPolls: (polls: any[]) => void;
+
+   dbUser: any;
+   setDbUser: (dbUser: any) => void;
 }
 
 const useStore = create<Store>((set) => ({
@@ -21,6 +24,9 @@ const useStore = create<Store>((set) => ({
 
    polls: [],
    setPolls: (polls) => set({ polls }),
+
+   dbUser: {},
+   setDbUser: (dbUser) => set({ dbUser }),
 }));
 
 function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
@@ -30,7 +36,7 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
    const setPolls = useStore((state) => state.setPolls);
    const polls = useStore((state) => state.polls);
 
-   // const [myPolls, setMyPolls] = useState([]);
+   const setDbUser = useStore((state) => state.setDbUser);
 
    const getMyPolls = async () => {
       const { data: activeAppPolls } = await supabase.from("polls").select("*").eq("app_id", apiKey);
@@ -38,15 +44,16 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
       return activeAppPolls;
    };
 
-   // const getSampleCount = async () => {
-   //    const { count } = await supabase.from("sample_data").select("*", { count: "exact" }).eq("app_id", apiKey);
-   //    return count;
-   // };
-
    const addUser = async () => {
-      // const { data, error } =
-      await supabase.from("sample_data").upsert([{ app_id: apiKey, user_id: userId, user }]);
-      // console.log(data);
+      const dbUser = await supabase
+         .from("sample_data")
+         .upsert([{ app_id: apiKey, user_id: userId, user }])
+         .select("*");
+
+      setDbUser(dbUser);
+
+      // set holyuser cookie to user.dbUser.cookies
+      document.cookie = `${"holy-user"}=${encodeURIComponent(JSON.stringify(user.cookies))}; path=/`;
    };
 
    useEffect(() => {
