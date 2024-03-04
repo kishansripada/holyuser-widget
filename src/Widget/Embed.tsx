@@ -60,6 +60,7 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
          getMyPolls(apiKey),
       ]);
 
+      console.log(dbUser);
       // reset cookies to what's in DB
       setHolyCookie(dbUser.cookies);
 
