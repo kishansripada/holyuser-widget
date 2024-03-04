@@ -14,10 +14,10 @@ import Notification from "@/Widget/ShouldShow/Notification/notification";
 import { COOKIE_NAME, pushCookies, setHolyCookie } from "@/typesandconst";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
-   const { setUserId, setApiKey } = useStore();
+   // const { setUserId, setApiKey } = useStore();
 
-   setUserId(params.userId);
-   setApiKey(params.apiKey);
+   // setUserId(params.userId);
+   // setApiKey(params.apiKey);
 
    params = {
       userId: "f30197ba-cf06-4234-bcdb-5d40d83c7999",
