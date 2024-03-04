@@ -13,7 +13,7 @@ export default function NotificationWrapper({
 }) {
    const HIGH_Z_INDEX = 9999;
 
-   const DISTANCE_FROM_EDGE = 40;
+   const DISTANCE_FROM_EDGE = 20;
 
    const WIDTH = 400;
 
