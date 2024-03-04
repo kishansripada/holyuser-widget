@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Poll from "./ShouldShow/Poll";
 import { create } from "zustand";

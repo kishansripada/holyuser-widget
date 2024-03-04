@@ -11,7 +11,7 @@ import { useStore } from "@/Widget/Embed";
 import { createRoot } from "react-dom/client";
 import React from "react";
 import Notification from "@/Widget/ShouldShow/Notification/notification";
-import { COOKIE_NAME, pushCookies, setHolyCookie, updateOrAddUserInDb } from "@/typesandconst";
+import { COOKIE_NAME, pushCookies, setHolyCookie } from "@/typesandconst";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    const { setUserId, setApiKey } = useStore();
