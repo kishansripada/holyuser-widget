@@ -42,23 +42,37 @@ export default function NotificationWrapper({
             }}
             style={{
                zIndex: HIGH_Z_INDEX,
-               translate: !visible ? WIDTH + DISTANCE_FROM_EDGE : 0,
                pointerEvents: visible ? "all" : "none",
                top: position.includes("top") ? DISTANCE_FROM_EDGE : "auto",
                bottom: position.includes("bottom") ? DISTANCE_FROM_EDGE : "auto",
                left: position.includes("left") ? DISTANCE_FROM_EDGE : "auto",
                right: position.includes("right") ? DISTANCE_FROM_EDGE : "auto",
             }}
-            className=" absolute select-none  border-neutral-300 transition transition-[translate]  duration-[250] ease-in-out dark:border-neutral-700"
+            className=" absolute select-none  overflow-hidden  "
          >
             <div
-               style={{
-                  width: WIDTH,
-                  //   height: "100px",
+               onMouseEnter={() => {
+                  setHovering(true);
                }}
-               className="overflow-hidden rounded-xl border border-neutral-300 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-950"
+               onMouseLeave={() => {
+                  setHovering(false);
+               }}
+               style={{
+                  zIndex: HIGH_Z_INDEX,
+                  translate: !visible ? WIDTH + DISTANCE_FROM_EDGE : 0,
+                  pointerEvents: visible ? "all" : "none",
+               }}
+               className="  h-full w-full select-none border-neutral-300 transition transition-[translate]  duration-[250] ease-in-out dark:border-neutral-700"
             >
-               {children}
+               <div
+                  style={{
+                     width: WIDTH,
+                     //   height: "100px",
+                  }}
+                  className="overflow-hidden rounded-xl border border-neutral-300 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-950"
+               >
+                  {children}
+               </div>
             </div>
          </div>
       </>
