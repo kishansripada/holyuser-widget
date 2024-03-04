@@ -43,7 +43,7 @@ const useStore = create<Store>((set) => ({
 }));
 
 function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
-   const { setVisibilityMap, setPolls, polls, setDbUser, visiblityMap } = useStore();
+   const { setVisibilityMap, setPolls, polls, setDbUser, visiblityMap, setUserId, setApiKey } = useStore();
 
    const getMyPolls = async (apiKey: string) => {
       const { data: activeAppPolls } = await supabase.from("polls").select("*").eq("app_id", apiKey);
@@ -70,8 +70,6 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
    };
 
    useEffect(() => {
-      const { setUserId, setApiKey } = useStore();
-
       setUserId(userId);
       setApiKey(apiKey);
 
