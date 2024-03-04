@@ -11,6 +11,7 @@ export default function NotificationWrapper({
    children: any;
    position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
 }) {
+   const [hovering, setHovering] = useState(false);
    const HIGH_Z_INDEX = 9999;
 
    const DISTANCE_FROM_EDGE = 20;
@@ -19,7 +20,7 @@ export default function NotificationWrapper({
 
    useEffect(() => {
       let timer;
-      if (visible) {
+      if (visible && !hovering) {
          timer = setTimeout(() => {
             sendResponse({ option_id: "viewed" });
          }, 3000);
@@ -28,11 +29,17 @@ export default function NotificationWrapper({
       return () => {
          clearTimeout(timer);
       };
-   }, [visible]);
+   }, [visible, hovering]);
 
    return (
       <>
          <div
+            onMouseEnter={() => {
+               setHovering(true);
+            }}
+            onMouseLeave={() => {
+               setHovering(false);
+            }}
             style={{
                zIndex: HIGH_Z_INDEX,
                translate: !visible ? WIDTH + DISTANCE_FROM_EDGE : 0,
