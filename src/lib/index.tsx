@@ -3,7 +3,6 @@ import "construct-style-sheets-polyfill";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../../twind.config";
 import { Embed } from "@/Widget/Embed";
-// import { createRoot } from "react-dom/client";
 import YesOrNo from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
 import VerticalAnnouncement from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
 import Container from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Container";
@@ -12,8 +11,14 @@ import { useStore } from "@/Widget/Embed";
 import { createRoot } from "react-dom/client";
 import React from "react";
 import Notification from "@/Widget/ShouldShow/Notification/notification";
+import { COOKIE_NAME, pushCookies, setHolyCookie, updateOrAddUserInDb } from "@/typesandconst";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
+   const { setUserId, setApiKey } = useStore();
+
+   setUserId(params.userId);
+   setApiKey(params.apiKey);
+
    params = {
       userId: "f30197ba-cf06-4234-bcdb-5d40d83c7999",
       apiKey: "c64bcec7-3e92-4e10-bbed-3a4fd551175d",
@@ -40,7 +45,6 @@ async function HolyWidget(params: { user: any; userId: string; apiKey: string; d
       </React.StrictMode>
    );
 }
-const COOKIE_NAME = "holy-user";
 
 interface ModalData {
    [modalName: string]: number;
@@ -63,8 +67,8 @@ function incrementModalCount(modalName: string) {
    const cookieData = getCookieData();
    cookieData[modalName] = (cookieData[modalName] || 0) + 1;
 
-   // Set the updated cookie with path explicitly set to "/"
-   document.cookie = `${COOKIE_NAME}=${encodeURIComponent(JSON.stringify(cookieData))}; path=/`;
+   pushCookies(useStore.getState().apiKey, useStore.getState().userId, cookieData);
+   setHolyCookie(cookieData);
 }
 
 const holyTrigger = (pollId: string) => {

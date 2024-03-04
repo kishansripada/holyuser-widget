@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Poll from "./ShouldShow/Poll";
 import { create } from "zustand";
+import { dbUser, setHolyCookie, updateOrAddUserInDb } from "@/typesandconst";
 
 const supabase = createClient(
    "https://cmdpjhmqoqpkfwxqdekb.supabase.co",
@@ -14,8 +15,14 @@ interface Store {
    polls: any[];
    setPolls: (polls: any[]) => void;
 
-   dbUser: any;
-   setDbUser: (dbUser: any) => void;
+   dbUser: dbUser;
+   setDbUser: (dbUser: dbUser) => void;
+
+   userId: string;
+   setUserId: (userId: string) => void;
+
+   apiKey: string;
+   setApiKey: (apiKey: string) => void;
 }
 
 const useStore = create<Store>((set) => ({
@@ -27,48 +34,46 @@ const useStore = create<Store>((set) => ({
 
    dbUser: {},
    setDbUser: (dbUser) => set({ dbUser }),
+
+   apiKey: "",
+   setApiKey: (apiKey) => set({ apiKey }),
+
+   userId: "",
+   setUserId: (userId) => set({ userId }),
 }));
 
 function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
-   const visiblityMap = useStore((state) => state.visiblityMap);
-   const setVisibilityMap = useStore((state) => state.setVisibilityMap);
+   const { setVisibilityMap, setPolls, polls, setDbUser } = useStore();
 
-   const setPolls = useStore((state) => state.setPolls);
-   const polls = useStore((state) => state.polls);
-
-   const setDbUser = useStore((state) => state.setDbUser);
-
-   const getMyPolls = async () => {
+   const getMyPolls = async (apiKey: string) => {
       const { data: activeAppPolls } = await supabase.from("polls").select("*").eq("app_id", apiKey);
 
-      return activeAppPolls;
+      return activeAppPolls || [];
    };
 
-   const addUser = async () => {
-      const dbUser = await supabase
-         .from("sample_data")
-         .upsert([{ app_id: apiKey, user_id: userId, user }])
-         .select("*");
+   const getUserAndPolls = async () => {
+      if (!userId || !apiKey) return;
 
-      setDbUser(dbUser.data);
+      const [dbUser, polls] = await Promise.all([
+         // update user without cookies
+         updateOrAddUserInDb(apiKey, userId, user),
+         getMyPolls(apiKey),
+      ]);
 
-      // set holyuser cookie to user.dbUser.cookies
-      document.cookie = `${"holy-user"}=${encodeURIComponent(JSON.stringify(dbUser?.data?.cookies || {}))}; path=/`;
+      // reset cookies to what's in DB
+      setHolyCookie(dbUser.cookies);
+
+      // update user with cookies
+      setDbUser(dbUser);
+      setPolls(polls);
    };
 
    useEffect(() => {
-      if (!userId || !apiKey) return;
-
-      addUser();
-
-      getMyPolls().then((res) => {
-         setPolls(res);
-      });
+      getUserAndPolls();
    }, []);
 
    if (!userId || !apiKey) return <></>;
 
-   // return <></>;
    return (
       <div className={`${darkMode ? "dark" : ""}`}>
          {polls.map((poll) => {
