@@ -49,7 +49,7 @@ export default function NotificationWrapper({
                left: position.includes("left") ? DISTANCE_FROM_EDGE : "auto",
                right: position.includes("right") ? DISTANCE_FROM_EDGE : "auto",
             }}
-            className=" absolute select-none  border-neutral-300 transition transition-[translate]  duration-150 ease-in-out dark:border-neutral-700"
+            className=" absolute select-none  border-neutral-300 transition transition-[translate]  duration-[250] ease-in-out dark:border-neutral-700"
          >
             <div
                style={{
