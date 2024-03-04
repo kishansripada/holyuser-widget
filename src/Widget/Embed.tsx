@@ -50,10 +50,10 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
          .upsert([{ app_id: apiKey, user_id: userId, user }])
          .select("*");
 
-      setDbUser(dbUser);
+      setDbUser(dbUser.data);
 
       // set holyuser cookie to user.dbUser.cookies
-      document.cookie = `${"holy-user"}=${encodeURIComponent(JSON.stringify(user.cookies))}; path=/`;
+      document.cookie = `${"holy-user"}=${encodeURIComponent(JSON.stringify(dbUser?.data?.cookies || {}))}; path=/`;
    };
 
    useEffect(() => {
