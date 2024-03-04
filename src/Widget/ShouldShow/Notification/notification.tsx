@@ -4,7 +4,7 @@ export default function Notification({ poll, sendResponse }: { poll: any; sendRe
    return (
       <div className="flex h-full w-full flex-row justify-between gap-2 ">
          <div className="flex flex-col items-start gap-1  ">
-            <p className="font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
+            <p className="text-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
             <p className="text-xs text-neutral-600 dark:text-neutral-400">{poll.poll_data.subtitle}</p>
          </div>
 
