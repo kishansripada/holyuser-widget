@@ -70,6 +70,11 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
    };
 
    useEffect(() => {
+      const { setUserId, setApiKey } = useStore();
+
+      setUserId(userId);
+      setApiKey(apiKey);
+
       getUserAndPolls();
    }, []);
 
