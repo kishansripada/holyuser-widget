@@ -13,7 +13,9 @@ import React from "react";
 import Notification from "@/Widget/ShouldShow/Notification/notification";
 import { COOKIE_NAME, pushCookies, setHolyCookie } from "@/typesandconst";
 
-async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
+async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean; disabled?: boolean }) {
+   if (params.disabled) return;
+
    params = {
       userId: "f30197ba-cf06-4234-bcdb-5d40d83c7999",
       apiKey: "c64bcec7-3e92-4e10-bbed-3a4fd551175d",
