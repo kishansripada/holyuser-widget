@@ -44,7 +44,7 @@ const useStore = create<Store>((set) => ({
 
 function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
    const { setVisibilityMap, setPolls, polls, setDbUser, visiblityMap, setUserId, setApiKey } = useStore();
-
+   console.log(document.getElementById("object-controls"));
    const getMyPolls = async (apiKey: string) => {
       const { data: activeAppPolls } = await supabase.from("polls").select("*").eq("app_id", apiKey);
 

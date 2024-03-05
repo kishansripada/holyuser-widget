@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function VerticalAnnouncement({ poll, sendResponse }: { poll: any; sendResponse: Function }) {
    return (
-      <div className="flex h-full w-full flex-col gap-3 ">
+      <div className="flex h-full w-full flex-col gap-3  ">
          <div className="flex flex-row items-start justify-between  ">
             <p className=" text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
             <button
