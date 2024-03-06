@@ -25,13 +25,13 @@ export default function Poll({
    user,
    userId,
    supabase,
-   visiblityMap,
-   setVisibilityMap,
+   templates,
 }: {
    poll: poll;
    user: any;
    userId: string;
    supabase: SupabaseAuthClient;
+   templates: Record<string, React.ReactElement>;
 }) {
    const getExistingResponse = async () => {
       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", poll.id);
@@ -75,10 +75,12 @@ export default function Poll({
       let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };
 
+   const MyModal = templates.modal || Modal;
+
    return (
       <>
          {poll.poll_data.type === "modal" ? (
-            <Modal
+            <MyModal
                visible={visiblityMap[poll.id.toString()]}
                setVisible={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}
                sendResponse={sendResponse}
@@ -86,7 +88,7 @@ export default function Poll({
                <Container width={poll.poll_data.image_url ? undefined : 500}>
                   <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
                </Container>
-            </Modal>
+            </MyModal>
          ) : (
             <NotificationWrapper visible={visiblityMap[poll.id.toString()]} sendResponse={sendResponse} position="top-right">
                <Notification poll={poll} sendResponse={sendResponse}></Notification>

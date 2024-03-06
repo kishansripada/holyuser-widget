@@ -42,7 +42,19 @@ const useStore = create<Store>((set) => ({
    setUserId: (userId) => set({ userId }),
 }));
 
-function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; apiKey: string; darkMode?: boolean }) {
+function Embed({
+   user,
+   userId,
+   apiKey,
+   darkMode,
+   templates,
+}: {
+   user: any;
+   userId: string;
+   apiKey: string;
+   darkMode?: boolean;
+   templates?: Record<string, React.ReactElement>;
+}) {
    const { setVisibilityMap, setPolls, polls, setDbUser, visiblityMap, setUserId, setApiKey } = useStore();
    console.log(document.getElementById("object-controls"));
    const getMyPolls = async (apiKey: string) => {
@@ -90,6 +102,7 @@ function Embed({ user, userId, apiKey, darkMode }: { user: any; userId: string; 
                   userId={userId}
                   user={user}
                   poll={poll}
+                  templates={templates}
                />
             );
          })}
