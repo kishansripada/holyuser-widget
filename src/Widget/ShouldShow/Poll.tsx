@@ -79,20 +79,20 @@ export default function Poll({
       let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };
 
-   const MyModal = templates.modal || Modal;
+   const Announcement = templates.modal || VerticalAnnouncement;
 
    return (
       <>
          {poll.poll_data.type === "modal" ? (
-            <MyModal
+            <Modal
                visible={visiblityMap[poll.id.toString()]}
                setVisible={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}
                sendResponse={sendResponse}
             >
                <Container width={poll.poll_data.image_url ? undefined : 500}>
-                  <VerticalAnnouncement poll={poll} sendResponse={sendResponse} />
+                  <Announcement poll={poll} sendResponse={sendResponse} />
                </Container>
-            </MyModal>
+            </Modal>
          ) : (
             <NotificationWrapper visible={visiblityMap[poll.id.toString()]} sendResponse={sendResponse} position="top-right">
                <Notification poll={poll} sendResponse={sendResponse}></Notification>
