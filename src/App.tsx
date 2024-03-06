@@ -7,6 +7,7 @@ import { holyTrigger } from "@/lib/index";
 import { useEffect, useState } from "react";
 import NotificationWrapper from "./Widget/ShouldShow/Notification/notification-wrapper";
 import Notification from "./Widget/ShouldShow/Notification/notification";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
@@ -56,19 +57,21 @@ function App() {
          >
             CLICK ME
          </button>
-         <NotificationWrapper visible={visible} position="top-right">
+         {/* <NotificationWrapper visible={visible} position="top-right">
             <Notification setVisible={setVisible} poll={SAMPLE_ANNOUNCEMENT}></Notification>
-         </NotificationWrapper>
-         {/* <ModalWrapper visible={true} setVisible={() => null}>
-            <Container height={574} width={461}>
+         </NotificationWrapper> */}
+         <Dialog open={true} setVisible={() => null}>
+            <DialogContent>
+               {/* <Container height={574} width={461}> */}
                <VerticalAnnouncement poll={SAMPLE_ANNOUNCEMENT}></VerticalAnnouncement>
-            </Container>
-         </ModalWrapper> */}
-         <div className=" w-full">
+            </DialogContent>
+            {/* </Container> */}
+         </Dialog>
+         {/* <div className=" w-full">
             <Container>
                <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>
             </Container>
-         </div>
+         </div> */}
       </div>
    );
 

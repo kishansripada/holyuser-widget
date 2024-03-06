@@ -5,7 +5,7 @@ import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Annou
 import Modal from "./Modal/Modal";
 import NotificationWrapper from "./Notification/notification-wrapper";
 import Notification from "./Notification/notification";
-
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 type poll = {
    id: number;
    created_at: Date;
@@ -84,15 +84,19 @@ export default function Poll({
    return (
       <>
          {poll.poll_data.type === "modal" ? (
-            <Modal
-               visible={visiblityMap[poll.id.toString()]}
+            <Dialog
+               open={visiblityMap[poll.id.toString()]}
                setVisible={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}
                sendResponse={sendResponse}
             >
-               <Container width={poll.poll_data.image_url ? undefined : 500}>
+               <DialogContent>
+                  {/* <Modal> */}
+                  {/* <Container width={poll.poll_data.image_url ? undefined : 500}> */}
                   <Announcement poll={poll} sendResponse={sendResponse} />
-               </Container>
-            </Modal>
+                  {/* </Container> */}
+                  {/* </Modal> */}
+               </DialogContent>
+            </Dialog>
          ) : (
             <NotificationWrapper visible={visiblityMap[poll.id.toString()]} sendResponse={sendResponse} position="top-right">
                <Notification poll={poll} sendResponse={sendResponse}></Notification>
