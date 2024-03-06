@@ -26,12 +26,16 @@ export default function Poll({
    userId,
    supabase,
    templates,
+   visiblityMap,
+   setVisibilityMap,
 }: {
    poll: poll;
    user: any;
    userId: string;
    supabase: SupabaseAuthClient;
    templates: Record<string, React.ReactElement>;
+   visiblityMap: Record<string, boolean>;
+   setVisibilityMap: (pollId: string, visible: boolean) => void;
 }) {
    const getExistingResponse = async () => {
       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", poll.id);
