@@ -1,24 +1,12 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
+import { poll } from "@/typesandconst";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
-import Container from "./Modal/ConsistentPadding/WidgetContents/Announcements/Container";
-import VerticalAnnouncement from "./Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
-import Modal from "./Modal/Modal";
-import NotificationWrapper from "./Notification/notification-wrapper";
+
 import Notification from "./Notification/notification";
+import NotificationWrapper from "./Notification/notification-wrapper";
+
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-type poll = {
-   id: number;
-   created_at: Date;
-   title?: string | null;
-   user_id: string | null;
-   active_until?: Date | null;
-   poll_data: Record<string, any>;
-   time_delay_ms: number;
-   active: boolean;
-   conditions?: any[] | null;
-   app_id: string;
-   test_ids: string;
-};
+import DefaultModal from "./Modal/default-modal";
 
 export default function Poll({
    poll,
@@ -42,7 +30,7 @@ export default function Poll({
 
       return data;
    };
-   // console.log(visiblityMap);
+
    useEffect(() => {
       let timerId;
       const filterFns = (poll.conditions || []).map((cond) => {
@@ -79,22 +67,19 @@ export default function Poll({
       let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };
 
-   const Announcement = templates.modal || VerticalAnnouncement;
+   type ModalProps = {
+      poll: poll;
+      sendResponse: Function;
+   };
+
+   const Modal: FC<ModalProps> = typeof templates.modal === "function" ? templates.modal : DefaultModal;
 
    return (
       <>
          {poll.poll_data.type === "modal" ? (
-            <Dialog
-               open={visiblityMap[poll.id.toString()]}
-               setVisible={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}
-               sendResponse={sendResponse}
-            >
+            <Dialog open={visiblityMap[poll.id.toString()]} onOpenChange={(visible: boolean) => setVisibilityMap(poll.id.toString(), visible)}>
                <DialogContent>
-                  {/* <Modal> */}
-                  {/* <Container width={poll.poll_data.image_url ? undefined : 500}> */}
-                  <Announcement poll={poll} sendResponse={sendResponse} />
-                  {/* </Container> */}
-                  {/* </Modal> */}
+                  <Modal poll={poll} sendResponse={sendResponse} />
                </DialogContent>
             </Dialog>
          ) : (
@@ -104,10 +89,4 @@ export default function Poll({
          )}
       </>
    );
-}
-
-function parseCommaSeparatedList(input: string): string[] {
-   // Split the input string by comma and trim whitespace from each item
-   const items = input.split(",").map((item) => item.trim());
-   return items;
 }

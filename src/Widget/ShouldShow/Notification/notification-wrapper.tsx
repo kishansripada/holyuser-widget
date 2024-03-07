@@ -12,14 +12,13 @@ export default function NotificationWrapper({
    position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
 }) {
    const [hovering, setHovering] = useState(false);
+
    const HIGH_Z_INDEX = 9999;
-
    const DISTANCE_FROM_EDGE = 20;
-
    const WIDTH = 400;
 
    useEffect(() => {
-      let timer;
+      let timer: ReturnType<typeof setTimeout>;
       if (visible && !hovering) {
          timer = setTimeout(() => {
             sendResponse({ option_id: "viewed" });

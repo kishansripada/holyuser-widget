@@ -1,6 +1,6 @@
 import { XIcon } from "@/assets/icons";
 
-export default function Notification({ poll, sendResponse }: { poll: any; sendResponse: Function }) {
+export default function DefaultNotification({ poll, sendResponse }: { poll: any; sendResponse: Function }) {
    return (
       <div className="flex h-full w-full flex-row justify-between gap-2 ">
          <div className="flex flex-col items-start gap-1  ">

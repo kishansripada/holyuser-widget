@@ -1,7 +1,8 @@
 import { XIcon } from "@/assets/icons";
 import { Button } from "@/components/ui/button";
+import { poll } from "@/typesandconst";
 
-export default function VerticalAnnouncement({ poll, sendResponse }: { poll: any; sendResponse: Function }) {
+export default function DefaultModal({ poll, sendResponse }: { poll: poll; sendResponse: Function }) {
    return (
       <div className="flex h-full w-full flex-col gap-3 p-6  ">
          <div className="flex flex-row items-start justify-between  ">

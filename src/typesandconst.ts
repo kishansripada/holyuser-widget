@@ -9,6 +9,20 @@ export type dbUser = {
    cookies: Record<string, number>;
 };
 
+export type poll = {
+   id: number;
+   created_at: Date;
+   title?: string | null;
+   user_id: string | null;
+   active_until?: Date | null;
+   poll_data: Record<string, any>;
+   time_delay_ms: number;
+   active: boolean;
+   conditions?: any[] | null;
+   app_id: string;
+   test_ids: string;
+};
+
 export const COOKIE_NAME = "holy-user";
 
 const supabase = createClient(

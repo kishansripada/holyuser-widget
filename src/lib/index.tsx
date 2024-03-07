@@ -3,15 +3,16 @@ import "construct-style-sheets-polyfill";
 import { twind, cssom, observe } from "@twind/core";
 import config from "../../twind.config";
 import { Embed } from "@/Widget/Embed";
-import YesOrNo from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Questions/YesOrNo";
-import VerticalAnnouncement from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Vertical";
+
 import Container from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Container";
-import ModalWrapper from "@/Widget/ShouldShow/Modal/Modal";
+import ModalWrapper from "@/Widget/ShouldShow/Modal/_OLDModal";
 import { useStore } from "@/Widget/Embed";
 import { createRoot } from "react-dom/client";
 import React from "react";
-import Notification from "@/Widget/ShouldShow/Notification/notification";
+
 import { COOKIE_NAME, pushCookies, setHolyCookie } from "@/typesandconst";
+import DefaultModal from "@/Widget/ShouldShow/Modal/default-modal";
+import DefaultNotification from "@/Widget/ShouldShow/Notification/notification";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean; disabled?: boolean }) {
    if (params.disabled) return;
@@ -90,9 +91,9 @@ export { HolyWidget, holyTrigger };
 (window as any).holyTrigger = holyTrigger;
 
 // export components
-(window as any).YesOrNo = YesOrNo;
-(window as any).VerticalAnnouncement = VerticalAnnouncement;
-(window as any).Notification = Notification;
+// (window as any).YesOrNo = YesOrNo;
+(window as any).DefaultModal = DefaultModal;
+(window as any).DefaultNotification = DefaultNotification;
 
 // export helpers
 (window as any).Container = Container;
