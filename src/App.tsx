@@ -3,7 +3,7 @@ import { holyTrigger } from "@/lib/index";
 import { useEffect, useState } from "react";
 
 import NotificationWrapper from "./Widget/ShouldShow/Notification/notification-wrapper";
-import Notification from "./Widget/ShouldShow/Notification/notification";
+import Notification from "./Widget/ShouldShow/Notification/default-notification";
 
 import ModalWrapper from "./Widget/ShouldShow/Modal/modal-wrapper";
 import DefaultModal from "./Widget/ShouldShow/Modal/default-modal";

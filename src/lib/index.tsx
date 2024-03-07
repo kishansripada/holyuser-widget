@@ -12,7 +12,7 @@ import React from "react";
 
 import { COOKIE_NAME, pushCookies, setHolyCookie } from "@/typesandconst";
 import DefaultModal from "@/Widget/ShouldShow/Modal/default-modal";
-import DefaultNotification from "@/Widget/ShouldShow/Notification/notification";
+import DefaultNotification from "@/Widget/ShouldShow/Notification/default-notification";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean; disabled?: boolean }) {
    if (params.disabled) return;

@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { poll } from "@/typesandconst";
 import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
 
-import Notification from "./Notification/notification";
+import Notification from "./Notification/default-notification";
 import NotificationWrapper from "./Notification/notification-wrapper";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
