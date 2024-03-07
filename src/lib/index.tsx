@@ -4,8 +4,8 @@ import { twind, cssom, observe } from "@twind/core";
 import config from "../../twind.config";
 import { Embed } from "@/Widget/Embed";
 
-import Container from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Container";
-import ModalWrapper from "@/Widget/ShouldShow/Modal/_OLDModal";
+// import Container from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Container";
+// import ModalWrapper from "@/Widget/ShouldShow/Modal/_OLDModal";
 import { useStore } from "@/Widget/Embed";
 import { createRoot } from "react-dom/client";
 import React from "react";
@@ -96,5 +96,5 @@ export { HolyWidget, holyTrigger };
 (window as any).DefaultNotification = DefaultNotification;
 
 // export helpers
-(window as any).Container = Container;
-(window as any).ModalWrapper = ModalWrapper;
+// (window as any).Container = Container;
+// (window as any).ModalWrapper = ModalWrapper;
