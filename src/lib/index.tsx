@@ -13,6 +13,8 @@ import React from "react";
 import { COOKIE_NAME, pushCookies, setHolyCookie } from "@/typesandconst";
 import DefaultModal from "@/Widget/ShouldShow/Modal/default-modal";
 import DefaultNotification from "@/Widget/ShouldShow/Notification/default-notification";
+import ModalWrapper from "@/Widget/ShouldShow/Modal/modal-wrapper";
+import NotificationWrapper from "@/Widget/ShouldShow/Notification/notification-wrapper";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean; disabled?: boolean }) {
    if (params.disabled) return;
@@ -94,6 +96,9 @@ export { HolyWidget, holyTrigger };
 // (window as any).YesOrNo = YesOrNo;
 (window as any).DefaultModal = DefaultModal;
 (window as any).DefaultNotification = DefaultNotification;
+
+(window as any).ModalWrapper = ModalWrapper;
+(window as any).NotificationWrapper = NotificationWrapper;
 
 // export helpers
 // (window as any).Container = Container;

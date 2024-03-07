@@ -56,7 +56,7 @@ function Embed({
    templates?: Record<string, React.ReactElement>;
 }) {
    const { setVisibilityMap, setPolls, polls, setDbUser, visiblityMap, setUserId, setApiKey } = useStore();
-   console.log(document.getElementById("object-controls"));
+   // console.log(document.getElementById("object-controls"));
    const getMyPolls = async (apiKey: string) => {
       const { data: activeAppPolls } = await supabase.from("polls").select("*").eq("app_id", apiKey);
 
