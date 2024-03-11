@@ -7,6 +7,9 @@ import NotificationWrapper from "./Notification/notification-wrapper";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import DefaultModal from "./Modal/default-modal";
+import PopoverWrapper from "./Popover/popover-wrapper";
+import DefaultPopover from "./Popover/default-popover";
+import { send } from "process";
 
 export default function Poll({
    poll,
@@ -32,6 +35,7 @@ export default function Poll({
    };
 
    useEffect(() => {
+      setVisibilityMap(poll.id.toString(), poll.active);
       let timerId;
       const filterFns = (poll.conditions || []).map((cond) => {
          return new Function("user", `return ${cond.condition_string}`);
@@ -82,10 +86,14 @@ export default function Poll({
                   <Modal poll={poll} sendResponse={sendResponse} />
                </DialogContent>
             </Dialog>
-         ) : (
+         ) : poll.poll_data.type === "notification" ? (
             <NotificationWrapper visible={visiblityMap[poll.id.toString()]} sendResponse={sendResponse} position="top-right">
                <Notification poll={poll} sendResponse={sendResponse}></Notification>
             </NotificationWrapper>
+         ) : (
+            <PopoverWrapper visible={visiblityMap[poll.id.toString()]} sendResponse={sendResponse}>
+               <DefaultPopover poll={poll} sendResponse={send}></DefaultPopover>
+            </PopoverWrapper>
          )}
       </>
    );
