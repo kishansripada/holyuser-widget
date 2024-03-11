@@ -91,8 +91,8 @@ export default function Poll({
                <Notification poll={poll} sendResponse={sendResponse}></Notification>
             </NotificationWrapper>
          ) : (
-            <PopoverWrapper visible={visiblityMap[poll.id.toString()]} sendResponse={sendResponse}>
-               <DefaultPopover poll={poll} sendResponse={send}></DefaultPopover>
+            <PopoverWrapper anchor={poll.poll_data.anchor} visible={visiblityMap[poll.id.toString()]} sendResponse={sendResponse}>
+               <DefaultPopover poll={poll} sendResponse={sendResponse}></DefaultPopover>
             </PopoverWrapper>
          )}
       </>
