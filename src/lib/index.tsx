@@ -15,6 +15,8 @@ import DefaultModal from "@/Widget/ShouldShow/Modal/default-modal";
 import DefaultNotification from "@/Widget/ShouldShow/Notification/default-notification";
 import ModalWrapper from "@/Widget/ShouldShow/Modal/modal-wrapper";
 import NotificationWrapper from "@/Widget/ShouldShow/Notification/notification-wrapper";
+import PopoverWrapper from "@/Widget/ShouldShow/Popover/popover-wrapper";
+import DefaultPopover from "@/Widget/ShouldShow/Popover/default-popover";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean; disabled?: boolean }) {
    if (params.disabled) return;
@@ -100,6 +102,8 @@ export { HolyWidget, holyTrigger };
 (window as any).ModalWrapper = ModalWrapper;
 (window as any).NotificationWrapper = NotificationWrapper;
 
+(window as any).PopoverWrapper = PopoverWrapper;
+(window as any).DefaultPopover = DefaultPopover;
 // export helpers
 // (window as any).Container = Container;
 // (window as any).ModalWrapper = ModalWrapper;

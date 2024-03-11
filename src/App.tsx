@@ -7,6 +7,9 @@ import Notification from "./Widget/ShouldShow/Notification/default-notification"
 
 import ModalWrapper from "./Widget/ShouldShow/Modal/modal-wrapper";
 import DefaultModal from "./Widget/ShouldShow/Modal/default-modal";
+import { Popover } from "./components/ui/popover";
+import PopoverWrapper from "./Widget/ShouldShow/Popover/popover-wrapper";
+import DefaultPopover from "./Widget/ShouldShow/Popover/default-popover";
 
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
@@ -39,15 +42,25 @@ function App() {
          >
             CLICK ME
          </button>
+         <div className="grid h-screen w-full place-items-center">
+            <div data-hyperuser="audio">hi there</div>
+         </div>
+
+         {/* <Popover open={true}> */}
+         <PopoverWrapper visible={true} side="right" anchor="audio">
+            <DefaultPopover poll={SAMPLE_ANNOUNCEMENT}></DefaultPopover>
+         </PopoverWrapper>
+         {/* </Popover> */}
+
          {/* <NotificationWrapper visible={visible} position="top-right">
             <Notification setVisible={setVisible} poll={SAMPLE_ANNOUNCEMENT}></Notification>
          </NotificationWrapper> */}
-         <ModalWrapper open={true} setVisible={() => null}>
-            {/* <Container height={574} width={461}> */}
-            <DefaultModal poll={SAMPLE_ANNOUNCEMENT}></DefaultModal>
-            <></>
-            {/* </Container> */}
-         </ModalWrapper>
+         {/* <ModalWrapper open={false} setVisible={() => null}> */}
+         {/* <Container height={574} width={461}> */}
+         {/* <DefaultModal poll={SAMPLE_ANNOUNCEMENT}></DefaultModal> */}
+         <></>
+         {/* </Container> */}
+         {/* </ModalWrapper> */}
          {/* <div className=" w-full">
             <Container>
                <YesOrNo poll={SAMPLE_YES_OR_NO}></YesOrNo>
