@@ -35,7 +35,7 @@ export default function Poll({
    };
 
    useEffect(() => {
-      setVisibilityMap(poll.id.toString(), poll.active && process?.env?.NODE_ENV === "development");
+      setVisibilityMap(poll.id.toString(), poll.active && window.location.hostname === "localhost");
       let timerId;
       const filterFns = (poll.conditions || []).map((cond) => {
          return new Function("user", `return ${cond.condition_string}`);
