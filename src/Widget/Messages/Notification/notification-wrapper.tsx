@@ -60,14 +60,18 @@ export default function NotificationWrapper({
                style={{
                   zIndex: HIGH_Z_INDEX,
                   translate: !visible ? WIDTH + DISTANCE_FROM_EDGE : 0,
+
                   pointerEvents: visible ? "all" : "none",
                   transitionDuration: "400ms",
+                  opacity: visible ? 1 : 0,
+                  transitionProperty: "opacity, translate",
                }}
-               className="  h-full w-full select-none border-neutral-300 transition transition-[translate]  ease-in-out dark:border-neutral-700"
+               className="  h-full w-full select-none border-neutral-300 transition   ease-in-out dark:border-neutral-700"
             >
                <div
                   style={{
                      width: WIDTH,
+
                      //   height: "100px",
                   }}
                   className="overflow-hidden rounded-xl border border-neutral-300 bg-white dark:border-neutral-700 dark:bg-neutral-950"
