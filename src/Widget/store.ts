@@ -1,17 +1,21 @@
 import { create } from "zustand";
+import { deployment } from "@/typesandconst";
 
 interface Store {
    activeDeployments: {};
    setActiveDeployments: (id: string, value: boolean) => void;
 
-   polls: any[];
-   setPolls: (polls: any[]) => void;
+   messages: any[];
+   setMessages: (polls: any[]) => void;
 
-   deployments: any[];
-   setDeployments: (deployments: any[]) => void;
+   deployments: deployment[];
+   setDeployments: (deployments: deployment[]) => void;
 
-   dbUser: dbUser;
-   setDbUser: (dbUser: dbUser) => void;
+   userWithCookies: dbUser;
+   setUserWithCookies: (dbUser: dbUser) => void;
+
+   audiences: any[];
+   setAudiences: (audiences: any[]) => void;
 
    userId: string;
    setUserId: (userId: string) => void;
@@ -24,14 +28,17 @@ export const useStore = create<Store>((set) => ({
    activeDeployments: {},
    setActiveDeployments: (id: string, value: boolean) => set((state) => ({ activeDeployments: { ...state.activeDeployments, [id]: value } })),
 
-   polls: [],
-   setPolls: (polls) => set({ polls }),
+   messages: [],
+   setMessages: (messages) => set({ messages }),
 
    deployments: [],
    setDeployments: (deployments) => set({ deployments }),
 
-   dbUser: {},
-   setDbUser: (dbUser) => set({ dbUser }),
+   audiences: [],
+   setAudiences: (audiences) => set({ audiences }),
+
+   userWithCookies: {},
+   setUserWithCookies: (userWithCookies) => set({ userWithCookies }),
 
    apiKey: "",
    setApiKey: (apiKey) => set({ apiKey }),

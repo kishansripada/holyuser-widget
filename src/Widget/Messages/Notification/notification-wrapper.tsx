@@ -45,7 +45,8 @@ export default function NotificationWrapper({
                top: position.includes("top") ? DISTANCE_FROM_EDGE : "auto",
                bottom: position.includes("bottom") ? DISTANCE_FROM_EDGE : "auto",
                left: position.includes("left") ? DISTANCE_FROM_EDGE : "auto",
-               right: position.includes("right") ? DISTANCE_FROM_EDGE : "auto",
+               right: position.includes("right") ? 0 : "auto",
+               width: DISTANCE_FROM_EDGE + WIDTH,
             }}
             className=" absolute select-none  overflow-hidden  "
          >
@@ -60,8 +61,9 @@ export default function NotificationWrapper({
                   zIndex: HIGH_Z_INDEX,
                   translate: !visible ? WIDTH + DISTANCE_FROM_EDGE : 0,
                   pointerEvents: visible ? "all" : "none",
+                  transitionDuration: "400ms",
                }}
-               className="  h-full w-full select-none border-neutral-300 transition transition-[translate]  duration-[400] ease-in-out dark:border-neutral-700"
+               className="  h-full w-full select-none border-neutral-300 transition transition-[translate]  ease-in-out dark:border-neutral-700"
             >
                <div
                   style={{

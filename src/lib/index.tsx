@@ -4,17 +4,17 @@ import "construct-style-sheets-polyfill";
 import { COOKIE_NAME, pushCookies, setHolyCookie } from "@/typesandconst";
 import { cssom, observe, twind } from "@twind/core";
 
-import DefaultModal from "@/Widget/ShouldShow/Modal/default-modal";
-import DefaultNotification from "@/Widget/ShouldShow/Notification/default-notification";
-import DefaultPopover from "@/Widget/ShouldShow/Popover/default-popover";
+import DefaultModal from "@/Widget/Messages/Modal/default-modal";
+import DefaultNotification from "@/Widget/Messages/Notification/default-notification";
+import DefaultPopover from "@/Widget/Messages/Popover/default-popover";
 import { Embed } from "@/Widget/Embed";
-import ModalWrapper from "@/Widget/ShouldShow/Modal/modal-wrapper";
-import NotificationWrapper from "@/Widget/ShouldShow/Notification/notification-wrapper";
-import PopoverWrapper from "@/Widget/ShouldShow/Popover/popover-wrapper";
+import ModalWrapper from "@/Widget/Messages/Modal/modal-wrapper";
+import NotificationWrapper from "@/Widget/Messages/Notification/notification-wrapper";
+import PopoverWrapper from "@/Widget/Messages/Popover/popover-wrapper";
 import React from "react";
 import config from "../../twind.config";
 import { createRoot } from "react-dom/client";
-import { useStore } from "@/Widget/Embed";
+import { useStore } from "@/Widget/store";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean; disabled?: boolean }) {
    if (params.disabled) return;
@@ -66,7 +66,7 @@ export function getCookieData(): ModalData {
 export function deploymentWasTriggered(deploymentId: string) {
    const cookieData = getCookieData();
    cookieData[deploymentId] = (cookieData[deploymentId] || 0) + 1;
-   console.log(cookieData);
+
    pushCookies(useStore.getState().apiKey, useStore.getState().userId, cookieData);
    setHolyCookie(cookieData);
 }

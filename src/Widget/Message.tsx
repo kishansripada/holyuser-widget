@@ -1,29 +1,33 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { FC, useEffect } from "react";
 
-import DefaultModal from "./Modal/default-modal";
-import DefaultPopover from "./Popover/default-popover";
-import Notification from "./Notification/default-notification";
-import NotificationWrapper from "./Notification/notification-wrapper";
-import PopoverWrapper from "./Popover/popover-wrapper";
-import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
+import DefaultModal from "./Messages/Modal/default-modal";
+import DefaultPopover from "./Messages/Popover/default-popover";
+import ModalWrapper from "./Messages/Modal/modal-wrapper";
+import Notification from "./Messages/Notification/default-notification";
+import NotificationWrapper from "./Messages/Notification/notification-wrapper";
+import PopoverWrapper from "./Messages/Popover/popover-wrapper";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { poll } from "@/typesandconst";
+import { useStore } from "./store";
 
 export default function Message({
    message,
-   user,
-   userId,
    supabase,
    templates,
    setCurrentMessageId,
+   buttonClick,
+   visible,
 }: {
    message: poll;
-   user: any;
-   userId: string;
-   supabase: SupabaseAuthClient;
+   supabase: SupabaseClient<any, "public", any>;
    templates: Record<string, React.ReactElement>;
    setCurrentMessageId: Function;
+   buttonClick: Function;
+   visible: boolean;
 }) {
+   const { userId, userWithCookies } = useStore();
+
    const getExistingResponse = async () => {
       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", message.id);
 
@@ -39,7 +43,7 @@ export default function Message({
 
       const passesAllFilters = filterFns.every((fn) => {
          try {
-            fn(user);
+            fn(userWithCookies);
          } catch {
             console.log("error");
          }
@@ -80,18 +84,20 @@ export default function Message({
    return (
       <>
          {message.poll_data.type === "modal" ? (
-            <Dialog open={true} onOpenChange={(visible: boolean) => setVisibilityMap(message.id.toString(), visible)}>
-               <DialogContent>
-                  <Modal poll={message} sendResponse={sendResponse} />
-               </DialogContent>
-            </Dialog>
-         ) : message.poll_data.type === "notification" ? (
-            <NotificationWrapper visible={true} sendResponse={sendResponse} position="top-right">
-               <Notification poll={message} sendResponse={sendResponse}></Notification>
+            // <Dialog open={true} onOpenChange={(visible: boolean) => setVisibilityMap(message.id.toString(), visible)}>
+            //    <DialogContent>
+            <ModalWrapper visible={visible} buttonClick={buttonClick}>
+               <Modal poll={message} sendResponse={buttonClick} />
+            </ModalWrapper>
+         ) : //    </DialogContent>
+         // </Dialog>
+         message.poll_data.type === "notification" ? (
+            <NotificationWrapper visible={visible} sendResponse={buttonClick} position="top-right">
+               <Notification poll={message} sendResponse={buttonClick}></Notification>
             </NotificationWrapper>
          ) : (
-            <PopoverWrapper anchor={message.anchor} visible={true} sendResponse={sendResponse}>
-               <DefaultPopover poll={message} sendResponse={sendResponse}></DefaultPopover>
+            <PopoverWrapper anchor={message.anchor} visible={visible} sendResponse={buttonClick}>
+               <DefaultPopover poll={message} sendResponse={buttonClick}></DefaultPopover>
             </PopoverWrapper>
          )}
       </>

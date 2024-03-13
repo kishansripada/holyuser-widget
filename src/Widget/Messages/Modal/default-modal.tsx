@@ -1,5 +1,5 @@
-import { XIcon } from "@/assets/icons";
 import { Button } from "@/components/ui/button";
+import { XIcon } from "@/assets/icons";
 import { poll } from "@/typesandconst";
 
 export default function DefaultModal({ poll, sendResponse }: { poll: poll; sendResponse: Function }) {

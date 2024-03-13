@@ -14,13 +14,18 @@ export type poll = {
    created_at: Date;
    title?: string | null;
    user_id: string | null;
-   active_until?: Date | null;
    poll_data: Record<string, any>;
-   time_delay_ms: number;
    active: boolean;
-   conditions?: any[] | null;
    app_id: string;
-   test_ids: string;
+};
+
+export type deployment = {
+   id: string;
+   created_at: Date;
+   data_tree: any;
+   is_live: boolean; // No longer optional
+   app_id: string; // No longer optional
+   name: string; // No longer optional
 };
 
 export const COOKIE_NAME = "hyperuser";
@@ -33,16 +38,6 @@ export const supabase = createClient(
 export const setHolyCookie = (cookieObject: dbUser["cookies"]) => {
    if (!cookieObject) return;
    document.cookie = `${COOKIE_NAME}=${encodeURIComponent(JSON.stringify(cookieObject))}; path=/`;
-};
-
-export const updateOrAddUserInDb = async (apiKey: string, userId: string, user: string) => {
-   const dbUser = await supabase
-      .from("sample_data")
-      .upsert([{ app_id: apiKey, user_id: userId, user }])
-      .select("*")
-      .single();
-
-   return dbUser.data;
 };
 
 export const pushCookies = async (apiKey: string, userId: string, cookies: dbUser["cookies"]) => {

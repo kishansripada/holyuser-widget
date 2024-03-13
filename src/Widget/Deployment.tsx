@@ -1,30 +1,25 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { FC, useEffect, useState } from "react";
 import { deploymentWasTriggered, getCookieData } from "@/lib";
 
-import DefaultModal from "./ShouldShow/Modal/default-modal";
-import Message from "./ShouldShow/Message";
-import Poll from "./ShouldShow/Message";
-import { SupabaseAuthClient } from "@supabase/supabase-js/dist/module/lib/SupabaseAuthClient";
+import DefaultModal from "./Messages/Modal/default-modal";
+import Message from "./Message";
+import { SupabaseClient } from "@supabase/supabase-js";
+import { deployment } from "@/typesandconst";
 import { useStore } from "./store";
 
 export default function Deployment({
    deployment,
-   user,
-   userId,
    supabase,
    templates,
 }: {
-   supabase: SupabaseAuthClient;
-   userId: string;
-   user: any;
-   deployment: any;
+   supabase: SupabaseClient<any, "public", any>;
+   deployment: deployment;
    templates: Record<string, React.ReactElement>;
 }) {
-   const { setActiveDeployments, activeDeployments, polls } = useStore();
+   const { setActiveDeployments, activeDeployments, messages, userId } = useStore();
 
    const [currentMessageId, setCurrentMessageId] = useState<string>(deployment.data_tree.nodes[0].message_id);
-   const currentMessage = polls.find((poll) => poll.id === currentMessageId);
+   const currentMessage = messages.find((message) => message.id === currentMessageId);
 
    //    const getExistingResponse = async () => {
    //       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", poll.id);
@@ -68,8 +63,9 @@ export default function Deployment({
       //   return () => clearTimeout(timerId);
    }, []); // Pass an empty dependency array if you only want to run the effect once
 
-   const sendResponse = async (response_data) => {
-      //   setVisibilityMap(poll.id, false);
+   const buttonClick = async (response_data) => {
+      setActiveDeployments(deployment.id, false);
+
       let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };
 
@@ -80,16 +76,26 @@ export default function Deployment({
 
    const Modal: FC<ModalProps> = typeof templates?.modal === "function" ? templates.modal : DefaultModal;
 
-   if (!activeDeployments[deployment.id]) return <></>;
+   //    if (!activeDeployments[deployment.id]) return <></>;
+
+   console.log(messages);
    return (
-      <Message
-         setCurrentMessageId={setCurrentMessageId}
-         supabase={supabase}
-         key={currentMessage.id}
-         userId={userId}
-         user={user}
-         message={currentMessage}
-         templates={templates}
-      />
+      <>
+         {messages.map((message) => {
+            return (
+               <div key={message.id}>
+                  <Message
+                     visible={currentMessage === message.id || activeDeployments[deployment.id]}
+                     key={currentMessage.id}
+                     setCurrentMessageId={setCurrentMessageId}
+                     supabase={supabase}
+                     message={currentMessage}
+                     templates={templates}
+                     buttonClick={buttonClick}
+                  />
+               </div>
+            );
+         })}
+      </>
    );
 }

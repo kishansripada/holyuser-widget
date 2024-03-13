@@ -1,14 +1,14 @@
+import { holyTrigger, startHyperDeployment } from "@/lib/index";
 import { useEffect, useState } from "react";
 
-import DefaultModal from "./Widget/ShouldShow/Modal/default-modal";
-import DefaultPopover from "./Widget/ShouldShow/Popover/default-popover";
+import DefaultModal from "./Widget/Messages/Modal/default-modal";
+import DefaultPopover from "./Widget/Messages/Popover/default-popover";
 import { Embed } from "./Widget/Embed";
-import ModalWrapper from "./Widget/ShouldShow/Modal/modal-wrapper";
-import Notification from "./Widget/ShouldShow/Notification/default-notification";
-import NotificationWrapper from "./Widget/ShouldShow/Notification/notification-wrapper";
+import ModalWrapper from "./Widget/Messages/Modal/modal-wrapper";
+import Notification from "./Widget/Messages/Notification/default-notification";
+import NotificationWrapper from "./Widget/Messages/Notification/notification-wrapper";
 import { Popover } from "./components/ui/popover";
-import PopoverWrapper from "./Widget/ShouldShow/Popover/popover-wrapper";
-import { holyTrigger } from "@/lib/index";
+import PopoverWrapper from "./Widget/Messages/Popover/popover-wrapper";
 
 const SAMPLE_ANNOUNCEMENT = {
    poll_data: {
@@ -50,6 +50,7 @@ function App() {
 
          <button
             onClick={() => {
+               startHyperDeployment("361c86ac-48eb-43ff-b4a4-37b27adab398");
                // setVisible(!visible);
             }}
          >
