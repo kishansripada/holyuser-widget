@@ -22,8 +22,10 @@ import presetAutoprefix from "@twind/preset-autoprefix";
 // }
 // presetRemToPx()
 export default defineConfig({
+
     darkMode: 'class',
     presets: [presetAutoprefix(), presetTailwind(/* options */)],
+
     theme: {
         extend: {
             colors: {
@@ -31,7 +33,8 @@ export default defineConfig({
                     950: "#0A0A0A"
                 }
             }
-        }
+        },
+
     }
     /* config */
 });

@@ -1,46 +1,9 @@
-import { useEffect, useState } from "react";
+import { dbUser, setHolyCookie, supabase, updateOrAddUserInDb } from "@/typesandconst";
+
+import Deployment from "./Deployment";
 import { createClient } from "@supabase/supabase-js";
-import Poll from "./ShouldShow/Poll";
-import { create } from "zustand";
-import { dbUser, setHolyCookie, updateOrAddUserInDb } from "@/typesandconst";
-
-const supabase = createClient(
-   "https://cmdpjhmqoqpkfwxqdekb.supabase.co",
-   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNtZHBqaG1xb3Fwa2Z3eHFkZWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDYzMTY5MTAsImV4cCI6MjAyMTg5MjkxMH0.YhScL14jXQKyzFIAsIh9y3tujE0metKzw_N4Gwhnezg"
-);
-interface Store {
-   visiblityMap: {};
-   setVisibilityMap: (id: string, value: boolean) => void;
-
-   polls: any[];
-   setPolls: (polls: any[]) => void;
-
-   dbUser: dbUser;
-   setDbUser: (dbUser: dbUser) => void;
-
-   userId: string;
-   setUserId: (userId: string) => void;
-
-   apiKey: string;
-   setApiKey: (apiKey: string) => void;
-}
-
-const useStore = create<Store>((set) => ({
-   visiblityMap: {},
-   setVisibilityMap: (id: string, value: boolean) => set((state) => ({ visiblityMap: { ...state.visiblityMap, [id]: value } })),
-
-   polls: [],
-   setPolls: (polls) => set({ polls }),
-
-   dbUser: {},
-   setDbUser: (dbUser) => set({ dbUser }),
-
-   apiKey: "",
-   setApiKey: (apiKey) => set({ apiKey }),
-
-   userId: "",
-   setUserId: (userId) => set({ userId }),
-}));
+import { useEffect } from "react";
+import { useStore } from "./store";
 
 function Embed({
    user,
@@ -55,30 +18,38 @@ function Embed({
    darkMode?: boolean;
    templates?: Record<string, React.ReactElement>;
 }) {
-   const { setVisibilityMap, setPolls, polls, setDbUser, visiblityMap, setUserId, setApiKey } = useStore();
-   // console.log(document.getElementById("object-controls"));
-   const getMyPolls = async (apiKey: string) => {
-      const { data: activeAppPolls } = await supabase.from("polls").select("*").eq("app_id", apiKey);
+   const { activeDeployments, setActiveDeployments, setPolls, setDbUser, setUserId, setApiKey, setDeployments, deployments } = useStore();
 
-      return activeAppPolls || [];
+   const getMessages = async (apiKey: string) => {
+      const { data: messages } = await supabase.from("polls").select("*").eq("app_id", apiKey);
+
+      return messages || [];
+   };
+
+   const getDeployments = async (apiKey: string) => {
+      const { data: deployments } = await supabase.from("deployments").select("*").eq("app_id", apiKey);
+
+      return deployments || [];
    };
 
    const getUserAndPolls = async () => {
       if (!userId || !apiKey) return;
 
-      const [dbUser, polls] = await Promise.all([
+      const [dbUser, polls, deployments] = await Promise.all([
          // update user without cookies
          updateOrAddUserInDb(apiKey, userId, user),
-         getMyPolls(apiKey),
+         getMessages(apiKey),
+         getDeployments(apiKey),
       ]);
+      console.log(deployments);
 
-      console.log(dbUser);
       // reset cookies to what's in DB
       setHolyCookie(dbUser.cookies);
 
-      // update user with cookies
+      // put and polls in store
       setDbUser(dbUser);
       setPolls(polls);
+      setDeployments(deployments);
    };
 
    useEffect(() => {
@@ -92,22 +63,24 @@ function Embed({
 
    return (
       <div className={`${darkMode ? "dark" : ""}`}>
-         {polls.map((poll) => {
-            return (
-               <Poll
-                  visiblityMap={visiblityMap}
-                  setVisibilityMap={setVisibilityMap}
-                  supabase={supabase}
-                  key={poll.id}
-                  userId={userId}
-                  user={user}
-                  poll={poll}
-                  templates={templates}
-               />
-            );
-         })}
+         {deployments
+            .filter((deployment) => deployment.is_live)
+            .map((deployment) => {
+               return (
+                  <Deployment
+                     key={deployment.id}
+                     // isActive={activeDeployments[deployment.id.toString()]}
+                     setActiveDeployments={setActiveDeployments}
+                     supabase={supabase}
+                     userId={userId}
+                     user={user}
+                     deployment={deployment}
+                     templates={templates}
+                  />
+               );
+            })}
       </div>
    );
 }
 
-export { Embed, useStore };
+export { Embed };

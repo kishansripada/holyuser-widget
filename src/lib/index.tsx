@@ -1,22 +1,20 @@
 // import React from "react";
 import "construct-style-sheets-polyfill";
-import { twind, cssom, observe } from "@twind/core";
-import config from "../../twind.config";
-import { Embed } from "@/Widget/Embed";
-
-// import Container from "@/Widget/ShouldShow/Modal/ConsistentPadding/WidgetContents/Announcements/Container";
-// import ModalWrapper from "@/Widget/ShouldShow/Modal/_OLDModal";
-import { useStore } from "@/Widget/Embed";
-import { createRoot } from "react-dom/client";
-import React from "react";
 
 import { COOKIE_NAME, pushCookies, setHolyCookie } from "@/typesandconst";
+import { cssom, observe, twind } from "@twind/core";
+
 import DefaultModal from "@/Widget/ShouldShow/Modal/default-modal";
 import DefaultNotification from "@/Widget/ShouldShow/Notification/default-notification";
+import DefaultPopover from "@/Widget/ShouldShow/Popover/default-popover";
+import { Embed } from "@/Widget/Embed";
 import ModalWrapper from "@/Widget/ShouldShow/Modal/modal-wrapper";
 import NotificationWrapper from "@/Widget/ShouldShow/Notification/notification-wrapper";
 import PopoverWrapper from "@/Widget/ShouldShow/Popover/popover-wrapper";
-import DefaultPopover from "@/Widget/ShouldShow/Popover/default-popover";
+import React from "react";
+import config from "../../twind.config";
+import { createRoot } from "react-dom/client";
+import { useStore } from "@/Widget/Embed";
 
 async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean; disabled?: boolean }) {
    if (params.disabled) return;
@@ -53,7 +51,7 @@ interface ModalData {
 }
 
 // Retrieves the existing cookie data (or initializes)
-function getCookieData(): ModalData {
+export function getCookieData(): ModalData {
    const allCookies = document.cookie.split(";");
    for (const cookieStr of allCookies) {
       const [key, value] = cookieStr.split("=").map((part) => part.trim());
@@ -65,34 +63,49 @@ function getCookieData(): ModalData {
 }
 
 // Updates a modal's view count
-function incrementModalCount(modalName: string) {
+export function deploymentWasTriggered(deploymentId: string) {
    const cookieData = getCookieData();
-   cookieData[modalName] = (cookieData[modalName] || 0) + 1;
-
+   cookieData[deploymentId] = (cookieData[deploymentId] || 0) + 1;
+   console.log(cookieData);
    pushCookies(useStore.getState().apiKey, useStore.getState().userId, cookieData);
    setHolyCookie(cookieData);
 }
 
-const holyTrigger = (pollId: string) => {
+const startHyperDeployment = (deploymentId: string) => {
    const views = getCookieData();
 
-   const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
+   // const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
 
-   const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
+   // const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
 
-   const numViews = (views[pollId] || 0) + 1;
-   if (triggerSchedule.includes(numViews.toString())) {
-      useStore.getState().setVisibilityMap(pollId, true);
-   }
-   incrementModalCount(pollId);
+   const numViews = (views[deploymentId] || 0) + 1;
+
+   // if (triggerSchedule.includes(numViews.toString())) {
+   useStore.getState().setActiveDeployments(deploymentId, true);
+   // }
+   deploymentWasTriggered(deploymentId);
 };
 
-export { HolyWidget, holyTrigger };
+const endHyperDeployment = (pollId: string) => {
+   const views = getCookieData();
+
+   // const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
+
+   // const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
+
+   const numViews = (views[pollId] || 0) + 1;
+   // if (triggerSchedule.includes(numViews.toString())) {
+   // useStore.getState().setVisibilityMap(pollId, false);
+   // }
+   deploymentWasTriggered(pollId);
+};
+
+export { HolyWidget, startHyperDeployment };
 
 (window as any).HolyWidget = HolyWidget;
 // window.Test = Test;
 (window as any).Embed = Embed;
-(window as any).holyTrigger = holyTrigger;
+(window as any).holyTrigger = startHyperDeployment;
 
 // export components
 // (window as any).YesOrNo = YesOrNo;
