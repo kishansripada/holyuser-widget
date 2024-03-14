@@ -83,24 +83,25 @@ export default function Deployment({
 
    //    if (!activeDeployments[deployment.id]) return <></>;
 
-   console.log(messages);
    return (
       <>
-         {messages.map((message) => {
-            return (
-               <div key={message.id}>
-                  <Message
-                     visible={currentMessage === message.id || activeDeployments[deployment.id]}
-                     key={currentMessage.id}
-                     setCurrentMessageId={setCurrentNodeId}
-                     supabase={supabase}
-                     message={message}
-                     templates={templates}
-                     buttonClick={buttonClick}
-                  />
-               </div>
-            );
-         })}
+         {messages
+            .filter((message) => message.id === currentMessageId)
+            .map((message) => {
+               return (
+                  <div key={message.id}>
+                     <Message
+                        visible={currentMessage === message.id || activeDeployments[deployment.id]}
+                        key={currentMessage.id}
+                        setCurrentMessageId={setCurrentNodeId}
+                        supabase={supabase}
+                        message={message}
+                        templates={templates}
+                        buttonClick={buttonClick}
+                     />
+                  </div>
+               );
+            })}
       </>
    );
 }
