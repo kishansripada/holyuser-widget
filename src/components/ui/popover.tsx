@@ -192,7 +192,6 @@ const Popover = React.forwardRef<
                   // data-side={preferredSide}
                   style={{
                      position: "absolute",
-
                      ...styles,
                   }}
                   className={cn(
@@ -217,7 +216,9 @@ const Popover = React.forwardRef<
                      />
                      <path className="fill-black" d="M4 28h36v8H4z" />
                   </svg>
-                  {children}
+
+                  <p className=" text-wrap">{JSON.stringify(targetRect)}</p>
+                  {/* {children} */}
                </div>
                // </PopoverPrimitive.Portal>
             )}
