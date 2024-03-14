@@ -196,7 +196,7 @@ const Popover = React.forwardRef<
                         ...styles,
                      }}
                      className={cn(
-                        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2  z-50 w-72 rounded-md border border-neutral-200 bg-white  text-neutral-950 shadow-md outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50"
+                        "data-[state=open]:animate-in  data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2  z-50 w-72 rounded-md border border-neutral-200 bg-white  text-neutral-950 shadow-md outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50"
                      )}
                      {...props}
                   >
@@ -210,11 +210,10 @@ const Popover = React.forwardRef<
                         viewBox="4 3 36 33"
                      >
                         <path
-                           fill="#fff"
-                           stroke="#E5E5E5"
+                           className="fill-white stroke-neutral-300 dark:fill-black dark:stroke-neutral-700"
                            d="M23.665 4.75 37.09 28c.962 1.667-.241 3.75-2.166 3.75H8.077c-1.925 0-3.128-2.083-2.165-3.75L19.335 4.75c.962-1.667 3.368-1.667 4.33 0Z"
                         />
-                        <path fill="#fff" d="M4 28h36v8H4z" />
+                        <path className="fill-white dark:fill-black" d="M4 28h36v8H4z" />
                      </svg>
                      {children}
                   </div>
