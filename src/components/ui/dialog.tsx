@@ -2,8 +2,8 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as React from "react";
 
 import { cn } from "@/utils";
-// import { X } from "lucide-react";
 
+// import { X } from "lucide-react";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -32,7 +32,9 @@ const DialogContent = React.forwardRef<
    React.ElementRef<typeof DialogPrimitive.Content>,
    React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
-   <DialogPortal>
+   // <DialogPortal>
+   <>
+      {" "}
       <DialogOverlay />
       <DialogPrimitive.Content
          ref={ref}
@@ -44,11 +46,13 @@ const DialogContent = React.forwardRef<
       >
          {children}
          {/* <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-neutral-100 data-[state=open]:text-neutral-500 dark:ring-offset-neutral-950 dark:focus:ring-neutral-300 dark:data-[state=open]:bg-neutral-800 dark:data-[state=open]:text-neutral-400">
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-         </DialogPrimitive.Close> */}
+         <X className="h-4 w-4" />
+         <span className="sr-only">Close</span>
+      </DialogPrimitive.Close> */}
       </DialogPrimitive.Content>
-   </DialogPortal>
+   </>
+
+   // </DialogPortal>
 ));
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
