@@ -16,57 +16,62 @@ export default function Deployment({
    deployment: deployment;
    templates: Record<string, React.ReactElement>;
 }) {
-   const { setActiveDeployments, activeDeployments, messages, userId } = useStore();
+   const { setActiveDeployments, activeDeployments, messages, userId, audiences, userWithCookies } = useStore();
 
-   const [currentMessageId, setCurrentMessageId] = useState<string>(deployment.data_tree.nodes[0].message_id);
+   const nodes = deployment.data_tree.nodes;
+   const [currentNodeId, setCurrentNodeId] = useState<string>(deployment.data_tree.nodes[0].id);
+   const currentMessageId = nodes.find((node) => node.id === currentNodeId)?.message_id;
    const currentMessage = messages.find((message) => message.id === currentMessageId);
 
-   //    const getExistingResponse = async () => {
-   //       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", poll.id);
-
-   //       return data;
-   //    };
-   //    console.log(currentMessageId);
    useEffect(() => {
       if (!currentMessage) return;
 
-      const cookies = getCookieData();
-
-      // if deployment is on load, set it to active
-      if (deployment.data_tree.initialTrigger === "page_load" && !cookies[deployment.id]) {
-         setActiveDeployments(deployment.id, true);
-         deploymentWasTriggered(deployment.id);
+      const audience = audiences.find((audience) => audience.id === deployment.data_tree.initialAudience);
+      if (!audience) {
+         console.error("Could not find that audience");
+         return;
       }
 
-      //   setVisibilityMap(poll.id.toString(), poll.active && window.location.hostname === "localhost");
-      //   let timerId;
-      //   const filterFns = deployment.data_tree.initialAudience.map((cond) => {
-      //      return new Function("user", `return ${cond.condition_string}`);
-      //   });
-      //   const passesAllFilters = filterFns.every((fn) => {
-      //      try {
-      //         fn(user);
-      //      } catch {
-      //         console.log("error");
-      //      }
-      //   });
-      //   if (!passesAllFilters) return;
-      // if (new Date(poll.active_until) < new Date()) return;
-      // getExistingResponse().then((existingResponse) => {
-      //    if ((existingResponse || []).length) return;
-      //    timerId = setTimeout(() => {
-      //       setVisibilityMap(poll.id.toString(), true);
-      //    }, poll.time_delay_ms);
-      // });
-      // Create a reference to the timer
-      // // Clean up the timer when the component unmounts or when dependencies change
-      //   return () => clearTimeout(timerId);
-   }, []); // Pass an empty dependency array if you only want to run the effect once
+      const user = userWithCookies.user;
+
+      const filterFns = audience.conditions.map((condition) => {
+         return new Function("user", `return ${condition.condition_string}`);
+      });
+
+      const passesAllFilters = filterFns.every((fn: (user: any) => boolean) => {
+         try {
+            return fn(user);
+         } catch {
+            console.log("error");
+         }
+      });
+
+      // must be in the audience
+      if (!passesAllFilters) return;
+      console.log("passes all filters");
+
+      // trigger here if it's a page load
+      if (deployment.data_tree.initialTrigger !== "page_load") return;
+
+      // should not have already seen the deployment
+      const cookies = getCookieData();
+      // if (cookies[deployment.id]) return;
+
+      delay(deployment?.data_tree?.initialTriggerDelay || 0);
+
+      setActiveDeployments(deployment.id, true);
+      deploymentWasTriggered(deployment.id);
+   }, []);
 
    const buttonClick = async (response_data) => {
-      setActiveDeployments(deployment.id, false);
+      const nextNode = deployment.data_tree.nodes.find((node) => node.parent_id === currentNodeId);
+      if (nextNode) {
+         setCurrentNodeId(nextNode.id);
+      } else {
+         setActiveDeployments(deployment.id, false);
+      }
 
-      let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
+      // let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };
 
    type ModalProps = {
@@ -87,7 +92,7 @@ export default function Deployment({
                   <Message
                      visible={currentMessage === message.id || activeDeployments[deployment.id]}
                      key={currentMessage.id}
-                     setCurrentMessageId={setCurrentMessageId}
+                     setCurrentMessageId={setCurrentNodeId}
                      supabase={supabase}
                      message={currentMessage}
                      templates={templates}
@@ -98,4 +103,10 @@ export default function Deployment({
          })}
       </>
    );
+}
+
+function delay(ms: number): Promise<void> {
+   return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+   });
 }

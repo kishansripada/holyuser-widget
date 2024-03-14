@@ -23,9 +23,9 @@ export type deployment = {
    id: string;
    created_at: Date;
    data_tree: any;
-   is_live: boolean; // No longer optional
-   app_id: string; // No longer optional
-   name: string; // No longer optional
+   is_live: boolean;
+   app_id: string;
+   name: string;
 };
 
 export const COOKIE_NAME = "hyperuser";

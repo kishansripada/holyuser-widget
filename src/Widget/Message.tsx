@@ -84,14 +84,10 @@ export default function Message({
    return (
       <>
          {message.poll_data.type === "modal" ? (
-            // <Dialog open={true} onOpenChange={(visible: boolean) => setVisibilityMap(message.id.toString(), visible)}>
-            //    <DialogContent>
             <ModalWrapper visible={visible} buttonClick={buttonClick}>
                <Modal poll={message} sendResponse={buttonClick} />
             </ModalWrapper>
-         ) : //    </DialogContent>
-         // </Dialog>
-         message.poll_data.type === "notification" ? (
+         ) : message.poll_data.type === "notification" ? (
             <NotificationWrapper visible={visible} sendResponse={buttonClick} position="top-right">
                <Notification poll={message} sendResponse={buttonClick}></Notification>
             </NotificationWrapper>
