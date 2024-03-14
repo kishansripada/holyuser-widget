@@ -49,8 +49,10 @@ const Popover = React.forwardRef<
       setPopoverHeight(popoverHeight);
 
       setPreferredSide(newPrefferedSide);
+      console.log({ preferredSide });
 
       if (preferredSide === "bottom" || preferredSide === "top") {
+         console.log("shoud not reach here");
          const necessaryDistanceFromSide = (popoverWidth - targetRect.width) / 2 + PADDING_FROM_VIEWPORT;
          const exceedsLeft = spaceLeft - necessaryDistanceFromSide < 0;
          const exceedsRight = spaceRight - necessaryDistanceFromSide < 0;
@@ -59,6 +61,8 @@ const Popover = React.forwardRef<
             setPopoverOverflowSide("left");
          } else if (exceedsRight) {
             setPopoverOverflowSide("right");
+         } else {
+            setPopoverOverflowSide(null);
          }
       }
 
@@ -71,6 +75,8 @@ const Popover = React.forwardRef<
             setPopoverOverflowSide("top");
          } else if (exceedsBottom) {
             setPopoverOverflowSide("bottom");
+         } else {
+            setPopoverOverflowSide(null);
          }
       }
    }, [targetRect, ref.current]);
@@ -171,8 +177,6 @@ const Popover = React.forwardRef<
                      )}
                      {...props}
                   >
-                     <p>{preferredSide}</p>
-                     <p>{popoverOverflowSide}</p>
                      {/* <svg
                         style={{
                            left: 20,
