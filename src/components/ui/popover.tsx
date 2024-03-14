@@ -157,6 +157,29 @@ const Popover = React.forwardRef<
       return styles;
    })();
 
+   const arrowStyles = (() => {
+      let styles = {};
+
+      if (!popoverHeight || !popoverWidth) return styles;
+
+      if (preferredSide === "bottom") {
+         styles = { left: 20, top: 11.5 };
+      }
+
+      if (preferredSide === "top") {
+         styles = { left: "50%", bottom: -32, transform: "rotate(180deg)" };
+      }
+
+      if (preferredSide === "right") {
+         styles = { left: -31.5, top: "50%", transform: "rotate(-90deg)" };
+      }
+
+      if (preferredSide === "left") {
+         styles = { right: -31.5, top: "50%", transform: "rotate(90deg)" };
+      }
+      return styles;
+   })();
+
    return (
       <>
          <PopoverPrimitive.Root open={props.open}>
@@ -177,11 +200,11 @@ const Popover = React.forwardRef<
                      )}
                      {...props}
                   >
-                     {/* <svg
+                     <svg
                         style={{
-                           left: 20,
+                           ...arrowStyles,
                         }}
-                        className="absolute top-[11.5px]  h-[43px] w-[43px] -translate-y-full"
+                        className="absolute   h-[43px] w-[43px] -translate-y-full"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="4 3 36 33"
@@ -192,7 +215,7 @@ const Popover = React.forwardRef<
                            d="M23.665 4.75 37.09 28c.962 1.667-.241 3.75-2.166 3.75H8.077c-1.925 0-3.128-2.083-2.165-3.75L19.335 4.75c.962-1.667 3.368-1.667 4.33 0Z"
                         />
                         <path fill="#fff" d="M4 28h36v8H4z" />
-                     </svg> */}
+                     </svg>
                      {children}
                   </div>
                </PopoverPrimitive.Portal>
