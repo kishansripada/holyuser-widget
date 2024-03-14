@@ -65,6 +65,7 @@ export default function Deployment({
 
    const buttonClick = async (response_data) => {
       const nextNode = deployment.data_tree.nodes.find((node) => node.parent_id === currentNodeId);
+      console.log("nextNode", nextNode);
       if (nextNode) {
          setCurrentNodeId(nextNode.id);
       } else {
