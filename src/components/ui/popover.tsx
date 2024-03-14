@@ -216,18 +216,6 @@ const Popover = React.forwardRef<
                   )}
                   {...props}
                >
-                  <button
-                     onClick={() => {
-                        const popoverWidth = ref.current?.offsetWidth || 0; // Get width if the content is rendered
-                        setPopoverWidth(popoverWidth);
-                        const popoverHeight = ref.current?.offsetHeight || 0;
-                        setPopoverHeight(popoverHeight);
-                     }}
-                  >
-                     CLICK ME
-                  </button>
-                  <p>{popoverHeight}</p>
-                  <p>{popoverWidth}</p>
                   <svg
                      style={{
                         ...arrowStyles,
