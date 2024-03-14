@@ -192,7 +192,7 @@ const Popover = React.forwardRef<
                   // data-side={preferredSide}
                   style={{
                      position: "absolute",
-                     opacity: 0.5,
+
                      ...styles,
                   }}
                   className={cn(
