@@ -171,6 +171,8 @@ const Popover = React.forwardRef<
                      )}
                      {...props}
                   >
+                     <p>{preferredSide}</p>
+                     <p>{popoverOverflowSide}</p>
                      {/* <svg
                         style={{
                            left: 20,
