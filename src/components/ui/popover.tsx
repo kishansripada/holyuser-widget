@@ -28,6 +28,25 @@ const Popover = React.forwardRef<
    const ref = React.useRef();
 
    React.useEffect(() => {
+      const resizeObserver = new ResizeObserver((entries) => {
+         for (let entry of entries) {
+            // Only interested in contentRect
+            if (entry.target === ref.current && entry.contentRect) {
+               setPopoverWidth(entry.contentRect.width);
+               setPopoverHeight(entry.contentRect.height);
+            }
+         }
+      });
+
+      if (ref.current) {
+         resizeObserver.observe(ref.current);
+      }
+
+      // Cleanup on unmount
+      return () => resizeObserver.disconnect();
+   }, [ref.current]);
+
+   React.useEffect(() => {
       if (!targetRect) return;
       let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
       let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
@@ -42,11 +61,6 @@ const Popover = React.forwardRef<
 
       const newPrefferedSide =
          smallestSpace === spaceAbove ? "bottom" : smallestSpace === spaceBelow ? "top" : smallestSpace === spaceLeft ? "right" : "left";
-
-      const popoverWidth = ref.current?.offsetWidth || 0; // Get width if the content is rendered
-      setPopoverWidth(popoverWidth);
-      const popoverHeight = ref.current?.offsetHeight || 0;
-      setPopoverHeight(popoverHeight);
 
       setPreferredSide(newPrefferedSide);
       console.log({ preferredSide });
@@ -82,7 +96,7 @@ const Popover = React.forwardRef<
             setPopoverOverflowSide(null);
          }
       }
-   }, [targetRect, ref.current]);
+   }, [targetRect, ref.current, popoverHeight, popoverWidth]);
 
    const PADDING_FROM_ELEMENT = 20;
    const PADDING_FROM_VIEWPORT = 20;
@@ -202,6 +216,16 @@ const Popover = React.forwardRef<
                   )}
                   {...props}
                >
+                  <button
+                     onClick={() => {
+                        const popoverWidth = ref.current?.offsetWidth || 0; // Get width if the content is rendered
+                        setPopoverWidth(popoverWidth);
+                        const popoverHeight = ref.current?.offsetHeight || 0;
+                        setPopoverHeight(popoverHeight);
+                     }}
+                  >
+                     CLICK ME
+                  </button>
                   <p>{popoverHeight}</p>
                   <p>{popoverWidth}</p>
                   <svg
