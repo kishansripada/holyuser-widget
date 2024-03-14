@@ -94,7 +94,7 @@ export default function Deployment({
                      key={currentMessage.id}
                      setCurrentMessageId={setCurrentNodeId}
                      supabase={supabase}
-                     message={currentMessage}
+                     message={message}
                      templates={templates}
                      buttonClick={buttonClick}
                   />
