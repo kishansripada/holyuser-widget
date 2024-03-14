@@ -202,8 +202,8 @@ const Popover = React.forwardRef<
                   )}
                   {...props}
                >
-                  <p>{preferredSide}</p>
-                  <p>{popoverOverflowSide}</p>
+                  <p>{popoverHeight}</p>
+                  <p>{popoverWidth}</p>
                   <svg
                      style={{
                         ...arrowStyles,
@@ -220,8 +220,7 @@ const Popover = React.forwardRef<
                      <path className="fill-black" d="M4 28h36v8H4z" />
                   </svg>
 
-                  <p className=" text-wrap">{JSON.stringify(targetRect)}</p>
-                  {/* {children} */}
+                  {children}
                </div>
                // </PopoverPrimitive.Portal>
             )}
