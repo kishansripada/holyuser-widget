@@ -98,7 +98,7 @@ const Popover = React.forwardRef<
       }
    }, [targetRect, ref.current, popoverHeight, popoverWidth]);
 
-   const PADDING_FROM_ELEMENT = 20;
+   const PADDING_FROM_ELEMENT = 40;
    const PADDING_FROM_VIEWPORT = 20;
 
    const styles = (() => {
