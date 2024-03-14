@@ -68,7 +68,10 @@ const Popover = React.forwardRef<
 
       if (preferredSide === "right" || preferredSide === "left") {
          const necessaryDistanceFromSide = (popoverHeight - targetRect.height) / 2 + PADDING_FROM_VIEWPORT;
+         console.log({ necessaryDistanceFromSide });
+         console.log({ popoverHeight });
          const exceedsTop = spaceAbove - necessaryDistanceFromSide < 0;
+         console.log({ spaceAbove });
          const exceedsBottom = spaceBelow - necessaryDistanceFromSide < 0;
 
          if (exceedsTop) {
