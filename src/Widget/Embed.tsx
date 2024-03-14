@@ -77,7 +77,7 @@ function Embed({
    if (!userId || !apiKey) return <></>;
 
    return (
-      <div className={`${darkMode ? "dark" : ""}`}>
+      <div id="lolol" className={`${darkMode ? "dark" : ""}`}>
          {deployments
             .filter((deployment) => deployment.is_live)
             .map((deployment) => {
