@@ -15,6 +15,8 @@ const Popover = React.forwardRef<
    const [popoverWidth, setPopoverWidth] = React.useState(0);
 
    const [popoverOverflowSide, setPopoverOverflowSide] = React.useState<"top" | "bottom" | "left" | "right" | null>(null);
+
+   const [exceedsBy, setExceedsBy] = React.useState(0);
    React.useEffect(() => {
       const targetElement = document.querySelectorAll(`[data-hyperuser="${anchor}"]`)[0];
 
@@ -90,13 +92,15 @@ const Popover = React.forwardRef<
 
       if (preferredSide === "bottom" || preferredSide === "top") {
          const necessaryDistanceFromSide = (popoverWidth - targetRect.width) / 2 + PADDING_FROM_VIEWPORT;
-         const exceedsLeft = spaceLeft - necessaryDistanceFromSide < 0;
-         const exceedsRight = spaceRight - necessaryDistanceFromSide < 0;
+         const exceedsLeft = spaceLeft - necessaryDistanceFromSide;
+         const exceedsRight = spaceRight - necessaryDistanceFromSide;
 
-         if (exceedsLeft) {
+         if (exceedsLeft < 0) {
             setPopoverOverflowSide("left");
-         } else if (exceedsRight) {
+            setExceedsBy(exceedsLeft);
+         } else if (exceedsRight < 0) {
             setPopoverOverflowSide("right");
+            setExceedsBy(exceedsRight);
          } else {
             setPopoverOverflowSide(null);
          }
@@ -105,14 +109,16 @@ const Popover = React.forwardRef<
       if (preferredSide === "right" || preferredSide === "left") {
          const necessaryDistanceFromSide = (popoverHeight - targetRect.height) / 2 + PADDING_FROM_VIEWPORT;
 
-         const exceedsTop = spaceAbove - necessaryDistanceFromSide < 0;
+         const exceedsTop = spaceAbove - necessaryDistanceFromSide;
 
-         const exceedsBottom = spaceBelow - necessaryDistanceFromSide < 0;
+         const exceedsBottom = spaceBelow - necessaryDistanceFromSide;
 
-         if (exceedsTop) {
+         if (exceedsTop < 0) {
             setPopoverOverflowSide("top");
-         } else if (exceedsBottom) {
+            setExceedsBy(exceedsTop);
+         } else if (exceedsBottom < 0) {
             setPopoverOverflowSide("bottom");
+            setExceedsBy(exceedsBottom);
          } else {
             setPopoverOverflowSide(null);
          }
@@ -165,7 +171,11 @@ const Popover = React.forwardRef<
          styles = {
             left: targetRect?.left - PADDING_FROM_ELEMENT,
 
-            top: popoverOverflowSide === "top" ? PADDING_FROM_VIEWPORT : targetRect?.top + targetRect?.height / 2,
+            ...(popoverOverflowSide === "top"
+               ? { top: PADDING_FROM_VIEWPORT }
+               : popoverOverflowSide === "bottom"
+                 ? { bottom: PADDING_FROM_VIEWPORT }
+                 : { top: targetRect?.top + targetRect?.height / 2 }),
 
             ...(!popoverOverflowSide
                ? {
@@ -179,7 +189,11 @@ const Popover = React.forwardRef<
       if (preferredSide === "right") {
          styles = {
             left: targetRect?.right + PADDING_FROM_ELEMENT,
-            top: popoverOverflowSide === "top" ? PADDING_FROM_VIEWPORT : targetRect?.top + targetRect?.height / 2,
+            ...(popoverOverflowSide === "top"
+               ? { top: PADDING_FROM_VIEWPORT }
+               : popoverOverflowSide === "bottom"
+                 ? { bottom: PADDING_FROM_VIEWPORT }
+                 : { top: targetRect?.top + targetRect?.height / 2 }),
 
             ...(!popoverOverflowSide
                ? {
@@ -201,19 +215,31 @@ const Popover = React.forwardRef<
       if (!popoverHeight || !popoverWidth) return styles;
 
       if (preferredSide === "bottom") {
-         styles = { left: 20, top: 11.5 };
+         styles = { left: popoverWidth / 2 + exceedsBy * (popoverOverflowSide === "right" ? -1 : 1), top: 11.5, transform: "translate(-50%, -100%)" };
       }
 
       if (preferredSide === "top") {
-         styles = { left: "50%", bottom: -32, transform: "rotate(180deg)" };
+         styles = {
+            left: popoverWidth / 2 + exceedsBy * (popoverOverflowSide === "right" ? -1 : 1),
+            bottom: -32,
+            transform: "rotate(180deg) translate(50%, 0)",
+         };
       }
 
       if (preferredSide === "right") {
-         styles = { left: -31.5, top: "50%", transform: "rotate(-90deg)" };
+         styles = {
+            left: -31.5,
+            top: popoverHeight / 2 + exceedsBy * (popoverOverflowSide === "bottom" ? -1 : 1),
+            transform: "rotate(-90deg) translate(50%, 0)",
+         };
       }
 
       if (preferredSide === "left") {
-         styles = { right: -31.5, top: "50%", transform: "rotate(90deg)" };
+         styles = {
+            right: -31.5,
+            top: popoverHeight / 2 + exceedsBy * (popoverOverflowSide === "bottom" ? -1 : 1),
+            transform: "rotate(90deg) translate(-50%, 0)",
+         };
       }
       return styles;
    })();
@@ -242,7 +268,7 @@ const Popover = React.forwardRef<
                style={{
                   ...arrowStyles,
                }}
-               className="absolute   h-[43px] w-[43px] -translate-y-full"
+               className="absolute   h-[43px] w-[43px] "
                xmlns="http://www.w3.org/2000/svg"
                fill="none"
                viewBox="4 3 36 33"
