@@ -27,11 +27,9 @@ const Popover = React.forwardRef<
 
    const ref = React.useRef();
    React.useEffect(() => {
-      console.log({ ref: ref.current });
       // Initial setting of height and width
       const setInitialDimensions = () => {
          if (ref.current) {
-            console.log("set initial!");
             const rect = ref.current.getBoundingClientRect();
             setPopoverHeight(rect.height);
             setPopoverWidth(rect.width);
@@ -40,17 +38,36 @@ const Popover = React.forwardRef<
 
       setInitialDimensions(); // Call to get the initial dimensions
 
-      // Resize Observer setup (same as before)
-      const resizeObserver = new ResizeObserver((entries) => {
-         // ... your existing Resize Observer logic ...
+      const mutationObserver = new MutationObserver((mutations) => {
+         mutations.forEach((mutation) => {
+            if (mutation.type === "attributes" && mutation.attributeName === "style") {
+               const target = mutation.target;
+               // Verify if the changed element is the actual anchor
+               if (target.dataset.hyperuser === anchor) {
+                  requestAnimationFrame(() => {
+                     setTargetRect(target.getBoundingClientRect());
+                  });
+               }
+            }
+         });
       });
-
-      if (ref.current) {
-         resizeObserver.observe(ref.current);
+      const targetElement = document.querySelectorAll(`[data-hyperuser="${anchor}"]`)[0];
+      if (targetElement) {
+         mutationObserver.observe(targetElement, { attributes: true });
       }
+      // Resize Observer setup (same as before)
+      // const resizeObserver = new ResizeObserver((entries) => {
+      //    // ... your existing Resize Observer logic ...
+      // });
+
+      // if (ref.current) {
+      //    resizeObserver.observe(ref.current);
+      // }
 
       // Cleanup on unmount
-      return () => resizeObserver.disconnect();
+      // return () => resizeObserver.disconnect();
+
+      return () => mutationObserver.disconnect();
    }, [ref.current]);
 
    React.useEffect(() => {
@@ -107,7 +124,7 @@ const Popover = React.forwardRef<
 
    const styles = (() => {
       let styles = {};
-      console.log(popoverHeight, popoverWidth);
+
       // if (!popoverHeight || !popoverWidth) return styles;
       if (preferredSide === "bottom") {
          styles = {
@@ -201,9 +218,6 @@ const Popover = React.forwardRef<
       return styles;
    })();
 
-   console.log({ styles });
-   console.log({ popoverOverflowSide });
-   console.log({ popoverHeight, popoverWidth });
    return (
       <>
          {/* <PopoverPrimitive.Root open={props.open}> */}
