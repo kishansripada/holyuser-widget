@@ -26,16 +26,23 @@ const Popover = React.forwardRef<
    }, [anchor]);
 
    const ref = React.useRef();
-
    React.useEffect(() => {
-      const resizeObserver = new ResizeObserver((entries) => {
-         for (let entry of entries) {
-            // Only interested in contentRect
-            if (entry.target === ref.current && entry.contentRect) {
-               setPopoverWidth(entry.contentRect.width);
-               setPopoverHeight(entry.contentRect.height);
-            }
+      console.log({ ref: ref.current });
+      // Initial setting of height and width
+      const setInitialDimensions = () => {
+         if (ref.current) {
+            console.log("set initial!");
+            const rect = ref.current.getBoundingClientRect();
+            setPopoverHeight(rect.height);
+            setPopoverWidth(rect.width);
          }
+      };
+
+      setInitialDimensions(); // Call to get the initial dimensions
+
+      // Resize Observer setup (same as before)
+      const resizeObserver = new ResizeObserver((entries) => {
+         // ... your existing Resize Observer logic ...
       });
 
       if (ref.current) {
@@ -100,8 +107,8 @@ const Popover = React.forwardRef<
 
    const styles = (() => {
       let styles = {};
-
-      if (!popoverHeight || !popoverWidth) return styles;
+      console.log(popoverHeight, popoverWidth);
+      // if (!popoverHeight || !popoverWidth) return styles;
       if (preferredSide === "bottom") {
          styles = {
             top: targetRect?.bottom + PADDING_FROM_ELEMENT,
@@ -194,46 +201,51 @@ const Popover = React.forwardRef<
       return styles;
    })();
 
+   console.log({ styles });
+   console.log({ popoverOverflowSide });
+   console.log({ popoverHeight, popoverWidth });
    return (
       <>
-         <PopoverPrimitive.Root open={props.open}>
-            {targetRect && (
-               // <PopoverPrimitive.Portal>
-               <div
-                  ref={ref}
-                  // align={align}
-                  // sideOffset={sideOffset}
-                  // data-side={preferredSide}
-                  style={{
-                     position: "absolute",
-                     ...styles,
-                  }}
-                  className={cn(
-                     "data-[state=open]:animate-in  data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2  z-50 w-72 rounded-md border border-neutral-200 bg-white  text-neutral-950 shadow-md outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50"
-                  )}
-                  {...props}
-               >
-                  <svg
-                     style={{
-                        ...arrowStyles,
-                     }}
-                     className="absolute   h-[43px] w-[43px] -translate-y-full"
-                     xmlns="http://www.w3.org/2000/svg"
-                     fill="none"
-                     viewBox="4 3 36 33"
-                  >
-                     <path
-                        className="fill-white stroke-neutral-300 dark:fill-black dark:stroke-neutral-800"
-                        d="M23.665 4.75 37.09 28c.962 1.667-.241 3.75-2.166 3.75H8.077c-1.925 0-3.128-2.083-2.165-3.75L19.335 4.75c.962-1.667 3.368-1.667 4.33 0Z"
-                     />
-                     <path className="fill-black" d="M4 28h36v8H4z" />
-                  </svg>
-
-                  {children}
-               </div>
-               // </PopoverPrimitive.Portal>
+         {/* <PopoverPrimitive.Root open={props.open}> */}
+         {/* {targetRect && ( */}
+         {/* //{" "} */}
+         {/* <PopoverPrimitive.Portal> */}
+         <div
+            ref={ref}
+            // align={align}
+            // sideOffset={sideOffset}
+            // data-side={preferredSide}
+            style={{
+               position: "absolute",
+               ...styles,
+            }}
+            className={cn(
+               "data-[state=open]:animate-in  data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2  z-50 w-72 rounded-md border border-neutral-200 bg-white  text-neutral-950 shadow-md outline-none dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50"
             )}
-         </PopoverPrimitive.Root>
+            {...props}
+         >
+            <svg
+               style={{
+                  ...arrowStyles,
+               }}
+               className="absolute   h-[43px] w-[43px] -translate-y-full"
+               xmlns="http://www.w3.org/2000/svg"
+               fill="none"
+               viewBox="4 3 36 33"
+            >
+               <path
+                  className="fill-white stroke-neutral-300 dark:fill-black dark:stroke-neutral-800"
+                  d="M23.665 4.75 37.09 28c.962 1.667-.241 3.75-2.166 3.75H8.077c-1.925 0-3.128-2.083-2.165-3.75L19.335 4.75c.962-1.667 3.368-1.667 4.33 0Z"
+               />
+               <path className="fill-black" d="M4 28h36v8H4z" />
+            </svg>
+
+            {children}
+         </div>
+         {/* //{" "} */}
+         {/* </PopoverPrimitive.Portal> */}
+         {/* )} */}
+         {/* </PopoverPrimitive.Root> */}
       </>
    );
 });
