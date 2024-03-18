@@ -72,33 +72,37 @@ export function deploymentWasTriggered(deploymentId: string) {
 }
 
 const startHyperDeployment = (deploymentId: string) => {
-   const views = getCookieData();
+   try {
+      const views = getCookieData();
 
-   // const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
+      // const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
 
-   // const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
+      // const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
 
-   const numViews = (views[deploymentId] || 0) + 1;
+      const numViews = (views[deploymentId] || 0) + 1;
 
-   // if (triggerSchedule.includes(numViews.toString())) {
-   useStore.getState().setActiveDeployments(deploymentId, true);
-   // }
-   deploymentWasTriggered(deploymentId);
+      // if (triggerSchedule.includes(numViews.toString())) {
+      useStore.getState().setActiveDeployments(deploymentId, true);
+      // }
+      deploymentWasTriggered(deploymentId);
+   } catch {}
 };
 
 const endHyperDeployment = (deploymentId: string) => {
-   const views = getCookieData();
-   useStore.getState().setActiveDeployments(deploymentId, false);
+   try {
+      const views = getCookieData();
+      useStore.getState().setActiveDeployments(deploymentId, false);
 
-   // const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
+      // const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
 
-   // const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
+      // const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
 
-   const numViews = (views[pollId] || 0) + 1;
-   // if (triggerSchedule.includes(numViews.toString())) {
-   // useStore.getState().setVisibilityMap(pollId, false);
-   // }
-   // deploymentWasTriggered(deploymentId);
+      // const numViews = (views[pollId] || 0) + 1;
+      // if (triggerSchedule.includes(numViews.toString())) {
+      // useStore.getState().setVisibilityMap(pollId, false);
+      // }
+      // deploymentWasTriggered(deploymentId);
+   } catch {}
 };
 
 export { HolyWidget, startHyperDeployment };
