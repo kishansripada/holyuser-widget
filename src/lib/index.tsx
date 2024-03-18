@@ -86,8 +86,9 @@ const startHyperDeployment = (deploymentId: string) => {
    deploymentWasTriggered(deploymentId);
 };
 
-const endHyperDeployment = (pollId: string) => {
+const endHyperDeployment = (deploymentId: string) => {
    const views = getCookieData();
+   useStore.getState().setActiveDeployments(deploymentId, false);
 
    // const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
 
@@ -97,7 +98,7 @@ const endHyperDeployment = (pollId: string) => {
    // if (triggerSchedule.includes(numViews.toString())) {
    // useStore.getState().setVisibilityMap(pollId, false);
    // }
-   deploymentWasTriggered(pollId);
+   // deploymentWasTriggered(deploymentId);
 };
 
 export { HolyWidget, startHyperDeployment };
