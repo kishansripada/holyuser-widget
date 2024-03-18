@@ -210,17 +210,25 @@ const Popover = React.forwardRef<
    })();
 
    const arrowStyles = (() => {
+      function clamp(num: number, bound: number): number {
+         return Math.min(Math.max(num, -bound), bound);
+      }
+
       let styles = {};
 
       if (!popoverHeight || !popoverWidth) return styles;
 
       if (preferredSide === "bottom") {
-         styles = { left: popoverWidth / 2 + exceedsBy * (popoverOverflowSide === "right" ? -1 : 1), top: 11.5, transform: "translate(-50%, -100%)" };
+         styles = {
+            left: popoverWidth / 2 + clamp(exceedsBy, popoverWidth / 2 - 30) * (popoverOverflowSide === "right" ? -1 : 1),
+            top: 11.5,
+            transform: "translate(-50%, -100%)",
+         };
       }
 
       if (preferredSide === "top") {
          styles = {
-            left: popoverWidth / 2 + exceedsBy * (popoverOverflowSide === "right" ? -1 : 1),
+            left: popoverWidth / 2 + clamp(exceedsBy, popoverWidth / 2 - 30) * (popoverOverflowSide === "right" ? -1 : 1),
             bottom: -32,
             transform: "rotate(180deg) translate(50%, 0)",
          };
@@ -229,7 +237,7 @@ const Popover = React.forwardRef<
       if (preferredSide === "right") {
          styles = {
             left: -31.5,
-            top: popoverHeight / 2 + exceedsBy * (popoverOverflowSide === "bottom" ? -1 : 1),
+            top: popoverHeight / 2 + clamp(exceedsBy, popoverHeight / 2 - 30) * (popoverOverflowSide === "bottom" ? -1 : 1),
             transform: "rotate(-90deg) translate(50%, 0)",
          };
       }
@@ -237,7 +245,7 @@ const Popover = React.forwardRef<
       if (preferredSide === "left") {
          styles = {
             right: -31.5,
-            top: popoverHeight / 2 + exceedsBy * (popoverOverflowSide === "bottom" ? -1 : 1),
+            top: popoverHeight / 2 + clamp(exceedsBy, popoverHeight / 2 - 30) * (popoverOverflowSide === "bottom" ? -1 : 1),
             transform: "rotate(90deg) translate(-50%, 0)",
          };
       }
