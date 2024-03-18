@@ -26,40 +26,17 @@ export default function Deployment({
    const runChecks = async () => {
       if (!currentMessage) return;
 
-      const audience = audiences.find((audience) => audience.id === deployment.data_tree.initialAudience);
-      if (!audience) {
-         console.error("Could not find that audience");
-         return;
-      }
-
-      const user = userWithCookies.user;
-
-      const filterFns = audience.conditions.map((condition) => {
-         return new Function("user", `return ${condition.condition_string}`);
-      });
-
-      const passesAllFilters = filterFns.every((fn: (user: any) => boolean) => {
-         try {
-            return fn(user);
-         } catch {
-            console.log("error");
-         }
-      });
-
-      // must be in the audience
-      if (!passesAllFilters) return;
-      console.log("passes all filters");
-
       // trigger here if it's a page load
       if (deployment.data_tree.initialTrigger !== "page_load") return;
 
       // should not have already seen the deployment
       const cookies = getCookieData();
       // if (cookies[deployment.id]) return;
-      console.log({ delay: deployment?.data_tree?.initialTriggerDelay });
+
       console.log("before delay");
       await delay(deployment?.data_tree?.initialTriggerDelay || 0);
       console.log("after delay");
+
       setActiveDeployments(deployment.id, true);
       deploymentWasTriggered(deployment.id);
    };
