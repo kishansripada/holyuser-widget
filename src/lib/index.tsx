@@ -106,6 +106,7 @@ export { HolyWidget, startHyperDeployment };
 // window.Test = Test;
 (window as any).Embed = Embed;
 (window as any).holyTrigger = startHyperDeployment;
+(window as any).endHyperDeployment = endHyperDeployment;
 
 // export components
 // (window as any).YesOrNo = YesOrNo;
