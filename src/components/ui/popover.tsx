@@ -109,15 +109,10 @@ const Popover = React.forwardRef<
 
       if (preferredSide === "right" || preferredSide === "left") {
          const necessaryDistanceFromSide = (popoverHeight - targetRect.height) / 2 + PADDING_FROM_VIEWPORT;
-         console.log({ popoverHeight });
-         console.log({ targetRect });
-         console.log({ necessaryDistanceFromSide });
 
          const exceedsTop = spaceAbove - necessaryDistanceFromSide;
-         console.log({ exceedsTop });
 
          const exceedsBottom = spaceBelow - necessaryDistanceFromSide;
-         console.log({ exceedsBottom });
 
          if (exceedsTop < 0) {
             setPopoverOverflowSide("top");
@@ -279,8 +274,6 @@ const Popover = React.forwardRef<
             )}
             {...props}
          >
-            <p>{popoverOverflowSide}</p>
-            <p>{exceedsBy}</p>
             <svg
                style={{
                   ...arrowStyles,
