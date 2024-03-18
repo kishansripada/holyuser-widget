@@ -17,7 +17,18 @@ function Embed({
    darkMode?: boolean;
    templates?: Record<string, React.ReactElement>;
 }) {
-   const { setAudiences, setActiveDeployments, setMessages, setUserWithCookies, setUserId, setApiKey, setDeployments, deployments } = useStore();
+   const {
+      setAudiences,
+      audiences,
+      setActiveDeployments,
+      setMessages,
+      setUserWithCookies,
+      setUserId,
+      setApiKey,
+      setDeployments,
+      deployments,
+      userWithCookies,
+   } = useStore();
 
    const updateOrAddUserInDb = async (apiKey: string, userId: string, user: string) => {
       const dbUser = await supabase
@@ -77,9 +88,37 @@ function Embed({
    if (!userId || !apiKey) return <></>;
 
    return (
-      <div id="lolol" className={`${darkMode ? "dark" : ""}`}>
+      <div className={`${darkMode ? "dark" : ""}`}>
          {deployments
+            // deployment is live
             .filter((deployment) => deployment.is_live)
+            // user is in audience
+            .filter((deployment) => {
+               const audience = audiences.find((audience) => audience.id === deployment.data_tree.initialAudience);
+               if (!audience) {
+                  console.error("Could not find that audience");
+                  return false;
+               }
+
+               const user = userWithCookies.user;
+
+               const filterFns = audience.conditions.map((condition) => {
+                  return new Function("user", `return ${condition.condition_string}`);
+               });
+
+               const passesAllFilters = filterFns.every((fn: (user: any) => boolean, index: number) => {
+                  try {
+                     const passesFilter = fn(user);
+                     console.log(`${passesFilter ? "passes" : "fails"} ${audience.conditions[index].condition_string}`);
+                     return passesFilter;
+                  } catch {
+                     console.error(`error with filter: ${audience.conditions[index].condition_string}`);
+                  }
+               });
+
+               // must be in the audience
+               return passesAllFilters;
+            })
             .map((deployment) => {
                return (
                   <Deployment
