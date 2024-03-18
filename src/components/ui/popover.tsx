@@ -272,7 +272,8 @@ const Popover = React.forwardRef<
             )}
             {...props}
          >
-            <p>{popoverHeight}</p>
+            <p>{popoverOverflowSide}</p>
+            <p>{exceedsBy}</p>
             <svg
                style={{
                   ...arrowStyles,
