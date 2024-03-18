@@ -272,7 +272,7 @@ const Popover = React.forwardRef<
             )}
             {...props}
          >
-            <p>{JSON.stringify(targetRect)}</p>
+            <p>{popoverHeight}</p>
             <svg
                style={{
                   ...arrowStyles,
