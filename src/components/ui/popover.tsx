@@ -102,6 +102,7 @@ const Popover = React.forwardRef<
             setPopoverOverflowSide("right");
             setExceedsBy(exceedsRight);
          } else {
+            setExceedsBy(0);
             setPopoverOverflowSide(null);
          }
       }
@@ -125,6 +126,7 @@ const Popover = React.forwardRef<
             setPopoverOverflowSide("bottom");
             setExceedsBy(exceedsBottom);
          } else {
+            setExceedsBy(0);
             setPopoverOverflowSide(null);
          }
       }
