@@ -23,7 +23,7 @@ export default function Deployment({
    const currentMessageId = nodes.find((node) => node.id === currentNodeId)?.message_id;
    const currentMessage = messages.find((message) => message.id === currentMessageId);
 
-   useEffect(() => {
+   const runChecks = async () => {
       if (!currentMessage) return;
 
       const audience = audiences.find((audience) => audience.id === deployment.data_tree.initialAudience);
@@ -56,11 +56,16 @@ export default function Deployment({
       // should not have already seen the deployment
       const cookies = getCookieData();
       // if (cookies[deployment.id]) return;
-
-      delay(deployment?.data_tree?.initialTriggerDelay || 0);
-
+      console.log({ delay: deployment?.data_tree?.initialTriggerDelay });
+      console.log("before delay");
+      await delay(deployment?.data_tree?.initialTriggerDelay || 0);
+      console.log("after delay");
       setActiveDeployments(deployment.id, true);
       deploymentWasTriggered(deployment.id);
+   };
+
+   useEffect(() => {
+      runChecks();
    }, []);
 
    const buttonClick = async (response_data) => {
