@@ -53,6 +53,7 @@ const Popover = React.forwardRef<
             }
          });
       });
+
       const targetElement = document.querySelectorAll(`[data-hyperuser="${anchor}"]`)[0];
       if (targetElement) {
          mutationObserver.observe(targetElement, { attributes: true });
@@ -287,7 +288,7 @@ const Popover = React.forwardRef<
                   className="fill-white stroke-neutral-300 dark:fill-black dark:stroke-neutral-800"
                   d="M23.665 4.75 37.09 28c.962 1.667-.241 3.75-2.166 3.75H8.077c-1.925 0-3.128-2.083-2.165-3.75L19.335 4.75c.962-1.667 3.368-1.667 4.33 0Z"
                />
-               <path className="fill-black" d="M4 28h36v8H4z" />
+               <path className="fill-white dark:fill-black" d="M4 28h36v8H4z" />
             </svg>
 
             {children}
