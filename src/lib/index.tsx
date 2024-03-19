@@ -78,6 +78,11 @@ const startHyperDeployment = (deploymentId: string) => {
          console.error(`Deployment with id "${deploymentId}" not found`);
          return;
       }
+
+      if (!deployment.is_live) {
+         console.error(`Deployment with id "${deploymentId}" was found, but is not live so ignored`);
+         return;
+      }
       const views = getCookieData();
       const numCodeTriggers = (views[deploymentId] || 0) + 1;
 
