@@ -4,8 +4,8 @@ export default function DefaultNotification({ poll, sendResponse }: { poll: any;
    return (
       <div className="flex h-full w-full flex-row justify-between gap-1 p-4 ">
          <div className="flex flex-col items-start gap-1  ">
-            <p className="text-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
-            {poll.poll_data.subtitle && <p className="text-xs text-neutral-600 dark:text-neutral-400">{poll.poll_data.subtitle}</p>}
+            <p className="text-xs font-semibold  text-neutral-800 dark:text-neutral-100">{poll.poll_data.title}</p>
+            {poll.poll_data.subtitle && <p className="text-xs text-neutral-500 dark:text-neutral-400">{poll.poll_data.subtitle}</p>}
          </div>
 
          {/* {poll.poll_data.image_url && (
