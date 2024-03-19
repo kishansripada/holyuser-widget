@@ -16,7 +16,16 @@ import config from "../../twind.config";
 import { createRoot } from "react-dom/client";
 import { useStore } from "@/Widget/store";
 
-async function HolyWidget(params: { user: any; userId: string; apiKey: string; darkMode?: boolean; disabled?: boolean }) {
+export interface EmbedProps {
+   disabled?: boolean;
+   userId: string;
+   apiKey: string;
+   user: {
+      name: string;
+   };
+}
+
+async function HolyWidget(params: EmbedProps) {
    if (params.disabled) return;
 
    params = {
@@ -116,6 +125,25 @@ const endHyperDeployment = (deploymentId: string) => {
       // deploymentWasTriggered(deploymentId);
    } catch {}
 };
+
+interface HolyWidget {
+   initialize(props: EmbedProps): void;
+   // ... other methods of HolyWidget
+}
+
+class HolyWidgetImpl implements HolyWidget {
+   initialize(props: EmbedProps) {
+      HolyWidget(props);
+   }
+   startHyperDeployment(deploymentId: string) {
+      startHyperDeployment(deploymentId);
+   }
+
+   // ... implementations for other methods
+}
+
+const hyperuser = new HolyWidgetImpl();
+(window as any).hyperuser = hyperuser;
 
 export { HolyWidget, startHyperDeployment };
 
