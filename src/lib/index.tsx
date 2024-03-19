@@ -128,6 +128,7 @@ const endHyperDeployment = (deploymentId: string) => {
 
 interface HolyWidget {
    initialize(props: EmbedProps): void;
+   startDeployment(deploymentId: string): void;
    // ... other methods of HolyWidget
 }
 
@@ -135,7 +136,7 @@ class HolyWidgetImpl implements HolyWidget {
    initialize(props: EmbedProps) {
       HolyWidget(props);
    }
-   startHyperDeployment(deploymentId: string) {
+   startDeployment(deploymentId: string) {
       startHyperDeployment(deploymentId);
    }
 
