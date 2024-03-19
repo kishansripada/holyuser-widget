@@ -73,19 +73,26 @@ export function deploymentWasTriggered(deploymentId: string) {
 
 const startHyperDeployment = (deploymentId: string) => {
    try {
+      const deployment = useStore.getState().deployments.find((dep) => dep.id === deploymentId);
+      if (!deployment) {
+         console.error(`Deployment with id "${deploymentId}" not found`);
+         return;
+      }
       const views = getCookieData();
+      const numCodeTriggers = (views[deploymentId] || 0) + 1;
 
-      // const triggerString = useStore.getState().polls.find((poll) => poll.id.toString() === pollId)?.trigger_schedule || "";
-
-      // const triggerSchedule = triggerString.split(",").map((item: string) => item.trim());
-
-      const numViews = (views[deploymentId] || 0) + 1;
-
-      // if (triggerSchedule.includes(numViews.toString())) {
-      useStore.getState().setActiveDeployments(deploymentId, true);
-      // }
       deploymentWasTriggered(deploymentId);
-   } catch {}
+
+      const messageToTrigger = deployment.data_tree.nodes.find((node) => parseInt(node.programmatic_filter) === numCodeTriggers);
+
+      if (!messageToTrigger) {
+         console.log(`Deployment with id ${deploymentId} was fired for the ${numCodeTriggers} time, but no message was found.`);
+         return;
+      }
+      useStore.getState().setActiveDeployments(deploymentId, true);
+   } catch {
+      console.error(`There was an error starting the deployment with id "${deploymentId}". Please check the logs for more information.`);
+   }
 };
 
 const endHyperDeployment = (deploymentId: string) => {
