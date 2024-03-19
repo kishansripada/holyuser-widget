@@ -13,9 +13,17 @@ export default function PopoverWrapper({
 }) {
    return (
       <>
-         <Popover open={visible} side="right" anchor={anchor}>
-            {children}
-         </Popover>
+         <div
+            style={{
+               opacity: visible ? 1 : 0,
+               transition: "opacity 0.2s",
+               pointerEvents: visible ? "all" : "none",
+            }}
+         >
+            <Popover open={visible} side="right" anchor={anchor}>
+               {children}
+            </Popover>
+         </div>
       </>
    );
 }
