@@ -14,7 +14,7 @@ export default function NotificationWrapper({
    const [hovering, setHovering] = useState(false);
 
    const HIGH_Z_INDEX = 9999;
-   const DISTANCE_FROM_EDGE = 20;
+   const DISTANCE_FROM_EDGE = 40;
    const WIDTH = 400;
 
    useEffect(() => {
@@ -66,7 +66,7 @@ export default function NotificationWrapper({
                   opacity: visible ? 1 : 0,
                   transitionProperty: "opacity, translate",
                }}
-               className="  h-full w-full select-none border-neutral-300 transition   ease-in-out dark:border-neutral-700"
+               className="  h-full w-full select-none border-neutral-300 p-4 transition  ease-in-out dark:border-neutral-700"
             >
                <div
                   style={{
@@ -74,7 +74,7 @@ export default function NotificationWrapper({
 
                      //   height: "100px",
                   }}
-                  className="overflow-hidden rounded-xl border border-neutral-300 bg-white dark:border-neutral-700 dark:bg-neutral-950"
+                  className="overflow-hidden rounded-xl border border-neutral-200 bg-white drop-shadow-md dark:border-neutral-700 dark:bg-neutral-950"
                >
                   {children}
                </div>
