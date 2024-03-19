@@ -94,6 +94,7 @@ function Embed({
             .filter((deployment) => deployment.is_live)
             // user is in audience
             .filter((deployment) => {
+               if (deployment.data_tree.initialAudience === "everyone") return true;
                const audience = audiences.find((audience) => audience.id === deployment.data_tree.initialAudience);
                if (!audience) {
                   console.error("Could not find that audience");
