@@ -80,7 +80,7 @@ const startHyperDeployment = (deploymentId: string) => {
       }
 
       if (!deployment.is_live) {
-         console.error(`Deployment with id "${deploymentId}" was found, but is not live so ignored`);
+         console.warn(`Deployment with id "${deploymentId}" was found, but is not live so ignored`);
          return;
       }
       const views = getCookieData();
