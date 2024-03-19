@@ -64,27 +64,25 @@ export default function Deployment({
 
    const Modal: FC<ModalProps> = typeof templates?.modal === "function" ? templates.modal : DefaultModal;
 
-   if (!activeDeployments[deployment.id]) return <></>;
+   // if (!activeDeployments[deployment.id]) return <></>;
 
    return (
       <>
-         {messages
-            .filter((message) => message.id === currentMessageId)
-            .map((message) => {
-               return (
-                  <div key={message.id}>
-                     <Message
-                        visible={currentMessage === message.id || activeDeployments[deployment.id]}
-                        key={currentMessage.id}
-                        setCurrentMessageId={setCurrentNodeId}
-                        supabase={supabase}
-                        message={message}
-                        templates={templates}
-                        buttonClick={buttonClick}
-                     />
-                  </div>
-               );
-            })}
+         {messages.map((message) => {
+            return (
+               <div key={message.id}>
+                  <Message
+                     visible={currentMessageId === message.id && activeDeployments[deployment.id]}
+                     key={currentMessage.id}
+                     setCurrentMessageId={setCurrentNodeId}
+                     supabase={supabase}
+                     message={message}
+                     templates={templates}
+                     buttonClick={buttonClick}
+                  />
+               </div>
+            );
+         })}
       </>
    );
 }
