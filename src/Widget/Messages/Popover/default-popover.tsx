@@ -1,5 +1,5 @@
-import { XIcon } from "@/assets/icons";
 import { Button } from "@/components/ui/button";
+import { XIcon } from "@/assets/icons";
 
 export default function DefaultPopover({ poll, sendResponse }: { poll: any; sendResponse: Function }) {
    return (
@@ -9,7 +9,7 @@ export default function DefaultPopover({ poll, sendResponse }: { poll: any; send
                <p className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
                <button
                   onClick={() => {
-                     sendResponse();
+                     sendResponse({ choice: "end_deployment" });
                   }}
                >
                   <XIcon></XIcon>
@@ -20,7 +20,7 @@ export default function DefaultPopover({ poll, sendResponse }: { poll: any; send
          <Button
             // variant={"outline"}
             onClick={() => {
-               sendResponse();
+               sendResponse({ choice: "next_step" });
             }}
             size={"sm"}
          >

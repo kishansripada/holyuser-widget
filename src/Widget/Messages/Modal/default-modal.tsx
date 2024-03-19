@@ -3,15 +3,13 @@ import { XIcon } from "@/assets/icons";
 import { poll } from "@/typesandconst";
 
 export default function DefaultModal({ poll, sendResponse }: { poll: poll; sendResponse: Function }) {
-   console.log(poll.poll_data.image_url);
-   console.log({ val: poll.poll_data.image_url.includes("www.youtube.com") });
    return (
       <div className=" flex h-full w-full flex-col gap-3  p-6 ">
          <div className="flex flex-row items-start justify-between  ">
             <p className=" text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{poll.poll_data.title}</p>
             <button
                onClick={() => {
-                  sendResponse({ option_id: "close" });
+                  sendResponse({ choice: "end_deployment" });
                }}
             >
                <XIcon></XIcon>
@@ -49,7 +47,7 @@ export default function DefaultModal({ poll, sendResponse }: { poll: poll; sendR
             <div></div>
             <Button
                onClick={() => {
-                  sendResponse({ option_id: "action_button" });
+                  sendResponse({ choice: "next_step" });
                }}
                size={"sm"}
             >

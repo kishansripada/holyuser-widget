@@ -16,7 +16,7 @@ export default function Deployment({
    deployment: deployment;
    templates: Record<string, React.ReactElement>;
 }) {
-   const { setActiveDeployments, activeDeployments, messages, userId, audiences, userWithCookies } = useStore();
+   const { setActiveDeployments, activeDeployments, messages } = useStore();
 
    const nodes = deployment.data_tree.nodes;
    const [currentNodeId, setCurrentNodeId] = useState<string>(deployment.data_tree.nodes[0].id);
@@ -31,7 +31,7 @@ export default function Deployment({
 
       // should not have already seen the deployment
       const cookies = getCookieData();
-      // if (cookies[deployment.id]) return;
+      if (cookies[deployment.id]) return;
 
       console.log("before delay");
       await delay(deployment?.data_tree?.initialTriggerDelay || 0);
@@ -45,14 +45,14 @@ export default function Deployment({
       runChecks();
    }, []);
 
-   const buttonClick = async (response_data) => {
+   const buttonClick = async ({ choice }: { choice: string }) => {
       const nextNode = deployment.data_tree.nodes.find((node) => node.parent_id === currentNodeId);
-
-      if (nextNode) {
-         setCurrentNodeId(nextNode.id);
-      } else {
+      if (!nextNode || choice === "end_deployment") {
          setActiveDeployments(deployment.id, false);
+         return;
       }
+
+      setCurrentNodeId(nextNode.id);
 
       // let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };

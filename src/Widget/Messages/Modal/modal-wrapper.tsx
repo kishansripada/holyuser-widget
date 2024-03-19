@@ -7,7 +7,7 @@ export default function ModalWrapper({ children, visible, buttonClick }: { child
       <Dialog
          onOpenChange={(isOpening) => {
             if (!isOpening) {
-               buttonClick({ option_id: "viewed" });
+               buttonClick({ choice: "next_step" });
             }
          }}
          open={visible}
