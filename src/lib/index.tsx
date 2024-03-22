@@ -80,7 +80,19 @@ export function deploymentWasTriggered(deploymentId: string) {
    setHolyCookie(cookieData);
 }
 
-const startHyperDeployment = (deploymentId: string) => {
+export function incrementCookiePropertyCount(cookieProperty: string) {
+   const cookieData = getCookieData();
+   cookieData[cookieProperty] = (cookieData[cookieProperty] || 0) + 1;
+
+   pushCookies(useStore.getState().apiKey, useStore.getState().userId, cookieData);
+   setHolyCookie(cookieData);
+}
+
+const trackEvent = (eventId: string, data: any) => {
+   incrementCookiePropertyCount(eventId);
+};
+
+const startDeployment = (deploymentId: string) => {
    try {
       const deployment = useStore.getState().deployments.find((dep) => dep.id === deploymentId);
       if (!deployment) {
@@ -137,7 +149,10 @@ class HolyWidgetImpl implements HolyWidget {
       HolyWidget(props);
    }
    startDeployment(deploymentId: string) {
-      startHyperDeployment(deploymentId);
+      startDeployment(deploymentId);
+   }
+   trackEvent(eventId: string, data: any) {
+      trackEvent(eventId, data);
    }
 
    // ... implementations for other methods
@@ -146,13 +161,13 @@ class HolyWidgetImpl implements HolyWidget {
 const hyperuser = new HolyWidgetImpl();
 (window as any).hyperuser = hyperuser;
 
-export { HolyWidget, startHyperDeployment };
+// export { HolyWidget, startHyperDeployment };
 
 (window as any).HolyWidget = HolyWidget;
 // window.Test = Test;
 (window as any).Embed = Embed;
-(window as any).holyTrigger = startHyperDeployment;
-(window as any).endHyperDeployment = endHyperDeployment;
+// (window as any).holyTrigger = startHyperDeployment;
+// (window as any).endHyperDeployment = endHyperDeployment;
 
 // export components
 // (window as any).YesOrNo = YesOrNo;
