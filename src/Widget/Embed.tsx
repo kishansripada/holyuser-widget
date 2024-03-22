@@ -28,6 +28,7 @@ function Embed({
       setDeployments,
       deployments,
       userWithCookies,
+      setEvents,
    } = useStore();
 
    const updateOrAddUserInDb = async (apiKey: string, userId: string, user: string) => {
@@ -58,15 +59,22 @@ function Embed({
       return audiences || [];
    };
 
+   const getEvents = async (apiKey: string) => {
+      const { data: events } = await supabase.from("events").select("*").eq("app_id", apiKey);
+
+      return events || [];
+   };
+
    const getAndSetAllData = async () => {
       if (!userId || !apiKey) return;
 
-      const [dbUser, messages, deployments, audiences] = await Promise.all([
+      const [dbUser, messages, deployments, audiences, events] = await Promise.all([
          // update user without cookies
          updateOrAddUserInDb(apiKey, userId, user),
          getMessages(apiKey),
          getDeployments(apiKey),
          getAudiences(apiKey),
+         getEvents(apiKey),
       ]);
 
       // reset cookies to what's in DB
@@ -77,6 +85,7 @@ function Embed({
       setMessages(messages);
       setDeployments(deployments);
       setAudiences(audiences);
+      setEvents(events);
       setUserId(userId);
       setApiKey(apiKey);
    };

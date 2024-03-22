@@ -22,6 +22,9 @@ interface Store {
 
    apiKey: string;
    setApiKey: (apiKey: string) => void;
+
+   events: any[];
+   setEvents: (events: any[]) => void;
 }
 
 export const useStore = create<Store>((set) => ({
@@ -45,4 +48,7 @@ export const useStore = create<Store>((set) => ({
 
    userId: "",
    setUserId: (userId) => set({ userId }),
+
+   events: [],
+   setEvents: (events) => set({ events }),
 }));

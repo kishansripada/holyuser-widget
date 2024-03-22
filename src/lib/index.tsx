@@ -83,13 +83,41 @@ export function deploymentWasTriggered(deploymentId: string) {
 export function incrementCookiePropertyCount(cookieProperty: string) {
    const cookieData = getCookieData();
    cookieData[cookieProperty] = (cookieData[cookieProperty] || 0) + 1;
-
-   pushCookies(useStore.getState().apiKey, useStore.getState().userId, cookieData);
    setHolyCookie(cookieData);
+
+   return cookieData;
 }
 
 const trackEvent = (eventId: string, data: any) => {
-   incrementCookiePropertyCount(eventId);
+   const { deployments, events } = useStore();
+
+   const event = events.find((event) => event.unique_id === eventId);
+   console.log("Event tracked", eventId);
+
+   const deploymentsToTrigger = deployments.filter((deployment) => deployment.data_tree.initialTriggerEvent === event.id);
+
+   if (!deploymentsToTrigger) {
+      console.log(`No deployments found for event with for event: "${eventId}"`);
+      return;
+   }
+
+   const views = getCookieData();
+   const numCodeTriggers = (views[eventId] || 0) + 1;
+
+   deploymentsToTrigger.forEach((deployment) => {
+      deploymentWasTriggered(deployment.id);
+
+      const messageToTrigger = deployment.data_tree.nodes.find((node) => parseInt(node.programmatic_filter) === numCodeTriggers);
+
+      if (!messageToTrigger) {
+         console.log(`Deployment with id ${deployment.id} was fired for the ${numCodeTriggers} time, but no message was found.`);
+         return;
+      }
+      useStore.getState().setActiveDeployments(deployment.id, true);
+   });
+
+   const cookieData = incrementCookiePropertyCount(eventId);
+   pushCookies(useStore.getState().apiKey, useStore.getState().userId, cookieData);
 };
 
 const startDeployment = (deploymentId: string) => {
