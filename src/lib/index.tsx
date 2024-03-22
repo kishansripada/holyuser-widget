@@ -89,7 +89,8 @@ export function incrementCookiePropertyCount(cookieProperty: string) {
 }
 
 const trackEvent = (eventId: string, data: any) => {
-   const { deployments, events } = useStore();
+   const deployments = useStore.getState().deployments;
+   const events = useStore.getState().events;
 
    const event = events.find((event) => event.unique_id === eventId);
    console.log("Event tracked", eventId);
@@ -105,8 +106,6 @@ const trackEvent = (eventId: string, data: any) => {
    const numCodeTriggers = (views[eventId] || 0) + 1;
 
    deploymentsToTrigger.forEach((deployment) => {
-      deploymentWasTriggered(deployment.id);
-
       const messageToTrigger = deployment.data_tree.nodes.find((node) => parseInt(node.programmatic_filter) === numCodeTriggers);
 
       if (!messageToTrigger) {
