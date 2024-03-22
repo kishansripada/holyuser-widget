@@ -20,7 +20,7 @@ export default function PopoverWrapper({
                pointerEvents: visible ? "all" : "none",
             }}
          >
-            <Popover open={visible} side="right" anchor={anchor}>
+            <Popover open={true} side="right" anchor={anchor}>
                {children}
             </Popover>
          </div>
