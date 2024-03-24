@@ -95,6 +95,7 @@ const trackEvent = (eventId: string, data: any) => {
    const event = events.find((event) => event.unique_id === eventId);
    console.log("Event tracked", eventId);
 
+   // check to see if the event has any deployments associated with it
    const deploymentsToTrigger = deployments.filter((deployment) => deployment.data_tree.initialTriggerEvent === event.id);
 
    if (!deploymentsToTrigger) {
@@ -114,6 +115,7 @@ const trackEvent = (eventId: string, data: any) => {
       }
       useStore.getState().setActiveDeployments(deployment.id, true);
    });
+   // check to see if the event has any deployments associated with it
 
    const cookieData = incrementCookiePropertyCount(eventId);
    pushCookies(useStore.getState().apiKey, useStore.getState().userId, cookieData);
@@ -165,6 +167,46 @@ const endHyperDeployment = (deploymentId: string) => {
    } catch {}
 };
 
+const nextStep = (deploymentId: string, stepId: string) => {
+   try {
+      const deployment = useStore.getState().deployments.find((dep) => dep.id === deploymentId);
+      if (!deployment) {
+         console.warn(`Deployment with id "${deploymentId}" not found`);
+         return;
+      }
+      if (!deployment.is_live) {
+         console.warn(`Deployment with id "${deploymentId}" was found, but is not live so ignored`);
+         return;
+      }
+      if (!useStore.getState().activeDeployments[deploymentId]) {
+         console.log(`Deployment with id "${deploymentId}" was found, but is not active so ignored`);
+         return;
+      }
+
+      const thisNode = deployment.data_tree.nodes.find((node) => node.id === stepId);
+
+      if (!thisNode) {
+         console.log(`Deployment with id ${deploymentId} was fired for stepId: ${stepId}, but that step wasn't found`);
+         return;
+      }
+
+      if (useStore.getState().activeDeployments[deploymentId] !== stepId) {
+         console.log(`Deployment with id ${deploymentId} was fired for stepId: ${stepId}, but that step is not the active step`);
+         return;
+      }
+
+      const nextNode = deployment.data_tree.nodes.find((node) => node.parent_id === stepId);
+      if (!nextNode) {
+         console.log(`Deployment with id ${deploymentId} was fired for stepId: ${stepId}, but that step has no next step`);
+         return;
+      }
+
+      useStore.getState().setActiveDeployments(deploymentId, nextNode.id);
+   } catch {
+      console.error(`There was an error starting the deployment with id "${deploymentId}". Please check the logs for more information.`);
+   }
+};
+
 interface HolyWidget {
    initialize(props: EmbedProps): void;
    startDeployment(deploymentId: string): void;
@@ -180,6 +222,9 @@ class HolyWidgetImpl implements HolyWidget {
    }
    trackEvent(eventId: string, data: any) {
       trackEvent(eventId, data);
+   }
+   nextStep(deploymentId: string, stepId: string) {
+      nextStep(deploymentId, stepId);
    }
 
    // ... implementations for other methods

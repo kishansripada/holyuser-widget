@@ -1,6 +1,5 @@
 import { FC, useEffect, useState } from "react";
 import { deploymentWasTriggered, getCookieData } from "@/lib";
-
 import DefaultModal from "./Messages/Modal/default-modal";
 import Message from "./Message";
 import { SupabaseClient } from "@supabase/supabase-js";
@@ -19,8 +18,7 @@ export default function Deployment({
    const { setActiveDeployments, activeDeployments, messages } = useStore();
 
    const nodes = deployment.data_tree.nodes;
-   const [currentNodeId, setCurrentNodeId] = useState<string>(deployment.data_tree.nodes[0].id);
-   const currentMessageId = nodes.find((node) => node.id === currentNodeId)?.message_id;
+   const currentMessageId = nodes.find((node) => node.id === activeDeployments[deployment.id])?.message_id;
    const currentMessage = messages.find((message) => message.id === currentMessageId);
 
    const runChecks = async () => {
@@ -37,7 +35,8 @@ export default function Deployment({
       await delay(deployment?.data_tree?.initialTriggerDelay || 0);
       console.log("after delay");
 
-      setActiveDeployments(deployment.id, true);
+      // set the deployment as active, with the first node id
+      setActiveDeployments(deployment.id, deployment.data_tree.nodes[0].id);
       deploymentWasTriggered(deployment.id);
    };
 
@@ -46,13 +45,13 @@ export default function Deployment({
    }, []);
 
    const buttonClick = async ({ choice }: { choice: string }) => {
-      const nextNode = deployment.data_tree.nodes.find((node) => node.parent_id === currentNodeId);
+      const nextNode = deployment.data_tree.nodes.find((node) => node.parent_id === activeDeployments[deployment.id]);
       if (!nextNode || choice === "end_deployment") {
          setActiveDeployments(deployment.id, false);
          return;
       }
 
-      setCurrentNodeId(nextNode.id);
+      setActiveDeployments(deployment.id, nextNode.id);
 
       // let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: poll.id, response_data });
    };
@@ -72,9 +71,9 @@ export default function Deployment({
             return (
                <div key={message.id}>
                   <Message
-                     visible={currentMessageId === message.id && activeDeployments[deployment.id]}
+                     visible={activeDeployments[deployment.id] === message.id}
                      key={currentMessage.id}
-                     setCurrentMessageId={setCurrentNodeId}
+                     setCurrentMessageId={(nodeId: string) => setActiveDeployments(deployment.id, nodeId)}
                      supabase={supabase}
                      message={message}
                      templates={templates}

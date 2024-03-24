@@ -2,8 +2,8 @@ import { create } from "zustand";
 import { deployment } from "@/typesandconst";
 
 interface Store {
-   activeDeployments: {};
-   setActiveDeployments: (id: string, value: boolean) => void;
+   activeDeployments: { [key: string]: false | string };
+   setActiveDeployments: (id: string, value: false | string) => void;
 
    messages: any[];
    setMessages: (polls: any[]) => void;
@@ -29,7 +29,7 @@ interface Store {
 
 export const useStore = create<Store>((set) => ({
    activeDeployments: {},
-   setActiveDeployments: (id: string, value: boolean) => set((state) => ({ activeDeployments: { ...state.activeDeployments, [id]: value } })),
+   setActiveDeployments: (id: string, value: false | string) => set((state) => ({ activeDeployments: { ...state.activeDeployments, [id]: value } })),
 
    messages: [],
    setMessages: (messages) => set({ messages }),
