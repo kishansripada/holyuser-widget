@@ -97,11 +97,9 @@ export default function Message({
             </NotificationWrapper>
          ) : (
             <>
-               {visible && (
-            <PopoverWrapper anchor={message.anchor} visible={visible} sendResponse={buttonClick}>
-               <DefaultPopover poll={message} sendResponse={buttonClick}></DefaultPopover>
-            </PopoverWrapper>
-               )}
+               <PopoverWrapper anchor={message.anchor} visible={visible} sendResponse={buttonClick}>
+                  <DefaultPopover poll={message} sendResponse={buttonClick}></DefaultPopover>
+               </PopoverWrapper>
             </>
          )}
       </>
