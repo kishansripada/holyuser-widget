@@ -22,7 +22,7 @@ export default function PopoverWrapper({
 
    const test = async (visible) => {
       if (!visible) {
-         await delay(2000);
+         await delay(1200);
          setLocalVisible(false);
       }
    };
