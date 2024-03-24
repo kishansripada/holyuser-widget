@@ -22,7 +22,7 @@ export default function Deployment({
    const currentMessage = messages.find((message) => message.id === currentMessageId);
 
    const runChecks = async () => {
-      if (!currentMessage) return;
+      // if (!currentMessage) return;
 
       // trigger here if it's a page load
       if (deployment.data_tree.initialTrigger !== "page_load") return;
