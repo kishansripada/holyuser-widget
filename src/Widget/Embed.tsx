@@ -130,6 +130,7 @@ function Embed({
                return passesAllFilters;
             })
             .map((deployment) => {
+               console.log("deployment ", deployment.name, " was mounted");
                return (
                   <Deployment
                      key={deployment.id}
