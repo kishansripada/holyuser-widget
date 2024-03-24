@@ -39,7 +39,7 @@ export default function PopoverWrapper({
                transition: "opacity 0.2s",
                pointerEvents: localVisible ? "all" : "none",
             }}
-            className="relative"
+            className=""
          >
             <Popover open={true} side="right" anchor={anchor}>
                <div
