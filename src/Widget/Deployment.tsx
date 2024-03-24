@@ -71,7 +71,7 @@ export default function Deployment({
             return (
                <div key={message.id}>
                   <Message
-                     visible={activeDeployments[deployment.id] === message.id}
+                     visible={currentMessageId === message.id && Boolean(activeDeployments[deployment.id])}
                      key={currentMessage.id}
                      setCurrentMessageId={(nodeId: string) => setActiveDeployments(deployment.id, nodeId)}
                      supabase={supabase}
