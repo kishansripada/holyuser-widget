@@ -22,7 +22,7 @@ export default function PopoverWrapper({
 
    const test = async (visible) => {
       if (!visible) {
-         await delay(3000);
+         await delay(2000);
          setLocalVisible(false);
       }
    };
@@ -56,7 +56,7 @@ export default function PopoverWrapper({
                   style={{
                      opacity: !visible ? 1 : 0,
                      transition: "opacity 0.2s",
-                     pointerEvents: !visible ? "all" : "none",
+                     pointerEvents: "none",
                   }}
                   className="absolute left-0 top-0 flex h-full w-full flex-row items-center justify-center p-3"
                >
