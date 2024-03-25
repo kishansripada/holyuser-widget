@@ -197,7 +197,7 @@ const nextStep = (deploymentId: string, stepId: string) => {
 
       const nextNode = deployment.data_tree.nodes.find((node) => node.parent_id === stepId);
       if (!nextNode) {
-         console.log(`Deployment with id ${deploymentId} was fired for stepId: ${stepId}, but that step has no next step`);
+         useStore.getState().setActiveDeployments(deploymentId, false);
          return;
       }
 
