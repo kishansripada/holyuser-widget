@@ -44,17 +44,20 @@ export default function Info({}: {}) {
          <div className="flex flex-row items-center justify-between">
             <div className="text-lg font-semibold">Info</div>
          </div>
+
          <div className="flex flex-col gap-1 text-xs">
             <div>id: {userId}</div>
             <div>email: {userWithCookies?.user?.email}</div>
 
             {Object.keys(activeDeployments).map((key) => {
+               const activeNode = activeDeployments[key];
                const deployment = deployments.find((deployment) => deployment.id === key);
 
                return (
                   <div key={deployment.id}>
                      <div>{deployment?.name}</div>
                      <div>id: {deployment.id}</div>
+                     <div>nodeId: {activeNode}</div>
 
                      <div className="h-px w-full bg-neutral-200"></div>
                   </div>
