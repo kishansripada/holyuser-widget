@@ -3,6 +3,7 @@ import { dbUser, setHolyCookie, supabase } from "@/typesandconst";
 import Deployment from "./Deployment";
 import { useEffect } from "react";
 import { useStore } from "./store";
+import Info from "@/Info";
 
 function Embed({
    user,
@@ -98,6 +99,7 @@ function Embed({
 
    return (
       <div className={`${darkMode ? "dark" : ""}`}>
+         <Info></Info>
          {deployments
             // deployment is live
             .filter((deployment) => deployment.is_live)
