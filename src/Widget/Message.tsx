@@ -87,11 +87,9 @@ export default function Message({
       <>
          {message.poll_data.type === "modal" ? (
             <>
-               {visible && (
-                  <ModalWrapper visible={visible} buttonClick={buttonClick}>
-                     <Modal poll={message} sendResponse={buttonClick} />
-                  </ModalWrapper>
-               )}
+               <ModalWrapper visible={visible} buttonClick={buttonClick}>
+                  <Modal poll={message} sendResponse={buttonClick} />
+               </ModalWrapper>
             </>
          ) : message.poll_data.type === "notification" ? (
             <NotificationWrapper visible={visible} sendResponse={buttonClick} position="top-right">
