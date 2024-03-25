@@ -12,7 +12,7 @@ export default function ModalWrapper({ children, visible, buttonClick }: { child
          }}
       >
          <Dialog
-            open={true}
+            open={visible}
             // onOpenChange={(isOpening) => {
             //    if (!isOpening) {
             //       buttonClick({ choice: "next_step" });
