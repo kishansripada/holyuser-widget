@@ -113,7 +113,7 @@ const trackEvent = (eventId: string, data: any) => {
          console.log(`Deployment with id ${deployment.id} was fired for the ${numCodeTriggers} time, but no message was found.`);
          return;
       }
-      useStore.getState().setActiveDeployments(deployment.id, true);
+      useStore.getState().setActiveDeployments(deployment.id, deployment.data_tree.nodes[0].id);
    });
    // check to see if the event has any deployments associated with it
 
