@@ -6,18 +6,27 @@ export default function PopoverWrapper({
    visible,
    sendResponse,
    children,
+   parentType,
 }: {
    visible: boolean;
    sendResponse: Function;
    children: any;
    anchor: string;
+   parentType: string;
 }) {
    const [localVisible, setLocalVisible] = useState(false);
 
-   useEffect(() => {
+   const makeVisible = async () => {
       if (visible) {
+         if (parentType === "popover") {
+            await delay(1200);
+         }
          setLocalVisible(visible);
       }
+   };
+
+   useEffect(() => {
+      makeVisible();
    }, [visible]);
 
    const test = async (visible) => {
@@ -28,7 +37,9 @@ export default function PopoverWrapper({
    };
 
    useDidUpdateEffect(() => {
-      test(visible);
+      if (!visible) {
+         test(visible);
+      }
    }, [visible]);
 
    return (

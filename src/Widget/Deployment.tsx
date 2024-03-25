@@ -67,17 +67,20 @@ export default function Deployment({
 
    return (
       <>
-         {messages.map((message) => {
+         {nodes.map((node) => {
+            const message = messages.find((message) => message.id === node.message_id);
+            const parent = deployment.data_tree.nodes.find((parentNode) => parentNode.id === node.parent_id);
+            const parentMessage = messages.find((message) => message.id === parent?.message_id);
             return (
-               <div key={message.id}>
+               <div key={node.id}>
                   <Message
-                     visible={currentMessageId === message.id && Boolean(activeDeployments[deployment.id])}
-                     key={message.id}
+                     visible={activeDeployments[deployment.id] === node.id}
                      setCurrentMessageId={(nodeId: string) => setActiveDeployments(deployment.id, nodeId)}
                      supabase={supabase}
                      message={message}
                      templates={templates}
                      buttonClick={buttonClick}
+                     parentType={parentMessage?.poll_data?.type || null}
                   />
                </div>
             );

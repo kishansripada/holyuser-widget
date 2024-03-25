@@ -18,6 +18,7 @@ export default function Message({
    setCurrentMessageId,
    buttonClick,
    visible,
+   parentType,
 }: {
    message: poll;
    supabase: SupabaseClient<any, "public", any>;
@@ -25,8 +26,9 @@ export default function Message({
    setCurrentMessageId: Function;
    buttonClick: Function;
    visible: boolean;
+   parentType: string;
 }) {
-   const { userId, userWithCookies } = useStore();
+   const { userId, userWithCookies, deployments } = useStore();
 
    const getExistingResponse = async () => {
       let { data } = await supabase.from("responses").select("*").eq("user_id", userId).eq("poll_id", message.id);
@@ -71,7 +73,7 @@ export default function Message({
       setCurrentMessageId(message.id);
 
       // setVisibilityMap(message.id, false);
-      let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: message.id, response_data });
+      // let { data, error } = await supabase.from("responses").insert({ user_id: userId, poll_id: message.id, response_data });
    };
 
    type ModalProps = {
@@ -86,9 +88,9 @@ export default function Message({
          {message.poll_data.type === "modal" ? (
             <>
                {visible && (
-            <ModalWrapper visible={visible} buttonClick={buttonClick}>
-               <Modal poll={message} sendResponse={buttonClick} />
-            </ModalWrapper>
+                  <ModalWrapper visible={visible} buttonClick={buttonClick}>
+                     <Modal poll={message} sendResponse={buttonClick} />
+                  </ModalWrapper>
                )}
             </>
          ) : message.poll_data.type === "notification" ? (
@@ -97,7 +99,7 @@ export default function Message({
             </NotificationWrapper>
          ) : (
             <>
-               <PopoverWrapper anchor={message.anchor} visible={visible} sendResponse={buttonClick}>
+               <PopoverWrapper parentType={parentType} anchor={message.anchor} visible={visible} sendResponse={buttonClick}>
                   <DefaultPopover poll={message} sendResponse={buttonClick}></DefaultPopover>
                </PopoverWrapper>
             </>
