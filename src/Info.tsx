@@ -50,6 +50,7 @@ export default function Info({}: {}) {
             <div>email: {userWithCookies?.user?.email}</div>
 
             {Object.keys(activeDeployments).map((key) => {
+               if (!activeDeployments[key]) return null;
                const activeNode = activeDeployments[key];
                const deployment = deployments.find((deployment) => deployment.id === key);
 
