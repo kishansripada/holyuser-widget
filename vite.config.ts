@@ -1,10 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path, { resolve } from "path";
-import dts from "vite-plugin-dts";
 
 export default defineConfig({
-   plugins: [react(), dts({ insertTypesEntry: true, include: ["src/lib/**/*"] })],
+   plugins: [react()],
    define: {
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development"),
    },
@@ -17,8 +16,9 @@ export default defineConfig({
       target: "esnext",
       lib: {
          entry: resolve(__dirname, "src/lib/index.tsx"),
-         formats: ["es"],
-         // name: "HolyWidget",
+         name: "hyperuser",
+         fileName: (format) => `main.js`,
+         formats: ["umd"],
       },
       rollupOptions: {
          // external: ["react", "react/jsx-runtime"],
