@@ -40,7 +40,7 @@ export default function Info({}: {}) {
 
    if (!equalsPressed) return null;
    return (
-      <div className="fixed right-10 top-10 w-[250px] rounded-md border border-neutral-200 bg-white p-3">
+      <div className="fixed right-10 top-10 w-[250px] rounded-md border border-neutral-200 bg-white p-3 text-black">
          <div className="flex flex-row items-center justify-between">
             <div className="text-lg font-semibold">Info</div>
          </div>
