@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { XIcon } from "@/assets/icons";
 
 export default function DefaultPopover({ poll, sendResponse, markdown }: { poll: any; sendResponse: Function }) {
+   if (!markdown) return <></>;
    const blocks = markdown.split("\n");
    // console.log(blocks);
 
