@@ -9,7 +9,7 @@ export default function DefaultPopover({ poll, sendResponse }: { poll: any; send
    const h1 = (text: string) => <h1 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">{text}</h1>;
    const ComButton = () => (
       <Button
-         className="mt-2"
+         className="mt-2 w-full"
          // variant={"outline"}
          onClick={() => {
             sendResponse({ choice: "next_step" });
@@ -24,20 +24,50 @@ export default function DefaultPopover({ poll, sendResponse }: { poll: any; send
       <div className="flex flex-col p-4 ">
          {blocks.map((block, index) => {
             if (block.startsWith("#")) {
-               return h1(block.replace("#", "").trim());
+               return (
+                  <div
+                     style={{
+                        marginRight: index === 0 ? "20px" : "0",
+                     }}
+                  >
+                     {h1(block.replace("#", ""))}
+                  </div>
+               );
             } else if (block.startsWith("<") && block.endsWith("/>")) {
                const tag = block.replace("<", "").replace(">", "").replace("/", "");
                console.log(tag);
-               if (tag.trim() === "Button") return <ComButton key={index}></ComButton>;
+               if (tag.trim() === "Button")
+                  return (
+                     <div
+                        className="w-full"
+                        style={{
+                           marginRight: index === 0 ? "20px" : "0",
+                        }}
+                     >
+                        <ComButton key={index}></ComButton>
+                     </div>
+                  );
 
                return (
-                  <p key={index} className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  <p
+                     style={{
+                        marginRight: index === 0 ? "20px" : "0",
+                     }}
+                     key={index}
+                     className="mt-1 text-xs text-neutral-600 dark:text-neutral-400"
+                  >
                      {block}
                   </p>
                );
             } else {
                return (
-                  <p key={index} className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                  <p
+                     style={{
+                        marginRight: index === 0 ? "20px" : "0",
+                     }}
+                     key={index}
+                     className="mt-1 text-xs text-neutral-600 dark:text-neutral-400"
+                  >
                      {block}
                   </p>
                );
