@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { XIcon } from "@/assets/icons";
 
-export default function DefaultPopover({ poll, sendResponse, markdown }: { poll: any; sendResponse: Function }) {
-   if (!markdown) return <></>;
-   const blocks = markdown.split("\n");
+export default function DefaultPopover({ poll, sendResponse }: { poll: any; sendResponse: Function }) {
+   if (!poll.markdown) return <></>;
+   const blocks = poll.markdown.split("\n");
    // console.log(blocks);
 
    const h1 = (text: string) => <h1 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">{text}</h1>;
