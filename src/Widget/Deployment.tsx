@@ -69,6 +69,10 @@ export default function Deployment({
       <>
          {nodes.map((node) => {
             const message = messages.find((message) => message.id === node.message_id);
+            if (!message) {
+               console.warn(`Message with id ${node.message_id} not found`);
+               return <></>;
+            }
             const parent = deployment.data_tree.nodes.find((parentNode) => parentNode.id === node.parent_id);
             const parentMessage = messages.find((message) => message.id === parent?.message_id);
             return (
