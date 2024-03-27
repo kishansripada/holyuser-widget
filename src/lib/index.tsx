@@ -212,6 +212,11 @@ const nextStep = (deploymentId: string, stepId: string) => {
    }
 };
 
+export const resetCookies = () => {
+   setHolyCookie({});
+   pushCookies(useStore.getState().apiKey, useStore.getState().userId, {});
+};
+
 interface HolyWidget {
    initialize(props: EmbedProps): void;
    startDeployment(deploymentId: string): void;

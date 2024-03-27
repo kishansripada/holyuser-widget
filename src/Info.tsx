@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useStore } from "./Widget/store";
+import { Button } from "./components/ui/button";
+import { resetCookies } from "./lib";
 
 export default function Info({}: {}) {
    const { userId, userWithCookies, activeDeployments, deployments, messages } = useStore();
@@ -43,6 +45,13 @@ export default function Info({}: {}) {
       <div className="fixed right-10 top-10 w-[250px] rounded-md border border-neutral-200 bg-white p-3 text-black">
          <div className="flex flex-row items-center justify-between">
             <div className="text-lg font-semibold">Info</div>
+            <Button
+               onClick={() => {
+                  resetCookies();
+               }}
+            >
+               Reset cookies
+            </Button>
          </div>
 
          <div className="flex flex-col gap-1 text-xs">
