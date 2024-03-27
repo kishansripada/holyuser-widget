@@ -70,7 +70,9 @@ export default function Deployment({
          {nodes.map((node) => {
             const message = messages.find((message) => message.id === node.message_id);
             if (!message) {
-               console.warn(`deployment ${deployment.id} contains the message with id:${node.message_id} which doesn't exist, you should remove it`);
+               console.warn(
+                  `deployment (${deployment.id}) has a node (${node.id}) with the message (${node.message_id}) which doesn't exist, you should remove it`
+               );
                return <></>;
             }
             const parent = deployment.data_tree.nodes.find((parentNode) => parentNode.id === node.parent_id);
