@@ -15,7 +15,7 @@ export default function NotificationWrapper({
 
    const HIGH_Z_INDEX = 9999;
    const DISTANCE_FROM_EDGE = 40;
-   const WIDTH = 400;
+   const WIDTH = 350;
 
    useEffect(() => {
       let timer: ReturnType<typeof setTimeout>;
