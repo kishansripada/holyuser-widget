@@ -93,13 +93,18 @@ const trackEvent = (eventId: string, data: any) => {
    const events = useStore.getState().events;
 
    const event = events.find((event) => event.unique_id === eventId);
+
+   if (!event) {
+      console.error(`Event with id "${eventId}" not found`);
+      return;
+   }
    console.log("Event tracked", eventId);
 
    // check to see if the event has any deployments associated with it
    const deploymentsToTrigger = deployments.filter((deployment) => deployment.data_tree.initialTriggerEvent === event.id);
 
    if (!deploymentsToTrigger) {
-      console.log(`No deployments found for event with for event: "${eventId}"`);
+      console.log(`No deployments found for event with id: "${eventId}"`);
       return;
    }
 
