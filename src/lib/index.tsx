@@ -112,9 +112,12 @@ const trackEvent = (eventId: string, data: any) => {
    const numCodeTriggers = (views[eventId] || 0) + 1;
 
    deploymentsToTrigger.forEach((deployment) => {
-      const messageToTrigger = deployment.data_tree.nodes.find((node) => parseInt(node.programmatic_filter) === numCodeTriggers);
-      const triggersEveryTime = parseInt(node.programmatic_filter) === -1;
-      if (!triggersEveryTime && !messageToTrigger) {
+      const messagesAfterTrigger = deployment.data_tree.nodes.filter((node) => node.parent_id === "initialTrigger");
+      const messageToTrigger = messagesAfterTrigger.find(
+         (node) => parseInt(node.programmatic_filter) === numCodeTriggers || parseInt(node.programmatic_filter) === -1
+      );
+
+      if (!messageToTrigger) {
          console.log(`Deployment with id ${deployment.id} was fired for the ${numCodeTriggers} time, but no message was found.`);
          return;
       }
