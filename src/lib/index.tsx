@@ -113,7 +113,7 @@ const trackEvent = (eventId: string, data: any) => {
 
    deploymentsToTrigger.forEach((deployment) => {
       const messageToTrigger = deployment.data_tree.nodes.find((node) => parseInt(node.programmatic_filter) === numCodeTriggers);
-      const triggersEveryTime = node.programmatic_filter === "every_time";
+      const triggersEveryTime = parseInt(node.programmatic_filter) === -1;
       if (!triggersEveryTime && !messageToTrigger) {
          console.log(`Deployment with id ${deployment.id} was fired for the ${numCodeTriggers} time, but no message was found.`);
          return;
