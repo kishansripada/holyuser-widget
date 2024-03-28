@@ -7,7 +7,7 @@ export default function Info({}: {}) {
    const { userId, userWithCookies, activeDeployments, deployments, messages, setActiveDeployments } = useStore();
 
    const user = userWithCookies.user;
-   const [equalsPressed, setEqualsPressed] = useState(true);
+   const [equalsPressed, setEqualsPressed] = useState(false);
    const [equalsCount, setEqualsCount] = useState(0);
    const timeoutLimit = 1000; // Time limit for quick presses (milliseconds)
    let pressTimeout = null;
