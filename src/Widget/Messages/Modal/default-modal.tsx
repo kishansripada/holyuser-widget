@@ -8,8 +8,8 @@ export default function DefaultModal({ poll, sendResponse }: { poll: poll; sendR
 <Button />`;
    if (!poll.markdown) return <></>;
    const blocks = poll.markdown.split("\n");
-   const h1 = (text: string) => <p className=" text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{text}</p>;
-   const hushed = (text: string) => <p className=" text-sm text-neutral-600 dark:text-neutral-400">{text}</p>;
+   const h1 = (text: string) => <p className="mb-2 text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{text}</p>;
+   const hushed = (text: string) => <p className="mb-1 text-sm text-neutral-600 dark:text-neutral-400">{text}</p>;
    const ComButton = () => (
       <Button
          className="mt-2 w-full"
@@ -23,7 +23,7 @@ export default function DefaultModal({ poll, sendResponse }: { poll: poll; sendR
       </Button>
    );
    return (
-      <div className=" flex h-full w-full flex-col gap-3  p-6 ">
+      <div className=" flex h-full w-full flex-col p-6">
          <button
             className="absolute right-[24px] top-[24px]"
             onClick={() => {
@@ -59,17 +59,7 @@ export default function DefaultModal({ poll, sendResponse }: { poll: poll; sendR
                      </div>
                   );
 
-               return (
-                  <p
-                     style={{
-                        marginRight: index === 0 ? "20px" : "0",
-                     }}
-                     key={index}
-                     className="mt-1 text-xs text-neutral-500 dark:text-neutral-400"
-                  >
-                     {block}
-                  </p>
-               );
+               return hushed(block);
             } else {
                return hushed(block);
             }
