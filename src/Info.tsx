@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useStore } from "./Widget/store";
 import { Button } from "./components/ui/button";
 import { resetCookies } from "./lib";
-
+import { Fragment } from "react";
 export default function Info({}: {}) {
-   const { userId, userWithCookies, activeDeployments, deployments, messages } = useStore();
-   const [equalsPressed, setEqualsPressed] = useState(false);
+   const { userId, userWithCookies, activeDeployments, deployments, messages, setActiveDeployments } = useStore();
+
+   const user = userWithCookies.user;
+   const [equalsPressed, setEqualsPressed] = useState(true);
    const [equalsCount, setEqualsCount] = useState(0);
    const timeoutLimit = 1000; // Time limit for quick presses (milliseconds)
    let pressTimeout = null;
@@ -39,40 +41,99 @@ export default function Info({}: {}) {
          window.removeEventListener("keydown", handleKeyDown);
       };
    }, [equalsCount]);
+   if (!userWithCookies.user) return null;
 
    if (!equalsPressed) return null;
    return (
-      <div className="fixed right-10 top-10 w-[250px] rounded-md border border-neutral-200 bg-white p-3 text-black">
-         <div className="flex flex-row items-center justify-between">
-            <div className="text-lg font-semibold">Info</div>
-            <Button
-               onClick={() => {
-                  resetCookies();
-               }}
-            >
-               Reset cookies
-            </Button>
+      <div className="fixed bottom-10 right-10 top-10 w-[350px] overflow-scroll rounded-md border border-neutral-200 bg-white p-3 text-black">
+         <div className="rounded-lg bg-gray-100 p-4 text-xs shadow-md">
+            <div className="flex flex-row items-center justify-between">
+               <div className="text-lg font-semibold">Hyperuser Admin</div>
+               <Button
+                  onClick={() => {
+                     resetCookies();
+                  }}
+               >
+                  Reset cookies
+               </Button>
+            </div>
+
+            <div className="mt-4">
+               <span className="font-semibold">User ID:</span> {userId}
+            </div>
+            <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+               {Object.entries(user).map(([key, value]) => (
+                  <Fragment key={key}>
+                     <dt className="font-semibold">{key}:</dt>
+                     <dd className="mt-1">
+                        {typeof value === "string" ? (
+                           <span>{value}</span>
+                        ) : value === null ? (
+                           <span className="italic text-gray-500">None</span>
+                        ) : Array.isArray(value) ? (
+                           <ul className="ml-6 list-inside list-disc">
+                              {value.map((item) => (
+                                 <li key={item}>{item}</li>
+                              ))}
+                           </ul>
+                        ) : (
+                           <pre className="overflow-x-auto rounded bg-gray-50 p-2 text-sm">{JSON.stringify(value, null, 2)}</pre>
+                        )}
+                     </dd>
+                  </Fragment>
+               ))}
+            </dl>
          </div>
 
-         <div className="flex flex-col gap-1 text-xs">
-            <div>id: {userId}</div>
-            <div>email: {userWithCookies?.user?.email}</div>
+         <div className="mt-6 overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="w-full text-left text-sm text-gray-500">
+               <thead className="bg-gray-50 text-xs uppercase text-gray-700">
+                  <tr>
+                     <th className="px-6 py-3">ID</th>
 
-            {Object.keys(activeDeployments).map((key) => {
-               if (!activeDeployments[key]) return null;
-               const activeNode = activeDeployments[key];
-               const deployment = deployments.find((deployment) => deployment.id === key);
+                     <th className="px-6 py-3">Name</th>
+                     <th className="px-6 py-3">Is Live?</th>
+                     <th className="px-6 py-3">Is Running?</th>
+                     <th className="px-6 py-3">Toggle</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {deployments.map((deployment) => (
+                     <tr key={deployment.id} className="border-b bg-white">
+                        <td className="px-6 py-4">{deployment.id}</td>
 
-               return (
-                  <div key={deployment.id}>
-                     <div>{deployment?.name}</div>
-                     <div>id: {deployment.id}</div>
-                     <div>nodeId: {activeNode}</div>
-
-                     <div className="h-px w-full bg-neutral-200"></div>
-                  </div>
-               );
-            })}
+                        <td className="px-6 py-4">{deployment.name}</td>
+                        <td className="px-6 py-4">
+                           {deployment.is_live ? (
+                              <span className="rounded bg-green-200 px-2 py-1 text-green-700">Yes</span>
+                           ) : (
+                              <span className="rounded bg-red-200 px-2 py-1 text-red-700">No</span>
+                           )}
+                        </td>
+                        <td className="px-6 py-4">
+                           {activeDeployments[deployment.id] ? (
+                              <span className="rounded bg-green-200 px-2 py-1 text-green-700">Yes</span>
+                           ) : (
+                              <span className="rounded bg-red-200 px-2 py-1 text-red-700">No</span>
+                           )}
+                        </td>
+                        <td className="px-6 py-4">
+                           <Button
+                              onClick={() => {
+                                 if (activeDeployments[deployment.id]) {
+                                    setActiveDeployments(deployment.id, false);
+                                 } else {
+                                    setActiveDeployments(deployment.id, deployment.data_tree.nodes[0].id);
+                                 }
+                              }}
+                           >
+                              Toggle
+                           </Button>
+                        </td>
+                     </tr>
+                  ))}
+               </tbody>
+            </table>
          </div>
       </div>
    );
