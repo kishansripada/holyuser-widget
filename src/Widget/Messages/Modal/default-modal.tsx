@@ -3,9 +3,6 @@ import { XIcon } from "@/assets/icons";
 import { poll } from "@/typesandconst";
 
 export default function DefaultModal({ poll, sendResponse }: { poll: poll; sendResponse: Function }) {
-   poll.markdown = `#Feedback is always appreciated
-   We promise we'll reply in 24 hours, sometimes much faster :)
-<Button />`;
    if (!poll.markdown) return <></>;
    const blocks = poll.markdown.split("\n");
    const h1 = (text: string) => <p className="mb-2 text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100">{text}</p>;
