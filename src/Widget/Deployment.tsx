@@ -29,7 +29,7 @@ export default function Deployment({
 
       // should not have already seen the deployment
       const cookies = getCookieData();
-      // if (cookies[deployment.id]) return;
+      if (cookies[deployment.id]) return;
 
       console.log("before delay");
       await delay(deployment?.data_tree?.initialTriggerDelay || 0);
