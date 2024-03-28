@@ -27,6 +27,8 @@ export interface EmbedProps {
 
 async function HolyWidget(params: EmbedProps) {
    if (params.disabled) return;
+   if (useStore.getState().initialized) return;
+   useStore.getState().setInitialized(true);
 
    params = {
       userId: "f30197ba-cf06-4234-bcdb-5d40d83c7999",
